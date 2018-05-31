@@ -27,6 +27,8 @@ public class DisplayMessageActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        //把 app icon 设置成可用的向上按钮
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();

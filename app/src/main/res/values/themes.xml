@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 应用于程序或者活动的主题 -->
+    <style name="CustomActionBarTheme"
+            parent="@android:style/Theme.Holo.Light.DarkActionBar"
+        >
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
+        <item name="android:actionBarTabTextStyle">@style/MyActionBarTabText</item>
+        <item name="android:actionMenuTextColor">@color/colorAccent</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <!-- 支持库兼容 -->
+        <item name="actionBarStyle">@style/MyActionBar</item>
+
+    </style>
+
+
+    <!-- ActionBar 样式 -->
+    <style name="MyActionBar"
+        parent="@android:style/Widget.Holo.ActionBar">
+        <item name="android:titleTextStyle">@style/MyActionBarTitleText</item>
+        <item name="android:background">@color/orange</item>
+        <!-- 支持库兼容 -->
+        <item name="background">@color/colorPrimaryDark</item>
+    </style>
+
+    <!-- ActionBar 标题文本 -->
+    <style name="MyActionBarTitleText"
+            parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title"
+        >
+        <item name="android:textColor">@color/brown</item>
+    </style>
+    <!-- ActionBar Tab标签 文本样式 -->
+    <style name="MyActionBarTabText"
+        parent="@android:style/Widget.Holo.ActionBar.TabText">
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+
+    <!-- 应用于程序或活动的主题 -->
+    <style name="SelectActionBarTheme"
+        parent="@android:style/Theme.Holo">
+        <item name="android:actionBarTabStyle">@style/MyActionBarTabs</item>
+    </style>
+
+    <!-- ActionBar tabs 标签样式 -->
+    <style name="MyActionBarTabs"
+        parent="@android:style/Widget.Holo.ActionBar.TabView">
+        <!-- 标签指示器 -->
+        <item name="android:background">@drawable/actionbar_tab_indicator</item>
+    </style>
+
+</resources>
