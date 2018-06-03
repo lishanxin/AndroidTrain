@@ -32,10 +32,14 @@
         </activity>
         <activity
             android:name=".ShowExchangeFragment"
-            android:label="@string/title_activity_show_exchange_fragment"></activity>
+            android:label="@string/title_activity_show_exchange_fragment" />
         <activity
             android:name=".sql.SqlTestActivity"
-            android:label="@string/title_activity_sql_test"></activity>
+            android:label="@string/title_activity_sql_test" />
+        <activity
+            android:name=".connectApp.ConnectAppActivity"
+            android:label="@string/title_activity_connect_app"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

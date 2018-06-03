@@ -13,4 +13,9 @@
     <string name="text_message_hint">请输入要保存的数据</string>
     <string name="show_text">点击显示数据库中的数据</string>
     <string name="text_show_hint">在这里显示数据库中的数据</string>
+    <string name="button_to_other_app">点击测试与其他app的链接</string>
+    <string name="title_activity_connect_app">ConnectAppActivity</string>
+    <string name="button_call">点击拨号</string>
+    <string name="button_check_map">点击查看地图</string>
+    <string name="button_check_webpage">点击查看网页</string>
 </resources>

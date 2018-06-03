@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import com.example.androidtrain.connectApp.ConnectAppActivity;
 import com.example.androidtrain.fragment.HeadlinesFragment;
 import com.example.androidtrain.sql.SqlTestActivity;
 
@@ -82,5 +83,10 @@ public class MainActivity extends FragmentActivity  {
 
         Log.d(TAG, "action_search");
 
+    }
+
+    public void goToConnectOtherAppTest(View view) {
+        Intent intent = new Intent(this, ConnectAppActivity.class);
+        startActivity(intent);
     }
 }
