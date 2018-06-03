@@ -5,31 +5,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="?android:attr/actionBarSize"
-    >
+    tools:context="com.example.androidtrain.sql.SqlTestActivity">
 
     <EditText
-        android:id="@+id/edit_message"
-        android:hint="@string/edit_message"
+        android:hint="@string/text_message_hint"
+        android:id="@+id/sql_edit_test"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <Button
-        android:text="@string/button_send"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="sendMessageActivity"/>
-
-    <Button
-        android:text="@string/button_to_fragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="sendMessageFragment"/>
-
-    <Button
-        android:onClick="goToSqlTest"
-        android:text="@string/button_to_sql"
+        android:onClick="storeText"
+        android:text="@string/store_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <Button
+        android:onClick="showText"
+        android:text="@string/show_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:hint="@string/text_show_hint"
+        android:id="@+id/sql_show_test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 
 </LinearLayout>

@@ -5,4 +5,12 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_display_message">DisplayMessage</string>
     <string name="action_search">搜索</string>
+    <string name="button_to_fragment">进入Fragment布局</string>
+    <string name="title_activity_show_exchange_fragment">ShowExchangeFragment</string>
+    <string name="button_to_sql">进入数据库测试界面</string>
+    <string name="title_activity_sql_test">SqlTestActivity</string>
+    <string name="store_text">保存数据</string>
+    <string name="text_message_hint">请输入要保存的数据</string>
+    <string name="show_text">点击显示数据库中的数据</string>
+    <string name="text_show_hint">在这里显示数据库中的数据</string>
 </resources>
