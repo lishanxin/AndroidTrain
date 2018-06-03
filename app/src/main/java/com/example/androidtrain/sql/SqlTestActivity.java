@@ -39,22 +39,28 @@ public class SqlTestActivity extends Activity {
     }
 
     public void storeText(View view) {
-        String storeMessage = editText.getText().toString();
+        final String storeMessage = editText.getText().toString();
 
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //Gets the data repository in write mode
+                SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
-        //Gets the data repository in write mode
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+                //Create a new map of values, where column names are the keys
+                ContentValues values = new ContentValues();
+                values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE, storeMessage);
 
-        //Create a new map of values, where column names are the keys
-        ContentValues values = new ContentValues();
-        values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE, storeMessage);
+                long newRowId;
+                newRowId = db.insert(FeedReaderContract.FeedEntry.TABLE_NAME, null, values);
+                Log.d(TAG, "Store id: " + newRowId);
+            }
+        }).start();
 
-        long newRowId;
-        newRowId = db.insert(FeedReaderContract.FeedEntry.TABLE_NAME, null, values);
-        Log.d(TAG, "Store id: " + newRowId);
     }
 
     public void showText(View view) {
+
 
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
@@ -67,7 +73,12 @@ public class SqlTestActivity extends Activity {
                 FeedReaderContract.FeedEntry.TABLE_NAME,
                 projection,
                 null, null, null, null,null
-
         );
+        c.moveToFirst();
+        int count = 0;
+        do {
+            String message = c.getString(c.getColumnIndexOrThrow(FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE));
+            Log.d(TAG,"count: " + (++count) + "---" +  message);
+        }while (c.moveToNext());
     }
 }

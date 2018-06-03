@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.example.androidtrain.fragment.HeadlinesFragment;
+import com.example.androidtrain.sql.SqlTestActivity;
 
 public class MainActivity extends FragmentActivity  {
 
@@ -42,7 +43,7 @@ public class MainActivity extends FragmentActivity  {
     }
 
     public void goToSqlTest(View view){
-        Intent intent = new Intent(this, ShowExchangeFragment.class);
+        Intent intent = new Intent(this, SqlTestActivity.class);
         intent.putExtra(EXTRA_MESSAGE, "from MainActivity");
         startActivity(intent);
     }
