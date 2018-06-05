@@ -18,4 +18,5 @@
     <string name="button_call">点击拨号</string>
     <string name="button_check_map">点击查看地图</string>
     <string name="button_check_webpage">点击查看网页</string>
+    <string name="button_send_image">点击发送图片</string>
 </resources>
