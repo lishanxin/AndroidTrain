@@ -20,7 +20,7 @@ import com.example.androidtrain.connectApp.ConnectAppActivity;
 import com.example.androidtrain.fragment.HeadlinesFragment;
 import com.example.androidtrain.sql.SqlTestActivity;
 
-public class MainActivity extends FragmentActivity  {
+public class MainActivity extends AppCompatActivity  {
 
     public static final String TAG = "MainActivity";
 
