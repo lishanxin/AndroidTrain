@@ -4,11 +4,18 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.ShareActionProvider;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,17 +27,26 @@ import com.example.androidtrain.connectApp.ConnectAppActivity;
 import com.example.androidtrain.fragment.HeadlinesFragment;
 import com.example.androidtrain.sql.SqlTestActivity;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 public class MainActivity extends AppCompatActivity  {
 
     public static final String TAG = "MainActivity";
 
     public final static String EXTRA_MESSAGE = "com.mycompany.myfirstapp.MESSAGE";
+    //ShareActionProvider创建简便的分享功能
+    private ShareActionProvider mShareActionProvider;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         checkAllPermission();
+
     }
 
     /** Called when the user clicks the Send button */
@@ -60,7 +76,49 @@ public class MainActivity extends AppCompatActivity  {
         //为ActionBar扩展菜单项
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_activity_actions, menu);
-        return super.onCreateOptionsMenu(menu);
+
+        MenuItem item = menu.findItem(R.id.action_search);
+        mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
+        setImageShare();
+        return true;
+    }
+
+    //设置分享内容
+    private void setShareIntent(Intent shareIntent){
+
+        if (mShareActionProvider != null){
+            mShareActionProvider.setShareIntent(shareIntent);
+        }
+    }
+
+    private void setImageShare(){
+        AssetManager assetManager = getAssets();
+        File file = new File(Environment.getExternalStorageDirectory(), "iutest.jpg");
+        try {
+            InputStream in = assetManager.open("iu.jpg");
+            Bitmap bitmap = BitmapFactory.decodeStream(in);
+            FileOutputStream out = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+        }
+        Uri location = Uri.parse("file://" + file.getAbsolutePath());
+
+        Intent imageIntent = new Intent();
+        imageIntent.setAction(Intent.ACTION_SEND);
+        imageIntent.putExtra(Intent.EXTRA_STREAM, location);
+        imageIntent.setType("image/jpeg");
+        setShareIntent(imageIntent);
+    }
+
+    private void setTextShare(){
+        Intent textIntent = new Intent();
+        textIntent.setAction(Intent.ACTION_SEND);
+        textIntent.putExtra(Intent.EXTRA_TEXT, "i am lizhizhi");
+        textIntent.setType("text/plain");
+        setShareIntent(textIntent);
     }
 
     @Override
@@ -79,7 +137,6 @@ public class MainActivity extends AppCompatActivity  {
     }
 
     private void openSettings() {
-        getActionBar().hide();
         Log.d(TAG, "action_settings");
 
     }
@@ -131,4 +188,7 @@ public class MainActivity extends AppCompatActivity  {
         }
         return true;
     }
+
+
+
 }
