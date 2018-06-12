@@ -19,4 +19,7 @@
     <string name="button_check_map">点击查看地图</string>
     <string name="button_check_webpage">点击查看网页</string>
     <string name="button_send_image">点击发送图片</string>
+    <string name="go_to_share_file">进入分享文件学习</string>
+    <string name="go_to_recycler_view">点击进入RecyclerView</string>
+    <string name="change_layout_manager">点击切换布局</string>
 </resources>

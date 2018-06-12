@@ -21,10 +21,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.androidtrain.connectApp.ConnectAppActivity;
 import com.example.androidtrain.fragment.HeadlinesFragment;
+import com.example.androidtrain.recyclerview.RecyclerViewActivity;
+import com.example.androidtrain.sharefile.ShareFileTest;
 import com.example.androidtrain.sql.SqlTestActivity;
 
 import java.io.File;
@@ -46,7 +49,7 @@ public class MainActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         checkAllPermission();
-
+        storeImage();
     }
 
     /** Called when the user clicks the Send button */
@@ -79,7 +82,8 @@ public class MainActivity extends AppCompatActivity  {
 
         MenuItem item = menu.findItem(R.id.action_search);
         mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
-        setImageShare();
+        setTextShare();
+//        Uri uri = getIntent().getData();
         return true;
     }
 
@@ -93,7 +97,7 @@ public class MainActivity extends AppCompatActivity  {
 
     private void setImageShare(){
         AssetManager assetManager = getAssets();
-        File file = new File(Environment.getExternalStorageDirectory(), "iutest.jpg");
+        File file = new File(Environment.getExternalStorageDirectory() + "/aTrainImages/", "iutest.jpg");
         try {
             InputStream in = assetManager.open("iu.jpg");
             Bitmap bitmap = BitmapFactory.decodeStream(in);
@@ -190,5 +194,30 @@ public class MainActivity extends AppCompatActivity  {
     }
 
 
+    public void goToShareFile(View view) {
+        Intent intent = new Intent(this, ShareFileTest.class);
+        startActivity(intent );
+    }
 
+    private void storeImage(){
+        AssetManager assetManager = getAssets();
+        for (int i = 0; i< 10 ; i++){
+            File file = new File(Environment.getExternalStorageDirectory() + "images/", "IMGi.jpg");
+            try {
+                InputStream in = assetManager.open("iu.jpg");
+                Bitmap bitmap = BitmapFactory.decodeStream(in);
+                FileOutputStream out = new FileOutputStream(file);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }finally {
+            }
+        }
+    }
+
+    public void recyclerViewTest(View view) {
+        Intent intent = new Intent(this, RecyclerViewActivity.class);
+        startActivity(intent);
+    }
 }
