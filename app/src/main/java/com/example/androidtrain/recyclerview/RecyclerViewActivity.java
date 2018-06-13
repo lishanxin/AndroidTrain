@@ -60,9 +60,5 @@ public class RecyclerViewActivity extends AppCompatActivity {
     }
 
     public void changeLayoutManager(View view) {
-        switch (count){
-            case 0:
-                mLayoutManager = ;
-        }
     }
 }
