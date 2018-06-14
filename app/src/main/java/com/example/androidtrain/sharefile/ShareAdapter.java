@@ -1,4 +1,4 @@
-package com.example.androidtrain.recyclerview;
+package com.example.androidtrain.sharefile;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,24 +9,25 @@ import android.widget.TextView;
 
 import com.example.androidtrain.R;
 
+import java.io.File;
 import java.util.List;
 
 /**
  * Created by sx on 2018/6/12.
  */
 
-public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder>{
+public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.ViewHolder>{
 
-    private List<String> mList;
+    private List<File> mList;
 
-    public MainAdapter(List<String> list){
+    public ShareAdapter(List<File> list){
         mList = list;
     }
 
     protected OnItemClickListener mOnItemClickListener;
 
     public interface OnItemClickListener{
-        void onClick(MainAdapter.ViewHolder viewHolder, int position);
+        void onClick(ShareAdapter.ViewHolder viewHolder, int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener){
@@ -43,7 +44,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder>{
     //给控件设置数据
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.tv_main.setText(mList.get(position));
+        holder.tv_main.setText(mList.get(position).getName());
         if (mOnItemClickListener != null){
             holder.tv_main.setOnClickListener(new View.OnClickListener() {
                 @Override

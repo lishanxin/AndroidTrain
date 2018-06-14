@@ -4,5 +4,5 @@
         name="myimages"
         path="images"/>
 
-    <external-path name="external_image_path" path="aTrainImages" />
+    <external-path name="external_image_path" path="images" />
 </paths>

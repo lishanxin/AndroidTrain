@@ -201,8 +201,12 @@ public class MainActivity extends AppCompatActivity  {
 
     private void storeImage(){
         AssetManager assetManager = getAssets();
+        File filePath = new File(getFilesDir(), "images");
+        if (!filePath.exists()){
+            filePath.mkdirs();
+        }
         for (int i = 0; i< 10 ; i++){
-            File file = new File(Environment.getExternalStorageDirectory() + "images/", "IMGi.jpg");
+            File file = new File(filePath.getAbsoluteFile(), "IMG"+ i + ".jpg");
             try {
                 InputStream in = assetManager.open("iu.jpg");
                 Bitmap bitmap = BitmapFactory.decodeStream(in);
