@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -49,7 +50,7 @@ public class ShareFileTest extends AppCompatActivity {
 
     Intent mResultIntent;
 
-    ListView listView;
+    Uri fileUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,14 +86,33 @@ public class ShareFileTest extends AppCompatActivity {
             @Override
             public void onClick(ShareAdapter.ViewHolder viewHolder, int position) {
                 try {
-                    Uri uri = Uri.fromFile(files.get(position));
-                    Intent intent = new Intent();
-                    intent.setData(uri);
-                    setResult(Activity.RESULT_OK, intent);
+                    /*官方
+                     */
+                    File requestFile = files.get(position);
+                    try {
+                        fileUri =  FileProvider.getUriForFile(ShareFileTest.this, "com.example.androidtrain.fileprovider", requestFile);
+                    } catch (IllegalArgumentException e) {
+                        Log.e("File Selector",
+                                "The selected file can't be shared: " +
+                                        requestFile.getAbsolutePath());
+                        e.printStackTrace();
+                    }
+
+                    if (fileUri != null){
+                        mResultIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        mResultIntent.setDataAndType(fileUri, getContentResolver().getType(fileUri));
+                        ShareFileTest.this.setResult(Activity.RESULT_OK, mResultIntent);
+                    }else {
+                        mResultIntent.setDataAndType(null, "");
+                        ShareFileTest.this.setResult(RESULT_CANCELED,
+                                mResultIntent);
+                    }
                 } catch (Exception e) {
-                    setResult(Activity.RESULT_CANCELED, null);
+                    mResultIntent.setDataAndType(null, "");
+                    setResult(Activity.RESULT_CANCELED, mResultIntent);
                     e.printStackTrace();
                 }
+                finish();
             }
         });
         mMainRecyclerView.setAdapter(shareAdapter);

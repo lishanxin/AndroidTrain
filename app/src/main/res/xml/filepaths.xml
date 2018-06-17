@@ -3,6 +3,5 @@
     <files-path
         name="myimages"
         path="images"/>
-
-    <external-path name="external_image_path" path="images" />
+    <!-- path="images" 也可替代为  path="images/" ，不影响分享文件路径  -->
 </paths>

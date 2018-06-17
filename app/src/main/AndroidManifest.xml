@@ -49,7 +49,8 @@
             android:name=".sharefile.ShareFileTest"
             android:label="File Selector">
             <intent-filter>
-                <action android:name="android.intent.action.PICK" />
+                <!-- 增加test.test是为了测试action的原理，可查看AndroidTrainAssist -->
+                <action android:name="android.intent.action.PICK.test.test" />
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.OPENABLE" />
