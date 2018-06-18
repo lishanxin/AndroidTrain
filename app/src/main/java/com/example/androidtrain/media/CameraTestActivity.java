@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.VideoView;
 
 import com.example.androidtrain.R;
 
@@ -22,8 +23,10 @@ public class CameraTestActivity extends AppCompatActivity {
 
     private static final String TAG = "CameraTest";
     private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int REQUEST_VIDEO_CAPTURE = 2;
 
     ImageView mImageView;
+    VideoView mVideoView;
     File photoFile;
     String mCurrentPhotoPath;
 
@@ -33,22 +36,24 @@ public class CameraTestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_camera_test);
 
         initView();
-        dispatchTakePictureIntent();
+        dispatchTakeVideoIntent();
     }
 
     private void initView() {
         mImageView = (ImageView) findViewById(R.id.camera_image);
+        mVideoView = (VideoView) findViewById(R.id.video_view_cameratest);
     }
 
     /**
      * 注意在调用startActivityForResult()方法之前，先调用resolveActivity()，
-     * 这个方法会返回能处理该Intent的第一个Activity
+     * 这个方法会返回能处理该Intent的第一个Activity.或许可以来判断是否有相机权限
      * （译注：即检查有没有能处理这个Intent的Activity）。
      * 执行这个检查非常重要，因为如果在调用startActivityForResult()时，
      * 没有应用能处理你的Intent，应用将会崩溃。
      */
     private void dispatchTakePictureIntent(){
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
         if (takePictureIntent.resolveActivity(getPackageManager()) != null){
             //Create the File where the photo should go
             photoFile = null;
@@ -66,6 +71,21 @@ public class CameraTestActivity extends AppCompatActivity {
         }
     }
 
+
+    /**
+     * 注意在调用startActivityForResult()方法之前，先调用resolveActivity()，
+     * 这个方法会返回能处理该Intent的第一个Activity.或许可以来判断是否有相机权限
+     * （译注：即检查有没有能处理这个Intent的Activity）。
+     * 执行这个检查非常重要，因为如果在调用startActivityForResult()时，
+     * 没有应用能处理你的Intent，应用将会崩溃。
+     */
+    private void dispatchTakeVideoIntent(){
+        Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+        if (takeVideoIntent.resolveActivity(getPackageManager()) != null){
+            startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE);
+        }
+    }
+
     /**
      * 若没有传递EXTRA_OUTPUT
      * Android的相机应用会把拍好的照片编码为缩小的Bitmap，
@@ -75,23 +95,27 @@ public class CameraTestActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK){
+        if (resultCode == RESULT_OK){
+            if (requestCode == REQUEST_IMAGE_CAPTURE) {
+                if (data != null){
+                    //获取拍照的缩略图
+                    Bundle extras = data.getExtras();
+                    Bitmap imageBitmap = (Bitmap) extras.get("data");
+                    mImageView.setImageBitmap(imageBitmap);
 
-            if (data != null){
-                //获取拍照的缩略图
-                Bundle extras = data.getExtras();
-                Bitmap imageBitmap = (Bitmap) extras.get("data");
-                mImageView.setImageBitmap(imageBitmap);
-
-            }else {
-                galleryAddPic();
-                try {
-                    setPic();
-                } catch (Exception e) {
-                    e.printStackTrace();
+                }else {
+                    galleryAddPic();
+                    try {
+                        setPic();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
+            }else if (requestCode == REQUEST_VIDEO_CAPTURE){
+                Uri videoUri = data.getData();
+                mVideoView.setVideoURI(videoUri);
+                mVideoView.start();
             }
-
         }
     }
 
