@@ -26,6 +26,8 @@ import android.widget.EditText;
 
 import com.example.androidtrain.connectApp.ConnectAppActivity;
 import com.example.androidtrain.fragment.HeadlinesFragment;
+import com.example.androidtrain.media.CameraTestActivity;
+import com.example.androidtrain.media.ManagePlaybackActivity;
 import com.example.androidtrain.recyclerview.RecyclerViewActivity;
 import com.example.androidtrain.sharefile.ShareFileTest;
 import com.example.androidtrain.sql.SqlTestActivity;
@@ -168,11 +170,7 @@ public class MainActivity extends AppCompatActivity  {
         String[] permissions = new String[]{
                 Manifest.permission.INTERNET,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.ACCESS_NETWORK_STATE,
                 Manifest.permission.ACCESS_WIFI_STATE,
-                Manifest.permission.READ_PHONE_STATE,
-                Manifest.permission.ACCESS_COARSE_LOCATION
         };
 
         boolean isGranted = checkPermissionAllGranted(permissions);
@@ -223,6 +221,16 @@ public class MainActivity extends AppCompatActivity  {
 
     public void recyclerViewTest(View view) {
         Intent intent = new Intent(this, RecyclerViewActivity.class);
+        startActivity(intent);
+    }
+
+    public void managePlayback(View view) {
+        Intent intent = new Intent(this, ManagePlaybackActivity.class);
+        startActivity(intent);
+    }
+
+    public void simpleCamera(View view) {
+        Intent intent = new Intent(this, CameraTestActivity.class);
         startActivity(intent);
     }
 }

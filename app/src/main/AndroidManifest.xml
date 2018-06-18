@@ -2,10 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.androidtrain">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <!--<uses-feature-->
+        <!--android:name="android.hardware.camera"-->
+        <!--android:required="true" />-->
 
     <application
         android:allowBackup="true"
@@ -49,6 +52,7 @@
             android:name=".sharefile.ShareFileTest"
             android:label="File Selector">
             <intent-filter>
+
                 <!-- 增加test.test是为了测试action的原理，可查看AndroidTrainAssist -->
                 <action android:name="android.intent.action.PICK.test.test" />
 
@@ -70,7 +74,18 @@
                 android:resource="@xml/filepaths" />
         </provider>
 
-        <activity android:name=".recyclerview.RecyclerViewActivity"></activity>
+        <activity android:name=".recyclerview.RecyclerViewActivity" />
+        <activity
+            android:name=".media.ManagePlaybackActivity"
+            android:label="ManagePlaybackActivity" />
+
+        <receiver android:name=".media.RemoteControlReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".media.CameraTestActivity"></activity>
     </application>
 
 </manifest>

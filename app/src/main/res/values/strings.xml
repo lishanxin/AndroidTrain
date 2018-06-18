@@ -22,4 +22,6 @@
     <string name="go_to_share_file">进入分享文件学习</string>
     <string name="go_to_recycler_view">点击进入RecyclerView</string>
     <string name="change_layout_manager">点击切换布局</string>
+    <string name="go_to_manage_playback">点击进入管理音频界面</string>
+    <string name="go_to_simple_camera">进入简单的拍照界面</string>
 </resources>

@@ -50,4 +50,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <Button
+        android:onClick="managePlayback"
+        android:text="@string/go_to_manage_playback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:onClick="simpleCamera"
+        android:text="@string/go_to_simple_camera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+
 </LinearLayout>
