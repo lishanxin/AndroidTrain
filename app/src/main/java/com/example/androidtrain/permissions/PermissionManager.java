@@ -7,6 +7,7 @@ import android.content.Context;
 import android.hardware.Camera;
 import android.os.Binder;
 import android.os.Build;
+import android.os.Environment;
 import android.support.v4.app.AppOpsManagerCompat;
 
 import java.io.File;
@@ -126,7 +127,7 @@ public enum PermissionManager {
      * @return test file
      */
     public File testFile(Context context){
-        String path = context.getCacheDir().getAbsolutePath();
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath();
         return new File(path + "permissionTest.test");
     }
 }

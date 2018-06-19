@@ -31,6 +31,7 @@ import com.example.androidtrain.media.ManagePlaybackActivity;
 import com.example.androidtrain.recyclerview.RecyclerViewActivity;
 import com.example.androidtrain.sharefile.ShareFileTest;
 import com.example.androidtrain.sql.SqlTestActivity;
+import com.example.androidtrain.uistyle.UIStyleActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -231,6 +232,11 @@ public class MainActivity extends AppCompatActivity  {
 
     public void simpleCamera(View view) {
         Intent intent = new Intent(this, CameraTestActivity.class);
+        startActivity(intent);
+    }
+
+    public void uiStyleTest(View view) {
+        Intent intent = new Intent(this, UIStyleActivity.class);
         startActivity(intent);
     }
 }
