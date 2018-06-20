@@ -63,6 +63,12 @@
         android:layout_height="wrap_content" />
 
     <Button
+        android:onClick="controlCamera"
+        android:text="@string/go_to_control_camera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
         android:onClick="uiStyleTest"
         android:text="@string/go_to_ui_styletest"
         android:layout_width="wrap_content"

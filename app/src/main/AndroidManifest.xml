@@ -85,7 +85,8 @@
         </receiver>
 
         <activity android:name=".media.CameraTestActivity" />
-        <activity android:name=".uistyle.UIStyleActivity"></activity>
+        <activity android:name=".uistyle.UIStyleActivity" />
+        <activity android:name=".media.ControlCameraActivity"></activity>
     </application>
 
 </manifest>

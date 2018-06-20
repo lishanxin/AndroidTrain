@@ -27,6 +27,7 @@ import android.widget.EditText;
 import com.example.androidtrain.connectApp.ConnectAppActivity;
 import com.example.androidtrain.fragment.HeadlinesFragment;
 import com.example.androidtrain.media.CameraTestActivity;
+import com.example.androidtrain.media.ControlCameraActivity;
 import com.example.androidtrain.media.ManagePlaybackActivity;
 import com.example.androidtrain.recyclerview.RecyclerViewActivity;
 import com.example.androidtrain.sharefile.ShareFileTest;
@@ -237,6 +238,11 @@ public class MainActivity extends AppCompatActivity  {
 
     public void uiStyleTest(View view) {
         Intent intent = new Intent(this, UIStyleActivity.class);
+        startActivity(intent);
+    }
+
+    public void controlCamera(View view) {
+        Intent intent = new Intent(this, ControlCameraActivity.class);
         startActivity(intent);
     }
 }
