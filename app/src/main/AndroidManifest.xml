@@ -87,6 +87,7 @@
         <activity android:name=".media.CameraTestActivity" />
         <activity android:name=".uistyle.UIStyleActivity" />
         <activity android:name=".media.ControlCameraActivity"></activity>
+        <activity android:name=".media.SurfaceTest.SurfaceTestActivity"/>
     </application>
 
 </manifest>
