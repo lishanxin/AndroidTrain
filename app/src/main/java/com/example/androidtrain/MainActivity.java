@@ -30,6 +30,7 @@ import com.example.androidtrain.media.CameraTestActivity;
 import com.example.androidtrain.media.ControlCameraActivity;
 import com.example.androidtrain.media.ManagePlaybackActivity;
 import com.example.androidtrain.media.SurfaceTest.SurfaceTestActivity;
+import com.example.androidtrain.print.PrintPhotoActivity;
 import com.example.androidtrain.recyclerview.RecyclerViewActivity;
 import com.example.androidtrain.sharefile.ShareFileTest;
 import com.example.androidtrain.sql.SqlTestActivity;
@@ -245,6 +246,11 @@ public class MainActivity extends AppCompatActivity  {
 
     public void controlCamera(View view) {
         Intent intent = new Intent(this, SurfaceTestActivity.class);
+        startActivity(intent);
+    }
+
+    public void printTest(View view) {
+        Intent intent = new Intent(this, PrintPhotoActivity.class);
         startActivity(intent);
     }
 }

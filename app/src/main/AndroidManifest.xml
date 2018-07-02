@@ -5,8 +5,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <!-- <uses-feature -->
     <!-- android:name="android.hardware.camera" -->
@@ -88,8 +87,11 @@
 
         <activity android:name=".media.CameraTestActivity" />
         <activity android:name=".uistyle.UIStyleActivity" />
-        <activity android:name=".media.ControlCameraActivity"></activity>
-        <activity android:name=".media.SurfaceTest.SurfaceTestActivity"/>
+        <activity android:name=".media.ControlCameraActivity" />
+        <activity android:name=".media.SurfaceTest.SurfaceTestActivity" />
+        <activity
+            android:name=".print.PrintPhotoActivity"
+            android:label="@string/title_activity_print_photo"></activity>
     </application>
 
 </manifest>

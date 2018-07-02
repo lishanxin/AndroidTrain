@@ -1,77 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:paddingTop="?android:attr/actionBarSize"
     >
 
-    <EditText
-        android:id="@+id/edit_message"
-        android:hint="@string/edit_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <Button
-        android:text="@string/button_send"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="sendMessageActivity"/>
+        <EditText
+            android:id="@+id/edit_message"
+            android:hint="@string/edit_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    <Button
-        android:text="@string/button_to_fragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="sendMessageFragment"/>
+        <Button
+            android:text="@string/button_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="sendMessageActivity"/>
 
-    <Button
-        android:onClick="goToSqlTest"
-        android:text="@string/button_to_sql"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <Button
+            android:text="@string/button_to_fragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="sendMessageFragment"/>
 
-    <Button
-        android:onClick="goToConnectOtherAppTest"
-        android:text="@string/button_to_other_app"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <Button
+            android:onClick="goToSqlTest"
+            android:text="@string/button_to_sql"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    <Button
-        android:onClick="goToShareFile"
-        android:text="@string/go_to_share_file"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <Button
+            android:onClick="goToConnectOtherAppTest"
+            android:text="@string/button_to_other_app"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    <Button
-        android:onClick="recyclerViewTest"
-        android:text="@string/go_to_recycler_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <Button
+            android:onClick="goToShareFile"
+            android:text="@string/go_to_share_file"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    <Button
-        android:onClick="managePlayback"
-        android:text="@string/go_to_manage_playback"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <Button
+            android:onClick="recyclerViewTest"
+            android:text="@string/go_to_recycler_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    <Button
-        android:onClick="simpleCamera"
-        android:text="@string/go_to_simple_camera"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <Button
+            android:onClick="managePlayback"
+            android:text="@string/go_to_manage_playback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    <Button
-        android:onClick="controlCamera"
-        android:text="@string/go_to_control_camera"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <Button
+            android:onClick="simpleCamera"
+            android:text="@string/go_to_simple_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    <Button
-        android:onClick="uiStyleTest"
-        android:text="@string/go_to_ui_styletest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <Button
+            android:onClick="controlCamera"
+            android:text="@string/go_to_control_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-</LinearLayout>
+        <Button
+            android:onClick="uiStyleTest"
+            android:text="@string/go_to_ui_styletest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:onClick="printTest"
+            android:text="@string/go_to_print_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+
+</ScrollView>
