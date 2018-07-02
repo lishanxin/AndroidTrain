@@ -11,8 +11,8 @@ import android.view.SurfaceView;
 public class MySurfaceViewTest  extends SurfaceView implements SurfaceHolder.Callback{
 
     private SurfaceHolder holder;
-    private MyThread myThread;
-
+//    private MyThread myThread;
+    private MyCameraThread myCameraThread;
 
     public MySurfaceViewTest(Context context) {
         super(context);
@@ -21,7 +21,9 @@ public class MySurfaceViewTest  extends SurfaceView implements SurfaceHolder.Cal
 
         holder.addCallback(this);
 
-        myThread = new MyThread(holder);
+//        myThread = new MyThread(holder);
+
+        myCameraThread = new MyCameraThread(holder);
     }
 
     @Override
@@ -31,12 +33,12 @@ public class MySurfaceViewTest  extends SurfaceView implements SurfaceHolder.Cal
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-        myThread.setRun(true);
-        myThread.start();
+//        myThread.setRun(true);
+//        myThread.start();
     }
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-        myThread.setRun(false);
+//        myThread.setRun(false);
     }
 }

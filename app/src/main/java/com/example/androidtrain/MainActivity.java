@@ -174,6 +174,7 @@ public class MainActivity extends AppCompatActivity  {
                 Manifest.permission.INTERNET,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.ACCESS_WIFI_STATE,
+                Manifest.permission.CAMERA,
         };
 
         boolean isGranted = checkPermissionAllGranted(permissions);
