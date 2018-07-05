@@ -91,6 +91,8 @@
         <activity android:name=".media.SurfaceTest.SurfaceTestActivity" />
         <activity
             android:name=".print.PrintPhotoActivity"
+            android:screenOrientation="sensor"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_print_photo"></activity>
     </application>
 
