@@ -11,6 +11,7 @@ import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
 import android.print.PrintJob;
 import android.print.PrintManager;
+import android.support.annotation.RequiresApi;
 import android.support.v4.print.PrintHelper;
 import android.util.Log;
 import android.view.Surface;
@@ -207,6 +208,17 @@ public class PrintPhotoActivity extends Activity {
                 e.printStackTrace();
             }
         }
+    }
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private void doCustomPrint(){
+        //Get a PrintManager instance
+        PrintManager printManager = (PrintManager) this.getSystemService(Context.PRINT_SERVICE);
+
+        String jobName = this.getString(R.string.app_name) + "Document";
+
+        //Start a print job, passing in a PrintDocumentAdapter implementation
+        //to handle the generation of a print document
+        printManager.print(jobName, new MyPrintDocumentAdapter(this), null);
     }
 
     /**

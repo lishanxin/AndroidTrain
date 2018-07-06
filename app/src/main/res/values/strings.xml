@@ -28,7 +28,7 @@
     <string name="go_to_control_camera">进入自定义相机界面</string>
     <string name="go_to_print_photo">打印照片</string>
     <string name="go_to_print_html">打印HTML</string>
-    <string name="go_to_print_define_file">打印自定义文件</string>
+    <string name="go_to_print_define_file">打印自定义文件-未完成</string>
     <string name="title_activity_print_photo">PrintPhotoActivity</string>
     <string name="go_to_print_activity">进入打印</string>
 </resources>
