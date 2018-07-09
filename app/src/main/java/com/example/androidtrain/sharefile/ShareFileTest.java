@@ -1,6 +1,7 @@
 package com.example.androidtrain.sharefile;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
@@ -14,6 +15,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -120,5 +122,35 @@ public class ShareFileTest extends AppCompatActivity {
 
     public void getPath() {
         Log.d(TAG, getFilesDir().toString());
+    }
+
+
+    //正式的分享文件到第三方软件打开。
+    public void sharePDF(String url){
+        File file = new File(url);
+        Uri uri = Uri.fromFile(file);
+
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        //setDataAndType并不等于setData + setType,请查看原码
+        intent.setDataAndType(uri, getMimeTypeNew(uri));
+        intent.addCategory(Intent.CATEGORY_DEFAULT);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Log.d(TAG, "uri is : " + uri.toString() + "; mimetype is : " + getMimeTypeNew(uri));
+        startActivity(intent);
+    }
+
+    public String getMimeTypeNew(Uri uri) {
+        String mimeType = null;
+        if (uri.getScheme().equals(ContentResolver.SCHEME_CONTENT)) {
+            ContentResolver cr = getContentResolver();
+            mimeType = cr.getType(uri);
+        } else {
+            String fileExtension = MimeTypeMap.getFileExtensionFromUrl(uri
+                    .toString());
+            mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(
+                    fileExtension.toLowerCase());
+        }
+        return mimeType;
     }
 }
