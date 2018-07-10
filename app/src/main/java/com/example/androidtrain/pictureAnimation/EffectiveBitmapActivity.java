@@ -148,6 +148,21 @@ public class EffectiveBitmapActivity extends AppCompatActivity {
         }
     }
 
+    //使用LruCache来管理Bitmap(内存缓存）
+    public void loadBitmapLruCache(int resId, ImageView imageView){
+        final String imageKey = String.valueOf(resId);
+
+        final  Bitmap bitmap = getBitmapFromMemCache(imageKey);
+        if (bitmap != null){
+            mImageView.setImageBitmap(bitmap);
+        } else {
+            mImageView.setImageResource(R.drawable.icon_jiguang);
+            BitmapWorkerTask task = new BitmapWorkerTask(mImageView);
+            task.execute(resId);
+        }
+    }
+
+
     //尝试从内存缓存中加载图片
     public void loadBitmapWithCache(int resId, ImageView imageView){
         final String imageKey = String.valueOf(resId);
