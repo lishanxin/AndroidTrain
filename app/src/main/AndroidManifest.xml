@@ -94,7 +94,8 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_print_photo"
             android:screenOrientation="sensor" />
-        <activity android:name=".pictureAnimation.EffectiveBitmapActivity"></activity>
+        <activity android:name=".pictureAnimation.EffectiveBitmapActivity" />
+        <activity android:name=".pictureAnimation.viewpager.ImageDetailActivity"></activity>
     </application>
 
 </manifest>

@@ -1,45 +1,54 @@
-package com.example.androidtrain.pictureAnimation;
+package com.example.androidtrain.pictureAnimation.viewpager;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.os.AsyncTask;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.LruCache;
 import android.widget.ImageView;
 
 import com.example.androidtrain.R;
+import com.example.androidtrain.pictureAnimation.EffectiveBitmapActivity;
 
 import java.lang.ref.WeakReference;
 
-//如何加载缩放的图片，如何并行加载图片；
-// 如何缓存图片：1，内存缓存，速度快，不过程序被杀死后无法保存；2，磁盘缓存，速度没有内存缓存块，不过能够在程序被杀死后还保存着经过处理的bitmap
-public class EffectiveBitmapActivity extends AppCompatActivity {
+public class ImageDetailActivity extends AppCompatActivity {
 
-    ImageView mImageView;
+    public static final String EXTRA_IMAGE = "extra_image";
 
-    Bitmap mPlaceHolderBitmap;
+    private ImagePagerAdapter mAdapter;
 
+    private ViewPager mPager;
+
+    private Bitmap mPlaceHolderBitmap;
     //图片内存缓存准备
     private LruCache<String,Bitmap> mMemoryCache;
 
-    //图片磁盘缓存准备
-//    private Disk
+    //A static dataset to back the ViewPager adapter
+    public final static Integer[] imageResIds = new Integer[]{
+        R.drawable.viewpagersample1, R.drawable.viewpagersample2, R.drawable.viewpagersample3,
+            R.drawable.viewpagersample4
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_effective_bitmap);
+        setContentView(R.layout.activity_image_detail);
+
+        mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), imageResIds.length);
+        mPager = (ViewPager) findViewById(R.id.image_detail_viewpager);
+        mPager.setAdapter(mAdapter);
+
 
         mPlaceHolderBitmap = BitmapFactory.decodeFile("file:///android_asset/images/jiguang_socialize_cp_link.png");
-
-        mImageView = (ImageView) findViewById(R.id.effect_bitmap_view);
-        loadBitmap(R.drawable.iu, mImageView);
-
         //缓存图片
         // Get max available VM memory, exceeding this amount will throw an
         // OutOfMemory exception. Stored in kilobytes as LruCache takes an
@@ -59,79 +68,8 @@ public class EffectiveBitmapActivity extends AppCompatActivity {
         };
     }
 
-//    static class DiskLruCache extends LruCache<String,Bitmap>{
-//
-//        /**
-//         * @param maxSize for caches that do not override {@link #sizeOf}, this is
-//         *                the maximum number of entries in the cache. For all other caches,
-//         *                this is the maximum sum of the sizes of the entries in this cache.
-//         */
-//        public DiskLruCache(int maxSize) {
-//            super(maxSize);
-//        }
-//
-//    }
-
-    //内存缓存图片
-    public void addBitmapToMemoryCache(String key, Bitmap bitmap){
-        if (getBitmapFromMemCache(key) == null){
-            mMemoryCache.put(key, bitmap);
-        }
-    }
-
-    //获取内存缓存的图片
-    private Bitmap getBitmapFromMemCache(String key) {
-        return mMemoryCache.get(key);
-    }
-
-    //在不产生bitmap的情况下，读取位图的尺寸与类型。
-    public void readBounds(){
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-
-        BitmapFactory.decodeFile("file:///android_asset/images/iu.jpg", options);
-        int imageHeight = options.outHeight;
-        int imageWidth = options.outWidth;
-        String imageType = options.outMimeType;
-    }
-
-    //设置BitmapFactory.Options中设置inSampleSize的值，可以得到缩小版的图。512*384的图片，设置inSampleSize为2，那么会产出一个256*192的图片。
-    public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight){
-        //Raw height and width of image
-        final int height = options.outHeight;
-        final int width = options.outWidth;
-        int inSampleSize = 1;
-
-        if (height > reqHeight || width > reqWidth){
-            final int halfHeight = height/2;
-            final int halfWidth = width/2;
-
-            //Calculate the largest inSampleSize value that is a power of 2 and keeps both
-            //height and width larger than the requested height and width
-            //为了显示不至于模糊，实际图片的宽度和高度肯定要大于屏幕需求的宽度和高度。
-            //先将图片实际的高宽/2，如果得到的结果没有大于屏幕需求的高宽，则表示不需要缩小图片，设置inSimpleSize为1；否者表示可以缩小，设置inSimpleSize*2。。。
-            while ((halfHeight/inSampleSize) > reqHeight
-                    && (halfWidth/inSampleSize) > reqWidth){
-                inSampleSize *= 2;
-            }
-        }
-
-        return inSampleSize;
-    }
-
-    //获取缩小后图片
-    public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId, int reqWidth, int reqHeight){
-        final BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeResource(res, resId, options);
-
-        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
-
-        options.inJustDecodeBounds = false;
-        return BitmapFactory.decodeResource(res, resId, options);
-    }
-
 //    public void loadBitmap(int resId, ImageView imageView){
+//        imageView.setImageResource(R.drawable.icon_jiguang);
 //        BitmapWorkerTask task = new BitmapWorkerTask(imageView);
 //        task.execute(resId);
 //    }
@@ -154,28 +92,26 @@ public class EffectiveBitmapActivity extends AppCompatActivity {
 
         final  Bitmap bitmap = getBitmapFromMemCache(imageKey);
         if (bitmap != null){
-            mImageView.setImageBitmap(bitmap);
+            imageView.setImageBitmap(bitmap);
         } else {
-            mImageView.setImageResource(R.drawable.icon_jiguang);
-            BitmapWorkerTask task = new BitmapWorkerTask(mImageView);
-            task.execute(resId);
+//            imageView.setImageResource(R.drawable.icon_jiguang);
+//            BitmapWorkerTask task = new BitmapWorkerTask(imageView);
+//            task.execute(resId);
+
+            loadBitmap(resId, imageView);
         }
     }
 
-
-    //尝试从内存缓存中加载图片
-    public void loadBitmapWithCache(int resId, ImageView imageView){
-        final String imageKey = String.valueOf(resId);
-        final  Bitmap bitmap = getBitmapFromMemCache(imageKey);
-
-        if (bitmap != null){
-            mImageView.setImageBitmap(bitmap);
-        }else {
-            //设置placeholder
-            mImageView.setImageResource(R.drawable.icon_jiguang);
-            BitmapWorkerTask task = new BitmapWorkerTask(mImageView);
-            task.execute(resId);
+    //内存缓存图片
+    public void addBitmapToMemoryCache(String key, Bitmap bitmap){
+        if (getBitmapFromMemCache(key) == null){
+            mMemoryCache.put(key, bitmap);
         }
+    }
+
+    //获取内存缓存的图片
+    private Bitmap getBitmapFromMemCache(String key) {
+        return mMemoryCache.get(key);
     }
 
     //检查是否有另一个正在执行的任务与该ImageView关联了气来，如果的确是这样，它通过执行cancel（）方法来取消另一个任务。
@@ -208,6 +144,24 @@ public class EffectiveBitmapActivity extends AppCompatActivity {
         return null;
     }
 
+    public static class ImagePagerAdapter extends FragmentStatePagerAdapter{
+        private final int mSize;
+        public ImagePagerAdapter(FragmentManager fm, int mSize) {
+            super(fm);
+            this.mSize = mSize;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return ImageDetailFragment.newInstance(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mSize;
+        }
+    }
+
     //解析图片属于耗时操作，需要放在异步线程中进行
     class BitmapWorkerTask extends AsyncTask<Integer,Object,Bitmap> {
 
@@ -226,24 +180,60 @@ public class EffectiveBitmapActivity extends AppCompatActivity {
 
             //为图片的内存缓存增加的步骤
             addBitmapToMemoryCache(String.valueOf(data), bitmap);
-
             return bitmap;
         }
 
         // Once complete, see if ImageView is still around and set bitmap
         @Override
         protected void onPostExecute(Bitmap bitmap) {
-             if (isCancelled()){
-                 bitmap = null;
-             }
+            if (isCancelled()){
+                bitmap = null;
+            }
             if (imageViewReference != null && bitmap != null){
-                final ImageView imageView = (ImageView) imageViewReference.get();
-                final BitmapWorkerTask bitmapWorkerTask = getBitmapWorkerTask(imageView);
+                if (imageViewReference != null && bitmap != null){
+                    final ImageView imageView = (ImageView) imageViewReference.get();
+                    final BitmapWorkerTask bitmapWorkerTask = getBitmapWorkerTask(imageView);
 
-                if (this == bitmapWorkerTask && imageView != null){
-                    imageView.setImageBitmap(bitmap);
+                    if (this == bitmapWorkerTask && imageView != null){
+                        imageView.setImageBitmap(bitmap);
+                    }
                 }
             }
+        }
+        //获取缩小后图片
+        public  Bitmap decodeSampledBitmapFromResource(Resources res, int resId, int reqWidth, int reqHeight){
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeResource(res, resId, options);
+
+            options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+            options.inJustDecodeBounds = false;
+            return BitmapFactory.decodeResource(res, resId, options);
+        }
+
+        //设置BitmapFactory.Options中设置inSampleSize的值，可以得到缩小版的图。512*384的图片，设置inSampleSize为2，那么会产出一个256*192的图片。
+        public int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight){
+            //Raw height and width of image
+            final int height = options.outHeight;
+            final int width = options.outWidth;
+            int inSampleSize = 1;
+
+            if (height > reqHeight || width > reqWidth){
+                final int halfHeight = height/2;
+                final int halfWidth = width/2;
+
+                //Calculate the largest inSampleSize value that is a power of 2 and keeps both
+                //height and width larger than the requested height and width
+                //为了显示不至于模糊，实际图片的宽度和高度肯定要大于屏幕需求的宽度和高度。
+                //先将图片实际的高宽/2，如果得到的结果没有大于屏幕需求的高宽，则表示不需要缩小图片，设置inSimpleSize为1；否者表示可以缩小，设置inSimpleSize*2。。。
+                while ((halfHeight/inSampleSize) > reqHeight
+                        && (halfWidth/inSampleSize) > reqWidth){
+                    inSampleSize *= 2;
+                }
+            }
+
+            return inSampleSize;
         }
     }
 
@@ -262,5 +252,4 @@ public class EffectiveBitmapActivity extends AppCompatActivity {
             return (BitmapWorkerTask) bitmapWorkerTaskReference.get();
         }
     }
-
 }

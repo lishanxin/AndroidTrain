@@ -31,6 +31,7 @@ import com.example.androidtrain.media.ControlCameraActivity;
 import com.example.androidtrain.media.ManagePlaybackActivity;
 import com.example.androidtrain.media.SurfaceTest.SurfaceTestActivity;
 import com.example.androidtrain.pictureAnimation.EffectiveBitmapActivity;
+import com.example.androidtrain.pictureAnimation.viewpager.ImageDetailActivity;
 import com.example.androidtrain.print.PrintPhotoActivity;
 import com.example.androidtrain.recyclerview.RecyclerViewActivity;
 import com.example.androidtrain.sharefile.ShareFileTest;
@@ -258,9 +259,13 @@ public class MainActivity extends AppCompatActivity  {
     public void effectBitmap(View view) {
         goToActivity(EffectiveBitmapActivity.class);
     }
-
+    public void uiBitmap(View view) {
+        goToActivity(ImageDetailActivity.class);
+    }
     private void goToActivity(Class cl){
         Intent intent = new Intent(this, cl);
         startActivity(intent);
     }
+
+
 }

@@ -93,6 +93,11 @@
                 android:text="@string/go_to_effect_bitmap"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+            <Button
+                android:onClick="uiBitmap"
+                android:text="@string/go_to_ui_bitmap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
     </LinearLayout>
