@@ -91,12 +91,20 @@
             <Button
                 android:onClick="effectBitmap"
                 android:text="@string/go_to_effect_bitmap"
-                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content" />
             <Button
                 android:onClick="uiBitmap"
                 android:text="@string/go_to_ui_bitmap"
-                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+            <Button
+                android:onClick="OPENGL"
+                android:text="@string/go_to_opengl_es20"
+                android:layout_weight="1"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content" />
         </LinearLayout>
 

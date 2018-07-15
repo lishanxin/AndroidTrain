@@ -31,6 +31,7 @@ import com.example.androidtrain.media.ControlCameraActivity;
 import com.example.androidtrain.media.ManagePlaybackActivity;
 import com.example.androidtrain.media.SurfaceTest.SurfaceTestActivity;
 import com.example.androidtrain.pictureAnimation.EffectiveBitmapActivity;
+import com.example.androidtrain.pictureAnimation.opengles.OpenGLES20Activity;
 import com.example.androidtrain.pictureAnimation.viewpager.ImageDetailActivity;
 import com.example.androidtrain.print.PrintPhotoActivity;
 import com.example.androidtrain.recyclerview.RecyclerViewActivity;
@@ -262,10 +263,13 @@ public class MainActivity extends AppCompatActivity  {
     public void uiBitmap(View view) {
         goToActivity(ImageDetailActivity.class);
     }
+
+    public void OPENGL(View view) {
+        goToActivity(OpenGLES20Activity.class);
+    }
     private void goToActivity(Class cl){
         Intent intent = new Intent(this, cl);
         startActivity(intent);
     }
-
 
 }
