@@ -34,4 +34,6 @@
     <string name="go_to_effect_bitmap">高效的Bitmap</string>
     <string name="go_to_ui_bitmap">UI-位图-Viewpager</string>
     <string name="go_to_opengl_es20">openGL测试</string>
+    <string name="lorem_ipsum">View间渐变</string>
+    <string name="go_to_view_fade">View间渐变</string>
 </resources>

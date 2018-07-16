@@ -101,7 +101,8 @@
             android:screenOrientation="sensor" />
         <activity android:name=".pictureAnimation.EffectiveBitmapActivity" />
         <activity android:name=".pictureAnimation.viewpager.ImageDetailActivity" />
-        <activity android:name=".pictureAnimation.opengles.OpenGLES20Activity"></activity>
+        <activity android:name=".pictureAnimation.opengles.OpenGLES20Activity" />
+        <activity android:name=".pictureAnimation.animation.CrossfadeActivity"></activity>
     </application>
 
 </manifest>
