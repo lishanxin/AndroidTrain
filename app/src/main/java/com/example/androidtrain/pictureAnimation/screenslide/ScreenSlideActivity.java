@@ -7,6 +7,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.androidtrain.R;
 
@@ -30,6 +31,16 @@ public class ScreenSlideActivity extends AppCompatActivity {
         mPager.setAdapter(mPagerAdapter);
 
 
+        //步骤5：用PageTransformer自定义动画。需实现ViewPager.PageTransformer接口，
+        //这个接口只暴露了一个方法，transformPage()。
+        //在transformPage()的实现中，基于当前屏幕显示的页面的position（position
+        // 由transformPage()方法的参数给出）决定哪些页面需要被动画转换
+        //position表示特定界面主轴start位置相对于屏幕中间位置而言
+        //当某一页面填充屏幕，它的值为0。当页面刚向屏幕右侧方向被拖走，它的值为1。
+        // 如果用户在页面1和页面2间滑动到一半，那么页面1的position为-0.5并且页面2的
+        // position为 0.5
+//        mPager.setPageTransformer(true, new ZoomOutPageTransformer());
+        mPager.setPageTransformer(true, new DepthPageTransformer());
     }
 
     //步骤4：处理Back按钮，按下变为在虚拟的Fragment栈中回退。
