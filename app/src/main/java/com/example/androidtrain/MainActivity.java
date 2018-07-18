@@ -1,7 +1,6 @@
 package com.example.androidtrain;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
@@ -10,7 +9,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -21,19 +19,17 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.androidtrain.connectApp.ConnectAppActivity;
-import com.example.androidtrain.fragment.HeadlinesFragment;
 import com.example.androidtrain.media.CameraTestActivity;
-import com.example.androidtrain.media.ControlCameraActivity;
 import com.example.androidtrain.media.ManagePlaybackActivity;
 import com.example.androidtrain.media.SurfaceTest.SurfaceTestActivity;
 import com.example.androidtrain.pictureAnimation.EffectiveBitmapActivity;
 import com.example.androidtrain.pictureAnimation.animation.CrossfadeActivity;
 import com.example.androidtrain.pictureAnimation.opengles.OpenGLES20Activity;
-import com.example.androidtrain.pictureAnimation.viewpager.ImageDetailActivity;
+import com.example.androidtrain.pictureAnimation.bitmaptest.ImageDetailActivity;
+import com.example.androidtrain.pictureAnimation.screenslide.ScreenSlideActivity;
 import com.example.androidtrain.print.PrintPhotoActivity;
 import com.example.androidtrain.recyclerview.RecyclerViewActivity;
 import com.example.androidtrain.sharefile.ShareFileTest;
@@ -273,9 +269,14 @@ public class MainActivity extends AppCompatActivity  {
         goToActivity(CrossfadeActivity.class );
     }
 
+    public void screenSlideViewPager(View view) {
+        goToActivity(ScreenSlideActivity.class);
+    }
+
     private void goToActivity(Class cl){
         Intent intent = new Intent(this, cl);
         startActivity(intent);
     }
+
 
 }

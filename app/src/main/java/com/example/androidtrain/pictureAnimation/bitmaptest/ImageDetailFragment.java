@@ -1,4 +1,4 @@
-package com.example.androidtrain.pictureAnimation.viewpager;
+package com.example.androidtrain.pictureAnimation.bitmaptest;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

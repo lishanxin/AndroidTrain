@@ -1,4 +1,4 @@
-package com.example.androidtrain.pictureAnimation.viewpager;
+package com.example.androidtrain.pictureAnimation.bitmaptest;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -16,10 +16,11 @@ import android.util.LruCache;
 import android.widget.ImageView;
 
 import com.example.androidtrain.R;
-import com.example.androidtrain.pictureAnimation.EffectiveBitmapActivity;
 
 import java.lang.ref.WeakReference;
 
+//用ViewPager来测试Bitmap的使用
+//1：设置LruCache来显示图片的缓存大小；
 public class ImageDetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_IMAGE = "extra_image";

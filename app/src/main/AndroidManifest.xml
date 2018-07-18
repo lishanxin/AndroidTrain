@@ -100,9 +100,10 @@
             android:label="@string/title_activity_print_photo"
             android:screenOrientation="sensor" />
         <activity android:name=".pictureAnimation.EffectiveBitmapActivity" />
-        <activity android:name=".pictureAnimation.viewpager.ImageDetailActivity" />
+        <activity android:name=".pictureAnimation.bitmaptest.ImageDetailActivity" />
         <activity android:name=".pictureAnimation.opengles.OpenGLES20Activity" />
-        <activity android:name=".pictureAnimation.animation.CrossfadeActivity"></activity>
+        <activity android:name=".pictureAnimation.animation.CrossfadeActivity" />
+        <activity android:name=".pictureAnimation.screenslide.ScreenSlideActivity"></activity>
     </application>
 
 </manifest>
