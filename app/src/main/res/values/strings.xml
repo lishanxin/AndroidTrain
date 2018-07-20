@@ -56,4 +56,5 @@
     <string name="card_back_title">Angry Red Android</string>
     <string name="card_back_description">android is very angry, be careful!</string>
     <string name="description_image_1">翻转卡牌图片说明</string>
+    <string name="go_to_card_flip">卡片翻转</string>
 </resources>
