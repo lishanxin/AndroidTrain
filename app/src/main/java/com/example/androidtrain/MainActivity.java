@@ -28,6 +28,7 @@ import com.example.androidtrain.media.SurfaceTest.SurfaceTestActivity;
 import com.example.androidtrain.pictureAnimation.EffectiveBitmapActivity;
 import com.example.androidtrain.pictureAnimation.animation.CrossfadeActivity;
 import com.example.androidtrain.pictureAnimation.cardflip.CardFlipActivity;
+import com.example.androidtrain.pictureAnimation.layoutchange.LayoutChangesActivity;
 import com.example.androidtrain.pictureAnimation.opengles.OpenGLES20Activity;
 import com.example.androidtrain.pictureAnimation.bitmaptest.ImageDetailActivity;
 import com.example.androidtrain.pictureAnimation.screenslide.ScreenSlideActivity;
@@ -283,9 +284,14 @@ public class MainActivity extends AppCompatActivity  {
     public void zoomAnimation(View view) {
         goToActivity(ZoomActivity.class);
     }
+
+    public void layoutChangesAnimate(View view) {
+        goToActivity(LayoutChangesActivity.class);
+    }
     private void goToActivity(Class cl){
         Intent intent = new Intent(this, cl);
         startActivity(intent);
     }
+
 
 }

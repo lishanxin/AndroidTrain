@@ -58,4 +58,6 @@
     <string name="description_image_1">翻转卡牌图片说明</string>
     <string name="go_to_card_flip">卡片翻转</string>
     <string name="go_to_zoom_animation">缩放视图</string>
+    <string name="layout_changes_empty">please press the add button to add something to layout</string>
+    <string name="go_to_layout_changes_animation">布局动画</string>
 </resources>
