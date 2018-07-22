@@ -104,7 +104,8 @@
         <activity android:name=".pictureAnimation.opengles.OpenGLES20Activity" />
         <activity android:name=".pictureAnimation.animation.CrossfadeActivity" />
         <activity android:name=".pictureAnimation.screenslide.ScreenSlideActivity" />
-        <activity android:name=".pictureAnimation.cardflip.CardFlipActivity"></activity>
+        <activity android:name=".pictureAnimation.cardflip.CardFlipActivity" />
+        <activity android:name=".pictureAnimation.zoom.ZoomActivity"></activity>
     </application>
 
 </manifest>

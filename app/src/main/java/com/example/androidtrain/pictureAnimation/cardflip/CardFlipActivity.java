@@ -68,6 +68,7 @@ public class CardFlipActivity extends AppCompatActivity implements FragmentManag
         item.setIcon(mShowingBack
                 ? R.drawable.ic_action_photo
                 : R.drawable.ic_action_info);
+        Log.d(TAG, "mShowingBack: " + mShowingBack);
         item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         return true;
     }
@@ -93,6 +94,12 @@ public class CardFlipActivity extends AppCompatActivity implements FragmentManag
         if (mShowingBack){
             mShowingBack = false;
             getSupportFragmentManager().popBackStack();
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    invalidateOptionsMenu();
+                }
+            });
             return;
         }
 

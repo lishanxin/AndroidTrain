@@ -31,6 +31,7 @@ import com.example.androidtrain.pictureAnimation.cardflip.CardFlipActivity;
 import com.example.androidtrain.pictureAnimation.opengles.OpenGLES20Activity;
 import com.example.androidtrain.pictureAnimation.bitmaptest.ImageDetailActivity;
 import com.example.androidtrain.pictureAnimation.screenslide.ScreenSlideActivity;
+import com.example.androidtrain.pictureAnimation.zoom.ZoomActivity;
 import com.example.androidtrain.print.PrintPhotoActivity;
 import com.example.androidtrain.recyclerview.RecyclerViewActivity;
 import com.example.androidtrain.sharefile.ShareFileTest;
@@ -277,6 +278,10 @@ public class MainActivity extends AppCompatActivity  {
 
     public void cardFlip(View view) {
         goToActivity(CardFlipActivity.class);
+    }
+
+    public void zoomAnimation(View view) {
+        goToActivity(ZoomActivity.class);
     }
     private void goToActivity(Class cl){
         Intent intent = new Intent(this, cl);
