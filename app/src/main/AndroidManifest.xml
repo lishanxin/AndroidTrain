@@ -106,7 +106,8 @@
         <activity android:name=".pictureAnimation.screenslide.ScreenSlideActivity" />
         <activity android:name=".pictureAnimation.cardflip.CardFlipActivity" />
         <activity android:name=".pictureAnimation.zoom.ZoomActivity" />
-        <activity android:name=".pictureAnimation.layoutchange.LayoutChangesActivity"></activity>
+        <activity android:name=".pictureAnimation.layoutchange.LayoutChangesActivity" />
+        <activity android:name=".buildingconnect.connectwirelessly.ConnectWirelessActivity"></activity>
     </application>
 
 </manifest>
