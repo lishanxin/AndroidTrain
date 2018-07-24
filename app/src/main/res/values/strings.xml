@@ -60,4 +60,5 @@
     <string name="go_to_zoom_animation">缩放视图</string>
     <string name="layout_changes_empty">please press the add button to add something to layout</string>
     <string name="go_to_layout_changes_animation">布局动画</string>
+    <string name="go_to_video_media_test">录像测试</string>
 </resources>

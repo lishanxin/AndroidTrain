@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.CamcorderProfile;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
@@ -20,11 +21,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.androidtrain.connectApp.ConnectAppActivity;
 import com.example.androidtrain.media.CameraTestActivity;
 import com.example.androidtrain.media.ManagePlaybackActivity;
 import com.example.androidtrain.media.SurfaceTest.SurfaceTestActivity;
+import com.example.androidtrain.media.testVideo.VideoActivity;
+import com.example.androidtrain.media.testVideo.VideoAgent;
 import com.example.androidtrain.pictureAnimation.EffectiveBitmapActivity;
 import com.example.androidtrain.pictureAnimation.animation.CrossfadeActivity;
 import com.example.androidtrain.pictureAnimation.cardflip.CardFlipActivity;
@@ -51,6 +55,9 @@ public class MainActivity extends AppCompatActivity  {
     public final static String EXTRA_MESSAGE = "com.mycompany.myfirstapp.MESSAGE";
     //ShareActionProvider创建简便的分享功能
     private ShareActionProvider mShareActionProvider;
+
+    public static String path =Environment.getExternalStorageDirectory() + "/androidTrain/";
+    public static String fileName ;
 
 
     @Override
@@ -294,4 +301,42 @@ public class MainActivity extends AppCompatActivity  {
     }
 
 
+    public void videoMediaTest(View view) {
+        VideoAgent.OnCameraCapture listener = new VideoAgent.OnCameraCapture() {
+
+            @Override
+            public void loadMedia(File file) {
+                Toast.makeText(MainActivity.this, file.getAbsolutePath()+"-小大:"+(file.length()/1024)+"K", Toast.LENGTH_SHORT).show();
+
+
+            }
+        };
+        File file = new File(MainActivity.path);
+        if (!file.exists()) {
+            file.mkdir();
+        }
+//        Intent intent = new Intent();
+//        intent.setAction(MediaStore.ACTION_VIDEO_CAPTURE);
+//        intent.addCategory("android.intent.category.DEFAULT");
+//        intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0);
+////        intent.putExtra(MediaStore.EXTRA_SIZE_LIMIT,10 * 1024 * 1024L);
+//        intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT,maxRecordVideoTime);
+        MainActivity.fileName = String.valueOf(System.currentTimeMillis()) + ".mp4";
+//        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(MainActivity.path + MainActivity.fileName)));
+
+
+//        Intent intent = new Intent(getReactApplicationContext(), MainVideoActivity.class);
+//        getReactApplicationContext().getCurrentActivity().startActivityForResult(intent, MainActivity.XT_VIDEO_REQUEST_CODE);
+
+
+        VideoAgent va = new VideoAgent(VideoActivity.class);
+        va.setQuality(CamcorderProfile.QUALITY_CIF);
+        va.setMaxTime(1800);
+        try {
+            String filePath = MainActivity.path + MainActivity.fileName;
+            va.startCamera(this, new File(filePath), listener);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

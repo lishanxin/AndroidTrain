@@ -36,7 +36,7 @@ public class CameraTestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_camera_test);
 
         initView();
-        dispatchTakeVideoIntent();
+        dispatchTakePictureIntent();
     }
 
     private void initView() {
