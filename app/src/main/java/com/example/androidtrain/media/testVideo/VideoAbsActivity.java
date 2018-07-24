@@ -38,7 +38,9 @@ import android.view.TextureView;
 import android.view.TextureView.SurfaceTextureListener;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -193,6 +195,9 @@ public abstract class VideoAbsActivity extends Activity {
         act_stop();
         changeCamera();
 
+        setPreviewSize();
+
+
         componpentGroup.mPreview.setSurfaceTextureListener(new SurfaceTextureListener() {
 
             @Override
@@ -220,6 +225,32 @@ public abstract class VideoAbsActivity extends Activity {
             }
         });
         componpentGroup.mPreview.setOnClickListener(fourceListener);
+    }
+
+    private void setPreviewSize() {
+        final ViewTreeObserver vto = componpentGroup.mPreview.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+//                componpentGroup.mPreview.getViewTreeObserver().addOnGlobalLayoutListener(this);
+                DisplayMetrics dm = new DisplayMetrics();
+
+                getWindowManager().getDefaultDisplay().getMetrics(dm);
+
+                int width = componpentGroup.mPreview.getWidth();
+                int height = componpentGroup.mPreview.getHeight();
+
+                FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams)componpentGroup.mPreview.getLayoutParams();
+
+                layoutParams.width = (int) (width * height) / dm.heightPixels;
+                layoutParams.height = height;
+                Log.d(TAG, "layoutParams:W/H" + layoutParams.width + ":" + layoutParams.height);
+                componpentGroup.mPreview.setLayoutParams(layoutParams);
+
+                componpentGroup.mPreview.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+            }
+        });
+
     }
 
 
@@ -267,6 +298,7 @@ public abstract class VideoAbsActivity extends Activity {
                 cameraId = Camera.CameraInfo.CAMERA_FACING_BACK;
             }
         }
+
     }
 
 
