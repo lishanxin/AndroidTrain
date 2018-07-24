@@ -6,6 +6,7 @@ import android.net.nsd.NsdServiceInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.example.androidtrain.R;
 import com.example.androidtrain.media.ControlCameraActivity;
@@ -14,7 +15,8 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 
-public class ConnectWirelessActivity extends AppCompatActivity {
+//两个设备需要在同一个局域网内才能够发现对方
+public class ConnectNSDActivity extends AppCompatActivity {
 
     private static final String TAG = "ConnectWireless";
     private static final String SERVICE_TYPE = "_http._tcp.";
@@ -41,10 +43,10 @@ public class ConnectWirelessActivity extends AppCompatActivity {
     }
 
     //注册自己的NSD服务，让其他设备可以发现
-    public void doMyselfService(int port){
+    public void doMyselfService(){
         initializeServerSocket();
         initializeRegistrationListener();
-        registerService(port);
+        registerService(mLocalPort);
     }
 
     //如果使用的是 socket，那么我们可以将端口设置为 0，来初始化 socket 到任意可用的端口。
@@ -126,6 +128,7 @@ public class ConnectWirelessActivity extends AppCompatActivity {
 
     //一：用相应的回调函数设置发现监听器（Discover Listener），
     public void initializeDiscoveryListener(){
+        mNsdManager = (NsdManager) getSystemService(Context.NSD_SERVICE) ;
         //初始化一个新的DiscoveryListener
         mDiscoveryListener = new NsdManager.DiscoveryListener(){
             @Override
@@ -153,7 +156,7 @@ public class ConnectWirelessActivity extends AppCompatActivity {
 
             @Override
             public void onServiceFound(NsdServiceInfo serviceInfo) {
-                //当发现服务时，调用这个接口
+                //当发现服务时，调用这个接口。此时还无法获取服务的host与port，需要等确定连接该服务时才能获取
                 Log.d(TAG, "Service discovery success " + serviceInfo);
                 //1：比较找到服务的名称与本地服务的名称，判断设备是否获得自己的（合法的）广播。
                 if (!serviceInfo.getServiceType().equals(SERVICE_TYPE)){
@@ -198,7 +201,7 @@ public class ConnectWirelessActivity extends AppCompatActivity {
 
             @Override
             public void onServiceResolved(NsdServiceInfo serviceInfo) {
-                //服务确定成功
+                //服务确定成功，服务确定后才能够获取服务端host与port信息
                 Log.d(TAG, "Resolve Succeeded. " + serviceInfo);
 
                 if (serviceInfo.getServiceName().equals(mServiceName)){
@@ -241,6 +244,15 @@ public class ConnectWirelessActivity extends AppCompatActivity {
         }
         super.onDestroy();
     }
+
+    public void wirelessStartNSD(View view) {
+        doMyselfService();
+    }
+
+    public void wirelessFindNSD(View view) {
+        startDiscovery();
+    }
+
 
     public class NsdHelper {
         public void tearDown(){

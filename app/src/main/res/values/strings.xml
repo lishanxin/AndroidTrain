@@ -61,4 +61,8 @@
     <string name="layout_changes_empty">please press the add button to add something to layout</string>
     <string name="go_to_layout_changes_animation">布局动画</string>
     <string name="go_to_video_media_test">录像测试</string>
+    <string name="start_wireless_service">开启服务</string>
+    <string name="start_find_wireless_service">发现服务</string>
+    <string name="go_to_connect_nsd">NSD连接</string>
+    <string name="go_to_connect_wifi_direct">Wifi-P2p</string>
 </resources>

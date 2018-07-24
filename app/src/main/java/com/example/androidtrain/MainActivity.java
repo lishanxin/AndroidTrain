@@ -23,6 +23,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.androidtrain.buildingconnect.connectwirelessly.ConnectNSDActivity;
+import com.example.androidtrain.buildingconnect.connectwirelessly.WifiDirectActivity;
 import com.example.androidtrain.connectApp.ConnectAppActivity;
 import com.example.androidtrain.media.CameraTestActivity;
 import com.example.androidtrain.media.ManagePlaybackActivity;
@@ -295,12 +297,6 @@ public class MainActivity extends AppCompatActivity  {
     public void layoutChangesAnimate(View view) {
         goToActivity(LayoutChangesActivity.class);
     }
-    private void goToActivity(Class cl){
-        Intent intent = new Intent(this, cl);
-        startActivity(intent);
-    }
-
-
     public void videoMediaTest(View view) {
         VideoAgent.OnCameraCapture listener = new VideoAgent.OnCameraCapture() {
 
@@ -339,4 +335,17 @@ public class MainActivity extends AppCompatActivity  {
             e.printStackTrace();
         }
     }
+
+    public void connectNSD(View view) {
+        goToActivity(ConnectNSDActivity.class);
+    }
+
+    public void connectWifiDirect(View view) {
+        goToActivity(WifiDirectActivity.class);
+    }
+    private void goToActivity(Class cl){
+        Intent intent = new Intent(this, cl);
+        startActivity(intent);
+    }
+
 }
