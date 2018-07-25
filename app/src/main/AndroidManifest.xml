@@ -14,11 +14,10 @@
         android:glEsVersion="0x00020000"
         android:required="true" />
 
-    <!--Wi-Fi P2P 技术虽然不需要访问互联网，但是它会使用标准的 Java socket（需要 INTERNET 权限）-->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-
+    <!-- Wi-Fi P2P 技术虽然不需要访问互联网，但是它会使用标准的 Java socket（需要 INTERNET 权限） -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <!-- <uses-feature -->
     <!-- android:name="android.hardware.camera" -->
@@ -117,7 +116,8 @@
         <activity android:name=".pictureAnimation.layoutchange.LayoutChangesActivity" />
         <activity android:name=".media.testVideo.VideoActivity" />
         <activity android:name=".buildingconnect.connectwirelessly.ConnectNSDActivity" />
-        <activity android:name=".buildingconnect.connectwirelessly.WifiDirectActivity"></activity>
+        <activity android:name=".buildingconnect.connectwirelessly.WifiDirectActivity" />
+        <activity android:name=".textReader.TextReaderActivity"></activity>
     </application>
 
 </manifest>

@@ -43,6 +43,7 @@ import com.example.androidtrain.print.PrintPhotoActivity;
 import com.example.androidtrain.recyclerview.RecyclerViewActivity;
 import com.example.androidtrain.sharefile.ShareFileTest;
 import com.example.androidtrain.sql.SqlTestActivity;
+import com.example.androidtrain.textReader.TextReaderActivity;
 import com.example.androidtrain.uistyle.UIStyleActivity;
 
 import java.io.File;
@@ -348,4 +349,7 @@ public class MainActivity extends AppCompatActivity  {
         startActivity(intent);
     }
 
+    public void textReader(View view) {
+        goToActivity(TextReaderActivity.class);
+    }
 }
