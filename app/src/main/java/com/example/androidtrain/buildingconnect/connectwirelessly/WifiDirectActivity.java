@@ -1,30 +1,33 @@
 package com.example.androidtrain.buildingconnect.connectwirelessly;
 
-import android.app.Activity;
-import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.NetworkInfo;
-import android.net.wifi.WifiManager;
 import android.net.wifi.WpsInfo;
 import android.net.wifi.p2p.WifiP2pConfig;
 import android.net.wifi.p2p.WifiP2pDevice;
 import android.net.wifi.p2p.WifiP2pDeviceList;
 import android.net.wifi.p2p.WifiP2pInfo;
 import android.net.wifi.p2p.WifiP2pManager;
+import android.net.wifi.p2p.nsd.WifiP2pDnsSdServiceRequest;
+import android.net.wifi.p2p.nsd.WifiP2pServiceInfo;
+import android.net.wifi.p2p.nsd.WifiP2pServiceRequest;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Adapter;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.androidtrain.R;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class WifiDirectActivity extends AppCompatActivity {
 
@@ -39,6 +42,16 @@ public class WifiDirectActivity extends AppCompatActivity {
     boolean p2pEnable = true;
 
     BroadcastReceiver receiver;
+
+    WifiDirectService wifiP2pService;
+
+    ListView mListView;
+
+    ArrayAdapter<String> mAdapter;
+
+    WifiP2pDnsSdServiceRequest p2pDnsSdServiceRequest;
+
+    WifiP2pServiceRequest serviceRequest;
 
     //获取对等节点列表（Peer list），第一步
     private ArrayList<WifiP2pDevice> peers = new ArrayList();
@@ -89,6 +102,9 @@ public class WifiDirectActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wifi_direct);
 
+        mListView = (ListView) findViewById(R.id.wifi_direct_found_list);
+        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, new String[]{"waiting for device!"});
+        mListView.setAdapter(mAdapter);
         //使用Wifi P2P时，需要监听事件发出的广播
 
         // 监听Wifi-p2p 状态，指示　Wi-Fi P2P　是否开启
@@ -126,6 +142,63 @@ public class WifiDirectActivity extends AppCompatActivity {
         p2pEnable = b;
     }
 
+    final HashMap<String, String> buddies = new HashMap<>();
+
+    private void discoverService(){
+        //监听实时收到的记录（record）
+        WifiP2pManager.DnsSdTxtRecordListener txtListener = new WifiP2pManager.DnsSdTxtRecordListener() {
+            @Override
+            public void onDnsSdTxtRecordAvailable(String fullDomainName, Map<String, String> txtRecordMap, WifiP2pDevice srcDevice) {
+                Log.d(TAG, "DnsSdTxtRecord available - " + txtRecordMap.toString());
+                Log.d(TAG, "deviceAddress:" + srcDevice.deviceAddress + "; buddyname:" + txtRecordMap.get("buddyname"));
+                buddies.put(srcDevice.deviceAddress, txtRecordMap.get("buddyname"));
+            }
+        };
+
+        WifiP2pManager.DnsSdServiceResponseListener servListener = new WifiP2pManager.DnsSdServiceResponseListener() {
+            @Override
+            public void onDnsSdServiceAvailable(String instanceName, String registrationType, WifiP2pDevice srcDevice) {
+                // Update the device name with the human-friendly version from
+                // the DnsTxtRecord, assuming one arrived.
+                srcDevice.deviceName = buddies.containsKey(srcDevice.deviceAddress)?
+                        buddies.get(srcDevice.deviceAddress): srcDevice.deviceName;
+
+                // Add to the custom adapter defined specifically for showing
+                // wifi devices.
+                mAdapter.add(srcDevice.deviceAddress + ":" + srcDevice.deviceName);
+                mAdapter.notifyDataSetChanged();
+                Log.d(TAG, "onBonjourServiceAvailable " + instanceName);
+            }
+        };
+
+        mManager.setDnsSdResponseListeners(mChannel, servListener, txtListener);
+
+        p2pDnsSdServiceRequest = WifiP2pDnsSdServiceRequest.newInstance();
+        mManager.addServiceRequest(mChannel, p2pDnsSdServiceRequest, new WifiP2pManager.ActionListener() {
+            @Override
+            public void onSuccess() {
+                Log.d(TAG, "WifiP2pDnsSdServiceRequest onSuccess");
+            }
+
+            @Override
+            public void onFailure(int reason) {
+                Log.d(TAG, "WifiP2pDnsSdServiceRequest onFailure");
+            }
+        });
+        serviceRequest = WifiP2pServiceRequest.newInstance(WifiP2pServiceInfo.SERVICE_TYPE_ALL);
+        mManager.addServiceRequest(mChannel, serviceRequest, new WifiP2pManager.ActionListener() {
+            @Override
+            public void onSuccess() {
+                Log.d(TAG, "WifiP2pServiceRequest onSuccess");
+            }
+
+            @Override
+            public void onFailure(int reason) {
+                Log.d(TAG, "WifiP2pServiceRequest onFailure");
+            }
+        });
+    }
+
     //动态注册广播监听，使用：intentFilter, Broadcast Receiver
     @Override
     protected void onResume() {
@@ -149,9 +222,11 @@ public class WifiDirectActivity extends AppCompatActivity {
         WifiP2pConfig config = new WifiP2pConfig();
         config.deviceAddress = device.deviceAddress;
         config.wps.setup = WpsInfo.PBC;
+        Log.d(TAG, "connect() start!");
         mManager.connect(mChannel, config, new WifiP2pManager.ActionListener() {
             @Override
             public void onSuccess() {
+                Log.d(TAG, "connect() success!");
                 // WiFiDirectBroadcastReceiver will notify us. Ignore for now.
             }
 
@@ -162,6 +237,15 @@ public class WifiDirectActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void startWifiP2pService(View view) {
+        wifiP2pService = new WifiDirectService(mManager, mChannel);
+        wifiP2pService.startRegistration();
+    }
+
+    public void startFoundWifiP2pService(View view) {
+        discoverService();
     }
 
     /**
@@ -211,7 +295,7 @@ public class WifiDirectActivity extends AppCompatActivity {
                     manager.requestConnectionInfo(mChannel, connectionListener);
                 }
             }else if (WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION.equals(action)){
-                //设备配置详情发生变化
+                //设备配置详情发生变化，获取的时本机设备信息
                 WifiP2pDevice wifiP2pDevice = (WifiP2pDevice) intent.getParcelableExtra(WifiP2pManager.EXTRA_WIFI_P2P_DEVICE);
                 Log.d(TAG, "Device detail changed!:" + wifiP2pDevice);
             }
