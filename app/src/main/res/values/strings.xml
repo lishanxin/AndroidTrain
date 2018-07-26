@@ -70,4 +70,6 @@
     <string name="go_to_text_reader">阅读器</string>
     <string name="go_to_start_wifip2p_service">开启P2p服务</string>
     <string name="go_to_connect_found_wifip2p_service">查询P2p服务</string>
+    <string name="button_last_page">上一页</string>
+    <string name="button_next_page">下一页</string>
 </resources>

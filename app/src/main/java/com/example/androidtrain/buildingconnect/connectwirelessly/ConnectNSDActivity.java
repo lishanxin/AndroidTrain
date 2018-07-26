@@ -172,7 +172,30 @@ public class ConnectNSDActivity extends AppCompatActivity {
                 //（我们并不需要每次都检查服务名称，仅当我们想要接入特定的应用时需要检查。）
                 else if (serviceInfo.getServiceName().contains("NsdChat")){
                     //调用 resolveService() 方法，以确定服务的连接信息
-                    mNsdManager.resolveService(serviceInfo, mResolveListener);
+                    mNsdManager.resolveService(serviceInfo, new NsdManager.ResolveListener(){
+                        @Override
+                        public void onResolveFailed(NsdServiceInfo serviceInfo, int errorCode) {
+                            //确定服务失败
+                            Log.e(TAG, "Resolve failed " + errorCode);
+                        }
+
+                        @Override
+                        public void onServiceResolved(NsdServiceInfo serviceInfo) {
+                            //服务确定成功，服务确定后才能够获取服务端host与port信息
+                            Log.d(TAG, "Resolve Succeeded. " + serviceInfo);
+
+                            if (serviceInfo.getServiceName().equals(mServiceName)){
+                                Log.d(TAG, "Same IP.");
+                                return;
+                            }
+
+                            mService = serviceInfo;
+                            //获得服务的详细资料，包括其 IP 地址和端口号。此时，我们就可以创建自己网络连接与服务进行通讯。
+                            //如何通讯？？？？
+                            int port = mService.getPort();
+                            InetAddress host = mService.getHost();
+                        }
+                    });
                 }
             }
 
