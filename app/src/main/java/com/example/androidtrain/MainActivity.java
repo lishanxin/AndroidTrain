@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.example.androidtrain.buildingconnect.connectwirelessly.ConnectNSDActivity;
 import com.example.androidtrain.buildingconnect.connectwirelessly.WifiDirectActivity;
+import com.example.androidtrain.buildingconnect.networkOps.NetWorkOpsActivity;
 import com.example.androidtrain.connectApp.ConnectAppActivity;
 import com.example.androidtrain.media.CameraTestActivity;
 import com.example.androidtrain.media.ManagePlaybackActivity;
@@ -354,5 +355,9 @@ public class MainActivity extends AppCompatActivity  {
 
     public void textReader(View view) {
         goToActivity(TextReaderActivity.class);
+    }
+
+    public void netWork(View view) {
+        goToActivity(NetWorkOpsActivity.class);
     }
 }
