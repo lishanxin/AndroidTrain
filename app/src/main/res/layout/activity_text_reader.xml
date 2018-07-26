@@ -23,7 +23,7 @@
            android:layout_height="wrap_content" />
    </LinearLayout>
 
-    <com.example.androidtrain.textReader.ReaderText
+    <com.example.androidtrain.textReader.JustifyTextView
         android:id="@+id/text_reader_activity_textview"
         android:layout_marginLeft="20px"
         android:paddingLeft="20px"

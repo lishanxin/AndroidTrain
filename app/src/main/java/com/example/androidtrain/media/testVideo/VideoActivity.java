@@ -44,6 +44,8 @@ public class VideoActivity extends VideoAbsActivity {
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
         DEBUG=true;
+
+
     }
 
     @Override
@@ -55,6 +57,11 @@ public class VideoActivity extends VideoAbsActivity {
         componpentGroup.changeButton = (Button) findViewById(R.id.button_change);
         componpentGroup.videoPlay = (Button) findViewById(R.id.button_play);
         componpentGroup.recordtime = (TextView)findViewById(R.id.recordtime);
+        //话术
+        componpentGroup.ruleTalk = (TextView) findViewById(R.id.rule_talk_text_view);
+        componpentGroup.pageTip = (TextView)findViewById(R.id.rule_talk_page_tip);
+        componpentGroup.nextPageButton = (Button) findViewById(R.id.rule_talk_next_page);
+        componpentGroup.lastPageButton = (Button) findViewById(R.id.rule_talk_last_page);
     }
 
     private void setButtonStatus(int status) {

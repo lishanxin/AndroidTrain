@@ -44,8 +44,14 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.androidtrain.R;
+
+import org.w3c.dom.Text;
+
 import java.io.File;
 import java.io.IOException;
+
+import static android.text.InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE;
 
 /**
  * This activity uses the camera/camcorder as the A/V source for the
@@ -95,6 +101,12 @@ public abstract class VideoAbsActivity extends Activity {
         protected Button videoPlay;
 
         protected TextView recordtime;
+
+        //话术窗口
+        protected TextView ruleTalk;
+        protected Button nextPageButton;
+        protected Button lastPageButton;
+        protected TextView pageTip;
     }
     //视频状态
     protected static final int STATUS_START = 1;
@@ -128,7 +140,10 @@ public abstract class VideoAbsActivity extends Activity {
 
     private boolean startRun;//计时线程
 
-    private Activity currentActivity;
+    //话术内容
+    protected String talkString;
+    protected int[] mPageIndex;
+    protected int currentPage = 0;
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -173,6 +188,7 @@ public abstract class VideoAbsActivity extends Activity {
 
     protected abstract void onSetVideoComponent(ComponpentGroup componpentGroup);
 
+    protected Activity currentActivity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -191,7 +207,11 @@ public abstract class VideoAbsActivity extends Activity {
             rotationPrepare = bundle.getInt(VideoAgent.VIDEO_rotation);
             fps = bundle.getInt(VideoAgent.VIDEO_fps);
             destFile = bundle.getString("destFile");
+            talkString = getResources().getString(R.string.screen_slide_text);
         }
+        componpentGroup.ruleTalk.setText(talkString);
+//        TextRederUtil.setCharacterWidth(componpentGroup.ruleTalk);
+        initRuleTalk(componpentGroup.ruleTalk);
         act_stop();
         changeCamera();
 
@@ -226,6 +246,8 @@ public abstract class VideoAbsActivity extends Activity {
         });
         componpentGroup.mPreview.setOnClickListener(fourceListener);
     }
+
+
 
     private void setPreviewSize() {
         final ViewTreeObserver vto = componpentGroup.mPreview.getViewTreeObserver();
@@ -427,6 +449,10 @@ public abstract class VideoAbsActivity extends Activity {
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setDataAndType(data, "video/mp4");
             startActivity(intent);
+        }else if (view.getId() == componpentGroup.lastPageButton.getId()){
+            setTalkTextView(-1);
+        }else if (view.getId() == componpentGroup.nextPageButton.getId()){
+            setTalkTextView(1);
         }
 
     }
@@ -641,6 +667,45 @@ public abstract class VideoAbsActivity extends Activity {
             mCamera.setDisplayOrientation((90 + rotationPrepare) % 360);
         }
 
+    }
+
+    public void initRuleTalk(final View view){
+        ViewTreeObserver vto = view.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                mPageIndex = TextRederUtil.getPage(componpentGroup.ruleTalk);
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        componpentGroup.ruleTalk.setText(talkString.substring(0, mPageIndex[0]));
+                    }
+                });
+                view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+            }
+        });
+    }
+
+    public void setTalkTextView(int plusNum){
+        if (plusNum < 0){
+            if (currentPage > 0){
+                currentPage += plusNum;
+                if (currentPage == 0){
+                    componpentGroup.ruleTalk.setText(talkString.substring(0, mPageIndex[0]));
+                }else {
+                    componpentGroup.ruleTalk.setText(talkString.substring(mPageIndex[currentPage-1], mPageIndex[currentPage]));
+                }
+            }
+        }else if (plusNum > 0){
+            if (currentPage < mPageIndex.length - 1){
+                currentPage += plusNum;
+                if (currentPage == 0){
+                    componpentGroup.ruleTalk.setText(talkString.substring(0, mPageIndex[0]));
+                }else {
+                    componpentGroup.ruleTalk.setText(talkString.substring(mPageIndex[currentPage-1], mPageIndex[currentPage]));
+                }
+            }
+        }
     }
 
 }
