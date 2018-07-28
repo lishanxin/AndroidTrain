@@ -16,36 +16,14 @@ public class MyCameraThread {
     public MyCameraThread(SurfaceHolder holder){
         this.holder = holder;
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                setShow();
-            }
-        }).start();
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                setShow();
+//            }
+//        }).start();
 
     }
 
-    private void setShow(){
-        holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 
-        try {
-            Camera camera = Camera.open();
-            setCamera(camera);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void setCamera(Camera camera) {
-
-        if (camera != null){
-            try {
-                camera.setPreviewDisplay(holder);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            camera.startPreview();
-        }
-    }
 }
