@@ -31,13 +31,13 @@ public class NetWorkUtil {
 
     /**
      *
-     * @return 检查当前网络是否可用
+     * @return 检查当前网络是否可用,推荐。若要判断是连接Wifi还是数据，可以使用方法：testNetWorkState
      */
     public boolean isConnected(){
         ConnectivityManager connMgr = (ConnectivityManager)
                 mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-        return networkInfo != null && networkInfo.isConnected();
+        return (networkInfo != null && networkInfo.isConnected());
     }
 
     public String downloadUrl(String myUrl) throws IOException{
@@ -90,5 +90,17 @@ public class NetWorkUtil {
     private Bitmap readBitmapFromInputStream(InputStream is){
         Bitmap bitmap = BitmapFactory.decodeStream(is);
         return bitmap;
+    }
+
+    //判断网络时Wifi还是数据网络
+    public void testNetWorkState(){
+        ConnectivityManager connMgr = (ConnectivityManager)
+                mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        boolean isWifiConn = networkInfo.isConnected();
+        networkInfo = connMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        boolean isMobileConn = networkInfo.isAvailable();
+        Log.d(TAG, "Wifi connected: " + isWifiConn);
+        Log.d(TAG, "Mobile connected: " + isMobileConn);
     }
 }
