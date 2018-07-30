@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import java.io.IOException;
@@ -102,5 +103,28 @@ public class NetWorkUtil {
         boolean isMobileConn = networkInfo.isAvailable();
         Log.d(TAG, "Wifi connected: " + isWifiConn);
         Log.d(TAG, "Mobile connected: " + isMobileConn);
+    }
+
+    //判断网络供应商
+    public  String getProvidersName() {
+        TelephonyManager telephonyManager = ((TelephonyManager)mContext.getSystemService(Context.TELEPHONY_SERVICE));
+        String str = "N/A";
+        String IMSI = "NULL";
+        try {
+            IMSI = telephonyManager.getSubscriberId();
+            System.out.println(IMSI);
+            if (IMSI.startsWith("46000"))
+                str = "中国移动";
+            else if (IMSI.startsWith("46002"))
+                str = "中国移动";
+            else if (IMSI.startsWith("46001"))
+                str = "中国联通";
+            else if (IMSI.startsWith("46003"))
+                str = "中国电信";
+        } catch (SecurityException e){
+            e.printStackTrace();
+        }
+        Log.d(TAG, "IMSI is:" + IMSI + "; 供应商：" + str);
+        return str;
     }
 }

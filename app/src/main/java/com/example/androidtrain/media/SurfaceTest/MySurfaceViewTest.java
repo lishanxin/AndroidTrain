@@ -2,6 +2,8 @@ package com.example.androidtrain.media.SurfaceTest;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
@@ -14,6 +16,7 @@ import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.view.WindowManager;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -129,10 +132,9 @@ public class MySurfaceViewTest  extends SurfaceView implements SurfaceHolder.Cal
                 setCameraDisplayOrientation(mActivity, Camera.CameraInfo.CAMERA_FACING_BACK, camera);
                 setPictureRotation(camera);
                 Camera.Parameters parameters = camera.getParameters();
-                Camera.Size size = findBestPictureSize(parameters, camera);
+                Camera.Size size = findBestPictureSizeBetter(parameters, camera);
                 parameters.setPictureSize(size.width, size.height);
-                parameters.setPreviewSize(1440,1080);
-                Camera.Size previewSize = parameters.getPreviewSize();
+//                parameters.setPreviewSize(getScreenWH().widthPixels,getScreenWH().heightPixels);
                 if (mOnSetSurfaceLayout != null){
                     mOnSetSurfaceLayout.OnSet(parameters);
                 }
@@ -232,35 +234,25 @@ public class MySurfaceViewTest  extends SurfaceView implements SurfaceHolder.Cal
         }
     }
 
-    private Camera.Size findBestPreviewSize(Camera.Parameters parameters, Camera camera) {
-        int degree = getPreviewDegree(mActivity);
-        int srcWidth = 0;
-        int srcHeight = 0;
-        if (degree == 0 || degree == 180) {
-            srcWidth = parameters.getPictureSize().width;
-            srcHeight = parameters.getPictureSize().height;
-        } else {
-            srcWidth = parameters.getPictureSize().height;
-            srcHeight = parameters.getPictureSize().width;
-        }
-
-        int supportPreviewWidth = getScreenWH().widthPixels;
-        int supportPreviewHeight = getScreenWH().heightPixels;
-        float wbl = (float) srcWidth / supportPreviewWidth;
-        float hbl = (float) srcHeight / supportPreviewHeight;
-        // float bl = wbl > hbl ? wbl : hbl;
-        int width = (int) (srcWidth / wbl);// bl);
-        int height = (int) (srcHeight / hbl);// bl);
-
-        // int width =(int) (srcWidth / bl);
-        // int height = (int) (srcHeight / bl);
-        return camera.new Size(width, height);
-    }
-
-    private Camera.Size findBestPictureSize(Camera.Parameters parameters, Camera camera) {
+    //Camera PictureSize适配
+    private Camera.Size findBestPictureSizeBetter(Camera.Parameters parameters, Camera camera) {
         int diff = Integer.MIN_VALUE;
+        float nearDiff = Integer.MAX_VALUE;
         String pictureSizeValueString = parameters.get("picture-size-values");
+        DisplayMetrics screenMetrics = getScreenWH();
+        Configuration mConfiguration = this.getResources().getConfiguration(); //获取设置的配置信息
+        int ori = mConfiguration.orientation; //获取屏幕方向
 
+        int x = screenMetrics.widthPixels;int y = screenMetrics.heightPixels;
+        Point screenResolution = null;
+
+        if (ori == mConfiguration.ORIENTATION_LANDSCAPE) {
+            //横屏
+            screenResolution =  new Point(x, y);
+        } else if (ori == mConfiguration.ORIENTATION_PORTRAIT) {
+            //竖屏
+            screenResolution =  new Point(y, x);
+        }
         // saw this on Xperia
         if (pictureSizeValueString == null) {
             pictureSizeValueString = parameters.get("picture-size-value");
@@ -273,6 +265,9 @@ public class MySurfaceViewTest  extends SurfaceView implements SurfaceHolder.Cal
 //		LogUtils.d("pictureSizeValueString : " + pictureSizeValueString);
         int bestX = 0;
         int bestY = 0;
+
+        int nearX = 0;
+        int nearY = 0;
 
         for (String pictureSizeString : pictureSizeValueString.split(",")) {
             pictureSizeString = pictureSizeString.trim();
@@ -294,31 +289,41 @@ public class MySurfaceViewTest  extends SurfaceView implements SurfaceHolder.Cal
                 continue;
             }
 
-            Point screenResolution = new Point(getScreenWH().widthPixels, getScreenWH().heightPixels);
-
             int newDiff = Math.abs(newX - screenResolution.x) + Math.abs(newY - screenResolution.y);
+
+            //近似查找
+            float newNearDiff = Math.abs((float) newX/newY - (float)screenResolution.x/screenResolution.y);
             if (newDiff == diff) {
                 bestX = newX;
                 bestY = newY;
                 break;
             } else if (newDiff > diff) {
-                if (((3 * newX) == (4 * newY)) && bestX < newX) {
+                if ((((float)newX/screenResolution.x) == ((float)newY/screenResolution.y)) && bestX < newX) {
                     bestX = newX;
                     bestY = newY;
                     diff = newDiff;
+                }else if ((((float)newX/screenResolution.x) != ((float)newY/screenResolution.y)) && newNearDiff < nearDiff){
+                    nearX = newX;
+                    nearY = newY;
+                    nearDiff = newNearDiff;
                 }
             }
         }
 
         if (bestX > 0 && bestY > 0) {
             return camera.new Size(bestX, bestY);
+        }else if (nearX>0 && nearY > 0){
+            return camera.new Size(nearX, nearY);
+        }else {
+            return camera.new Size(getScreenWH().widthPixels, getScreenWH().heightPixels);
         }
-        return null;
     }
+
+
 
     protected DisplayMetrics getScreenWH() {
         DisplayMetrics dMetrics = new DisplayMetrics();
-        dMetrics = this.getResources().getDisplayMetrics();
+        mActivity.getWindowManager().getDefaultDisplay().getMetrics(dMetrics);
         return dMetrics;
     }
 

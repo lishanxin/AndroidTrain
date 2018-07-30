@@ -193,6 +193,8 @@ public class MainActivity extends AppCompatActivity  {
                 Manifest.permission.INTERNET,
                 Manifest.permission.ACCESS_WIFI_STATE,
                 Manifest.permission.CHANGE_WIFI_STATE,
+                Manifest.permission.READ_PHONE_STATE,
+
         };
 
         boolean isGranted = checkPermissionAllGranted(permissions);

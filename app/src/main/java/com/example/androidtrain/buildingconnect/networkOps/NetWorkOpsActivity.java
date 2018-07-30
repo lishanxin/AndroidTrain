@@ -56,6 +56,8 @@ public class NetWorkOpsActivity extends AppCompatActivity {
         mTextView = (TextView)findViewById(R.id.net_work_ops_text_view);
         mNetWorkUtil = new NetWorkUtil(this);
 
+        mNetWorkUtil.getProvidersName();
+
         //相应网络管理的选择
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         receiver = new NetworkReceiver();
