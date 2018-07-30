@@ -123,6 +123,8 @@ public class NetWorkUtil {
                 str = "中国电信";
         } catch (SecurityException e){
             e.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
         }
         Log.d(TAG, "IMSI is:" + IMSI + "; 供应商：" + str);
         return str;

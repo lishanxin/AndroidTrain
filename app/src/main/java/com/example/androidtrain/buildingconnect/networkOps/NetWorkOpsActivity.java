@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.androidtrain.R;
 
@@ -160,7 +161,26 @@ public class NetWorkOpsActivity extends AppCompatActivity {
     private class NetworkReceiver extends BroadcastReceiver{
         @Override
         public void onReceive(Context context, Intent intent) {
+            ConnectivityManager conn = (ConnectivityManager)
+                    context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = conn.getActiveNetworkInfo();
 
+            //检查用户的网络偏好设置，根据此设置来判断是否刷新当前页。
+            //如果用户的网络偏好设置为:Wifi,则检查此设备是否连接Wifi
+            if (WIFI.equals(sPref) && networkInfo != null && networkInfo.getType() == ConnectivityManager.TYPE_WIFI){
+                //设备已连接Wifi，则启动刷新。启动刷新后，展示界面会在用户回到app后刷新。
+                refreshDisplay = true;
+                Toast.makeText(context, R.string.wifi_connected, Toast.LENGTH_LONG).show();
+            }else if (ANY.equals(sPref) && networkInfo != null){
+                refreshDisplay = true;
+                Toast.makeText(context, R.string.any_connected, Toast.LENGTH_LONG).show();
+            }else {
+                //此处用户无法下载任何内容，原因可能有如下几点：
+                //1:没有网络连接，wifi和数据网络都未连接；
+                //2：用户连接了数据网络，但是用户的网络偏好设置为Wifi，所以无法连接到网络
+                refreshDisplay = false;
+                Toast.makeText(context, R.string.lost_connection, Toast.LENGTH_LONG).show();;
+            }
         }
     }
 }

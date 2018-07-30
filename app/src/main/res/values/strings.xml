@@ -75,4 +75,7 @@
     <string name="net_work_ops_get">GET</string>
     <string name="go_to_net_work">互联网</string>
     <string name="net_work_settings">网络偏好设置</string>
+    <string name="wifi_connected">现在处于Wifi网络</string>
+    <string name="lost_connection">无法连接到网络</string>
+    <string name="any_connected">网络可使用</string>
 </resources>
