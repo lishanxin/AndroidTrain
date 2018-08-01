@@ -16,7 +16,7 @@ import java.util.Map;
  * Created by lizz on 2018/7/31.
  */
 
-public class XmlParseUtil {
+public class StackOverXmlParseUtil {
 
     //We don't use namespace
     private static final String ns = null;
@@ -64,7 +64,14 @@ public class XmlParseUtil {
     }
 
 
-
+    /**
+     * 如果当前事件不是一个 START_TAG，抛出异常。
+     它消耗掉 START_TAG 以及接下来的所有内容，包括与开始标签配对的 END_TAG。
+     为了保证方法在遇到正确的 END_TAG 时停止，而不是在最开始的 START_TAG 后面的第一个标签，方法随时记录嵌套深度。
+     * @param parser
+     * @throws XmlPullParserException
+     * @throws IOException
+     */
     private void skip(XmlPullParser parser) throws XmlPullParserException, IOException {
         if (parser.getEventType() != XmlPullParser.START_TAG){
              throw new IllegalStateException();

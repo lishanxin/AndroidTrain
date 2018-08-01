@@ -5,12 +5,16 @@ package com.example.androidtrain.buildingconnect.networkOps;
  */
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.preference.PreferenceManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+
+import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,6 +23,10 @@ import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  * 需求权限：INTERNET，ACCESS_NETWORK_STATE
@@ -75,6 +83,19 @@ public class NetWorkUtil {
         }
     }
 
+    private InputStream downloadUrlForInputStream(String urlString) throws  IOException{
+        URL url = new URL(urlString);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setReadTimeout(10000);//milliseconds
+        conn.setConnectTimeout(15000);//milliseconds
+        conn.setRequestMethod("GET");
+        conn.setDoInput(true);
+
+        //Starts the qury
+        conn.connect();
+        return conn.getInputStream();
+    }
+
     private String readStringFromInputStream(InputStream is, int len) throws IOException, UnsupportedEncodingException{
         Reader reader = null;
         reader = new InputStreamReader(is, "UTF-8");
@@ -128,5 +149,46 @@ public class NetWorkUtil {
         }
         Log.d(TAG, "IMSI is:" + IMSI + "; 供应商：" + str);
         return str;
+    }
+
+    public String loadXmlFromNetwork(String urlString) throws XmlPullParserException, IOException{
+        InputStream is = null;
+
+        StackOverXmlParseUtil stackOverXmlParseUtil = new StackOverXmlParseUtil();
+        List<StackOverXmlParseUtil.Entry> entries = null;
+        String title = null;
+        String url = null;
+        String summary = null;
+        Calendar rightNow = Calendar.getInstance();
+        DateFormat formatter = new SimpleDateFormat("MMM dd h:mmaa");
+
+        //检查用户是否对概要文字设置了偏好
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
+        boolean pref = sharedPref.getBoolean("summaryPref", false);
+
+        StringBuilder htmlString = new StringBuilder();
+        htmlString.append("<h3>" + "网页标题" + "</h3>");
+        htmlString.append("<em>" + "更新于" + " " + formatter.format(rightNow.getTime()) + "</em>");
+
+        try {
+            is = downloadUrlForInputStream(urlString);
+            entries = stackOverXmlParseUtil.pase(is);
+        }finally {
+            if (is != null){
+                is.close();
+            }
+        }
+
+        for (StackOverXmlParseUtil.Entry entry: entries){
+            htmlString.append("<p><a href='");
+            htmlString.append(entry.link);
+            htmlString.append("'>" + entry.title + "</a></p>");
+
+            if (pref){
+                htmlString.append(entry.summary);
+            }
+        }
+
+        return htmlString.toString();
     }
 }

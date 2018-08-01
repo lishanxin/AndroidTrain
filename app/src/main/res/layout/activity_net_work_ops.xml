@@ -21,13 +21,14 @@
         android:text="@string/net_work_settings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
-    <ScrollView
+    <TextView
+        android:id="@+id/net_work_ops_text_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <TextView
-            android:id="@+id/net_work_ops_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </ScrollView>
+        android:layout_height="wrap_content" />
+
+
+    <WebView
+        android:id="@+id/net_work_ops_web_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></WebView>
 </LinearLayout>

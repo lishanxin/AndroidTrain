@@ -12,6 +12,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +21,7 @@ import com.example.androidtrain.BaseActivity;
 import com.example.androidtrain.R;
 
 import org.w3c.dom.Text;
+import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 
@@ -31,10 +33,12 @@ public class NetWorkOpsActivity extends BaseActivity {
 
     TextView mTextView;
 
+    WebView mWebView;
+
     //相应网络管理的选择
     public static final String WIFI = "Wi-Fi";
     public static final String ANY = "Any";
-    private static final String URL = "https://www.baidu.com";
+    private static final String URL = "https://stackoverflow.com/feeds/tag?tagnames=android&sort=newest";
 
     //是否有Wifi连接
     private static boolean wifiConnected = false;
@@ -56,6 +60,7 @@ public class NetWorkOpsActivity extends BaseActivity {
 
         mEditText = (EditText)findViewById(R.id.net_work_ops_edit_view);
         mTextView = (TextView)findViewById(R.id.net_work_ops_text_view);
+        mWebView = (WebView) findViewById(R.id.net_work_ops_web_view);
         mNetWorkUtil = new NetWorkUtil(this);
 
         mNetWorkUtil.getProvidersName();
@@ -92,7 +97,10 @@ public class NetWorkOpsActivity extends BaseActivity {
         updateConnectedFlags();
 
         if (refreshDisplay){
-            loadPage();
+            //显示String
+//            loadPage();
+            //将xml部分解析转换成html，并显示
+            loadXmlPage();
         }
     }
 
@@ -122,6 +130,16 @@ public class NetWorkOpsActivity extends BaseActivity {
         }
     }
 
+    private void loadXmlPage(){
+        //此处语句判断是管理网络
+        if (((sPref.equals(ANY)) && (wifiConnected || mobileConnected))
+                ||((sPref.equals(WIFI)) && (wifiConnected))){
+            new DownloadXmlTask().execute(URL);
+        }else {
+//            showErrorPage();
+        }
+    }
+
     private void showErrorPage() {
         mTextView.setText("No network connection available.");
     }
@@ -129,11 +147,12 @@ public class NetWorkOpsActivity extends BaseActivity {
 
     public void getHttpResponse(View view) {
         String url = mEditText.getText().toString();
-        if (mNetWorkUtil.isConnected()){
-            new DownloadWebpageText().execute(url);
-        }else {
-            mTextView.setText("No network connection available.");
-        }
+        loadXmlPage();
+//        if (mNetWorkUtil.isConnected()){
+//            new DownloadWebpageText().execute(url);
+//        }else {
+//            mTextView.setText("No network connection available.");
+//        }
     }
 
     public void netWorkSettings(View view) {
@@ -156,6 +175,27 @@ public class NetWorkOpsActivity extends BaseActivity {
         @Override
         protected void onPostExecute(String result) {
             mTextView.setText(result);
+        }
+    }
+
+    private class DownloadXmlTask extends AsyncTask<String,Integer,String>{
+        @Override
+        protected String doInBackground(String... urls) {
+            String url = urls[0];
+            try {
+                return mNetWorkUtil.loadXmlFromNetwork(url);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return "Unable to retrieve web page. URL may be invalid.";
+            } catch (XmlPullParserException e){
+                e.printStackTrace();
+                return "Xml parse is error";
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            mWebView.loadData(result, "text/html", null);
         }
     }
 
