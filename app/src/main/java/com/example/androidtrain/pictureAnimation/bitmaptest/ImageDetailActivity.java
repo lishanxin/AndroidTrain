@@ -15,13 +15,14 @@ import android.os.Bundle;
 import android.util.LruCache;
 import android.widget.ImageView;
 
+import com.example.androidtrain.BaseActivity;
 import com.example.androidtrain.R;
 
 import java.lang.ref.WeakReference;
 
 //用ViewPager来测试Bitmap的使用
 //1：设置LruCache来显示图片的缓存大小；
-public class ImageDetailActivity extends AppCompatActivity {
+public class ImageDetailActivity extends BaseActivity {
 
     public static final String EXTRA_IMAGE = "extra_image";
 

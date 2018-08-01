@@ -19,6 +19,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.androidtrain.BaseActivity;
 import com.example.androidtrain.R;
 import com.example.androidtrain.recyclerview.MainAdapter;
 
@@ -32,7 +33,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ShareFileTest extends AppCompatActivity {
+public class ShareFileTest extends BaseActivity {
 
 
     private final static String TAG = "ShareFileTest";

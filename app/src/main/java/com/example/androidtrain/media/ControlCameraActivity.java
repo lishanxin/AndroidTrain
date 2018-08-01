@@ -10,12 +10,13 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.androidtrain.BaseActivity;
 import com.example.androidtrain.R;
 
 import java.io.IOException;
 import java.util.List;
 
-public class ControlCameraActivity extends AppCompatActivity implements View.OnClickListener{
+public class ControlCameraActivity extends BaseActivity implements View.OnClickListener{
 
     Camera mCamera;
     Preview mPreview;

@@ -12,9 +12,10 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
+import com.example.androidtrain.BaseActivity;
 import com.example.androidtrain.R;
 
-public class UIStyleActivity extends AppCompatActivity {
+public class UIStyleActivity extends BaseActivity {
 
     private Dialog allMsg;
     //Dialog的布局View

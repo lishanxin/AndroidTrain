@@ -12,6 +12,7 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.VideoView;
 
+import com.example.androidtrain.BaseActivity;
 import com.example.androidtrain.R;
 
 import java.io.File;
@@ -19,7 +20,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class CameraTestActivity extends AppCompatActivity {
+public class CameraTestActivity extends BaseActivity {
 
     private static final String TAG = "CameraTest";
     private static final int REQUEST_IMAGE_CAPTURE = 1;

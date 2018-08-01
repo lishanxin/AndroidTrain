@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.example.androidtrain.BaseActivity;
 import com.example.androidtrain.R;
 import com.example.androidtrain.media.ControlCameraActivity;
 
@@ -16,7 +17,7 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 
 //两个设备需要在同一个局域网内才能够发现对方
-public class ConnectNSDActivity extends AppCompatActivity {
+public class ConnectNSDActivity extends BaseActivity {
 
     private static final String TAG = "ConnectWireless";
     private static final String SERVICE_TYPE = "_http._tcp.";

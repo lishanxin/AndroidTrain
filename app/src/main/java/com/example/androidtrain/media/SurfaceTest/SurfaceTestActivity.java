@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import com.example.androidtrain.BaseActivity;
 import com.example.androidtrain.R;
 
 import java.util.List;
@@ -25,7 +26,7 @@ import java.util.List;
  * Created by lizz on 2018/7/2.
  */
 
-public class SurfaceTestActivity extends Activity {
+public class SurfaceTestActivity extends BaseActivity {
 
     private static final String TAG = "SurfaceTest";
 
@@ -39,6 +40,9 @@ public class SurfaceTestActivity extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        if (getSupportActionBar() != null){
+            getSupportActionBar().hide();
+        }
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_surface_test);
 

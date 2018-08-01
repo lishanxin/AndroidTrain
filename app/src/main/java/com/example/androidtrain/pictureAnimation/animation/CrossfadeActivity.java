@@ -7,11 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.androidtrain.BaseActivity;
 import com.example.androidtrain.R;
 
 //View间渐变Demo
 //http://hukai.me/android-training-course-in-chinese/animations/crossfade.html
-public class CrossfadeActivity extends AppCompatActivity {
+public class CrossfadeActivity extends BaseActivity {
 
     private View mContentView;
     private View mLoadingView;

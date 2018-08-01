@@ -15,10 +15,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.androidtrain.BaseActivity;
 import com.example.androidtrain.MainActivity;
 import com.example.androidtrain.R;
 
-public class CardFlipActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener {
+public class CardFlipActivity extends BaseActivity implements FragmentManager.OnBackStackChangedListener {
 
     private static final String TAG = "CardFlipAct";
 

@@ -19,12 +19,13 @@ import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.example.androidtrain.BaseActivity;
 import com.example.androidtrain.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PrintPhotoActivity extends Activity {
+public class PrintPhotoActivity extends BaseActivity {
 
     private final static String TAG = "PrintPhoto";
 

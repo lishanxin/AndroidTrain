@@ -13,9 +13,10 @@ import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 
+import com.example.androidtrain.BaseActivity;
 import com.example.androidtrain.R;
 
-public class ZoomActivity extends AppCompatActivity {
+public class ZoomActivity extends BaseActivity {
 
     private static final String TAG = "ZoomActivity";
 

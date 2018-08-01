@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.example.androidtrain.BaseActivity;
 import com.example.androidtrain.R;
 
 import java.io.File;
@@ -21,7 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class ConnectAppActivity extends AppCompatActivity {
+public class ConnectAppActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

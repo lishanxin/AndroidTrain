@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_VIDEO" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <!-- 为了使用OpenGL ES 2.0 -->
     <uses-feature
@@ -123,10 +123,12 @@
         <activity android:name=".buildingconnect.networkOps.NetWorkOpsActivity" />
         <activity android:name=".buildingconnect.networkOps.NetWorkSettingsActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MANAGE_NETWORK_USAGE"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="android.intent.action.MANAGE_NETWORK_USAGE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".security.AntiHijackActivity"></activity>
     </application>
 
 </manifest>

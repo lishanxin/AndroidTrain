@@ -9,9 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.androidtrain.BaseActivity;
 import com.example.androidtrain.R;
 
-public class ScreenSlideActivity extends AppCompatActivity {
+public class ScreenSlideActivity extends BaseActivity {
 
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;

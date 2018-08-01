@@ -22,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.androidtrain.BaseActivity;
 import com.example.androidtrain.R;
 
 import java.net.InetAddress;
@@ -29,7 +30,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class WifiDirectActivity extends AppCompatActivity {
+public class WifiDirectActivity extends BaseActivity {
 
     private static final String TAG = "WifiDirect";
 

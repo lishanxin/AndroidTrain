@@ -11,11 +11,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.example.androidtrain.BaseActivity;
 import com.example.androidtrain.R;
 
 import static android.media.AudioManager.AUDIOFOCUS_LOSS_TRANSIENT;
 
-public class ManagePlaybackActivity extends AppCompatActivity {
+public class ManagePlaybackActivity extends BaseActivity {
 
     private static final String TAG = "ManagePlayback";
 

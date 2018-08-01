@@ -1,20 +1,16 @@
-package com.example.androidtrain.pictureAnimation.opengles;
+package com.example.androidtrain.security;
 
-import android.opengl.GLSurfaceView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.androidtrain.BaseActivity;
 import com.example.androidtrain.R;
 
-public class OpenGLES20Activity extends BaseActivity {
-
-    private GLSurfaceView mGLView;
+public class AntiHijackActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mGLView = new MyGLSurfaceView(this);
-        setContentView(mGLView);
+        setContentView(R.layout.activity_anti_hijack);
     }
 }

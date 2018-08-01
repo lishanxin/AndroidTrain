@@ -12,13 +12,14 @@ import android.os.Bundle;
 import android.util.LruCache;
 import android.widget.ImageView;
 
+import com.example.androidtrain.BaseActivity;
 import com.example.androidtrain.R;
 
 import java.lang.ref.WeakReference;
 
 //如何加载缩放的图片，如何并行加载图片；
 // 如何缓存图片：1，内存缓存，速度快，不过程序被杀死后无法保存；2，磁盘缓存，速度没有内存缓存块，不过能够在程序被杀死后还保存着经过处理的bitmap
-public class EffectiveBitmapActivity extends AppCompatActivity {
+public class EffectiveBitmapActivity extends BaseActivity {
 
     ImageView mImageView;
 

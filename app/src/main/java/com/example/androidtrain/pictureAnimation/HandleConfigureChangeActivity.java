@@ -8,12 +8,14 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.LruCache;
 
+import com.example.androidtrain.BaseActivity;
+
 /**
  * Created by lizz on 2018/7/10.
  * 处理当旋转屏幕时的数据缓存操作
  */
 
-public class HandleConfigureChangeActivity extends AppCompatActivity{
+public class HandleConfigureChangeActivity extends BaseActivity{
 
     LruCache<String,Bitmap> mMemoryCache;
 

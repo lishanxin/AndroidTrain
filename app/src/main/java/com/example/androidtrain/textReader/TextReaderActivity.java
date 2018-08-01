@@ -8,11 +8,12 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
+import com.example.androidtrain.BaseActivity;
 import com.example.androidtrain.R;
 
 import static com.example.androidtrain.textReader.TextRederUtil.getPage;
 
-public class TextReaderActivity extends AppCompatActivity {
+public class TextReaderActivity extends BaseActivity {
 
     private static final String TAG = "TextReader";
     TextView mTextView;

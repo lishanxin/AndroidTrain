@@ -16,13 +16,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.androidtrain.BaseActivity;
 import com.example.androidtrain.R;
 
 import org.w3c.dom.Text;
 
 import java.io.IOException;
 
-public class NetWorkOpsActivity extends AppCompatActivity {
+public class NetWorkOpsActivity extends BaseActivity {
 
     NetWorkUtil mNetWorkUtil;
 

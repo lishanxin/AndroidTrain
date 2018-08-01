@@ -11,12 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.androidtrain.BaseActivity;
 import com.example.androidtrain.MainActivity;
 import com.example.androidtrain.R;
 
 import org.w3c.dom.Text;
 
-public class LayoutChangesActivity extends AppCompatActivity {
+public class LayoutChangesActivity extends BaseActivity {
 
     //Because mContainerView has android:animateLayoutChanges set to true,
     // adding this view is automatically animated.

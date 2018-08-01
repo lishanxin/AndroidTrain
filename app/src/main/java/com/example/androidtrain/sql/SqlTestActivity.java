@@ -10,9 +10,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.androidtrain.BaseActivity;
 import com.example.androidtrain.R;
 
-public class SqlTestActivity extends Activity {
+public class SqlTestActivity extends BaseActivity {
 
     private static final String TAG = "SqlTestActivity";
 
