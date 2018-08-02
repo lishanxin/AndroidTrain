@@ -1,4 +1,4 @@
-package com.example.androidtrain.buildingconnect;
+package com.example.androidtrain.buildingconnect.efficientDownloads;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -10,7 +10,7 @@ import android.content.SharedPreferences;
  */
 
 //网络管理，如何省电。无线状态机工作时，最是耗电。
-public class EfficientDownloads {
+public class RegularUpdate {
     private Context mContext;
     private AlarmManager alarmManager;
     int alarmType = AlarmManager.ELAPSED_REALTIME;
@@ -23,7 +23,7 @@ public class EfficientDownloads {
     private static final long DEFAULT_REFRESH_INTERVAL = 60;
     private static final long MAX_REFRESH_INTERVAL = Long.MAX_VALUE/16;
 
-    public EfficientDownloads(Context context){
+    public RegularUpdate(Context context){
         this.mContext = context;
         alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
     }
