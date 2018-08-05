@@ -27,9 +27,7 @@ public class BaseActivity extends AppCompatActivity {
 
     private static final String TAG = "BaseActivity";
 
-    private static boolean needAlarm = true;
-
-    HomeKeyClickReceiver homeKeyClickReceiver;
+    AntiHijackUtil.HomeKeyClickReceiver homeKeyClickReceiver;
 
     IntentFilter filter = new IntentFilter();
 
@@ -39,12 +37,12 @@ public class BaseActivity extends AppCompatActivity {
         showLog("onCreate");
 
         //此处监听Home键
-        homeKeyClickReceiver = new HomeKeyClickReceiver(new HomeKeyListener() {
+        homeKeyClickReceiver = new AntiHijackUtil.HomeKeyClickReceiver(new AntiHijackUtil.HomeKeyListener() {
 
             //Home键的监听内容，设置不产生提示
             @Override
             public void onPressHomeKey() {
-                needAlarm = false;
+                antiHijack.needAlarm = false;
             }
         });
         filter.addAction(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
@@ -55,8 +53,14 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         showLog("" + keyCode);
-        if((keyCode==KeyEvent.KEYCODE_BACK || keyCode==KeyEvent.KEYCODE_HOME ) && event.getRepeatCount()==0){
-            needAlarm = false;
+        if((keyCode==KeyEvent.KEYCODE_BACK ) && event.getRepeatCount()==0){
+            antiHijack.needAlarm = false;
+
+            //有一种情况是：按下Back键，但是被Rn代码拦截，不会切换Activity。此时needAlarm保持为false，若被劫持，则不会弹出窗口。
+            //所以要对这种情况进行判断，如果发生这种情况，则重置needAlarm为true；
+            //通过声明周期来判断这种情况，如果正常切换Activity的情况，肯定会发生Activity.onPause；否则就不会发生。
+            //对是否发生onPause进行监听，发生了，则设置为true，然后在onResume中对其设置为false；
+            //按下按钮后，发生了onPause，则设置needAlarm为false；
         }
         return super.onKeyDown(keyCode, event);
     }
@@ -69,12 +73,8 @@ public class BaseActivity extends AppCompatActivity {
         super.onPause();
         showLog("onPause");
 
-        //如果不是人为按键进行界面切换，则needAlarm=true；进行提示程序
-        if (needAlarm){
-            antiHijack.isHijacked = true;
-            antiHijack.checkHijack(this);
-        }
-        needAlarm = true;
+        antiHijack.isHijacked = true;
+        antiHijack.checkHijack(this);
         unregisterReceiver(homeKeyClickReceiver);
     }
 
@@ -107,50 +107,5 @@ public class BaseActivity extends AppCompatActivity {
 
     private void showLog(String msg){
         Log.d(TAG, msg);
-    }
-
-    private class HomeKeyClickReceiver extends BroadcastReceiver {
-        private static final String SYSTEM_REASON = "reason";
-        private static final String SYSTEM_HOME_KEY = "homekey";
-        private static final String SYSTEM_RECENT_APPS = "recentapps";
-
-        private HomeKeyListener listener;
-
-        public HomeKeyClickReceiver(HomeKeyListener listener){
-            this.listener = listener;
-        }
-
-        //由于在点击home键时，系统会发出一个Intent.ACTION_CLOSE_SYSTEM_DIALOGS广播；
-        //使用此广播接收器对广播进行处理，处理内容在监听器接口中。
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            if (action.equals(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)) {
-                String reason = intent.getStringExtra(SYSTEM_REASON);
-                if (null != reason) {
-                    if (reason.equals(SYSTEM_HOME_KEY)) {
-                        //Home key short pressed.
-                        if (null != listener) {
-                            listener.onPressHomeKey();
-                            showLog("短按");
-                            //短按
-//                            listener.onHomeKeyShortPressed();
-                        }
-                    } else if (reason.equals(SYSTEM_RECENT_APPS)) {
-                        //Home key long pressed.
-                        if (null != listener) {
-                            listener.onPressHomeKey();
-                            showLog("长按");
-                            //长按
-//                            listener.onHomeKeyLongPressed();
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    public interface HomeKeyListener{
-        public void onPressHomeKey();
     }
 }

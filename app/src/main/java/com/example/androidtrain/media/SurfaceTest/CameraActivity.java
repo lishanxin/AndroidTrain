@@ -2,6 +2,7 @@
 //
 //import android.annotation.SuppressLint;
 //import android.app.Activity;
+//import android.content.res.Configuration;
 //import android.graphics.Bitmap;
 //import android.graphics.BitmapFactory;
 //import android.graphics.ImageFormat;
@@ -647,64 +648,90 @@
 //		return camera.new Size(width, height);
 //	}
 //
-//	private Size findBestPictureSize(Parameters parameters) {
-//		int diff = Integer.MIN_VALUE;
-//		String pictureSizeValueString = parameters.get("picture-size-values");
+//    //Camera PictureSize适配
+//    private Camera.Size findBestPictureSizeBetter(Camera.Parameters parameters, Camera camera) {
+//        int diff = Integer.MIN_VALUE;
+//        float nearDiff = Integer.MAX_VALUE;
+//        String pictureSizeValueString = parameters.get("picture-size-values");
+//        DisplayMetrics screenMetrics = getScreenWH();
+//        Configuration mConfiguration = this.getResources().getConfiguration(); //获取设置的配置信息
+//        int ori = mConfiguration.orientation; //获取屏幕方向
 //
-//		// saw this on Xperia
-//		if (pictureSizeValueString == null) {
-//			pictureSizeValueString = parameters.get("picture-size-value");
-//		}
+//        int x = screenMetrics.widthPixels;int y = screenMetrics.heightPixels;
+//        Point screenResolution = null;
 //
-//		if (pictureSizeValueString == null) {
-//			return camera.new Size(getScreenWH().widthPixels, getScreenWH().heightPixels);
-//		}
+//        if (ori == mConfiguration.ORIENTATION_LANDSCAPE) {
+//            //横屏
+//            screenResolution =  new Point(x, y);
+//        } else if (ori == mConfiguration.ORIENTATION_PORTRAIT) {
+//            //竖屏
+//            screenResolution =  new Point(y, x);
+//        }
+//        // saw this on Xperia
+//        if (pictureSizeValueString == null) {
+//            pictureSizeValueString = parameters.get("picture-size-value");
+//        }
+//
+//        if (pictureSizeValueString == null) {
+//            return camera.new Size(getScreenWH().widthPixels, getScreenWH().heightPixels);
+//        }
 //
 ////		LogUtils.d("pictureSizeValueString : " + pictureSizeValueString);
-//		int bestX = 0;
-//		int bestY = 0;
+//        int bestX = 0;
+//        int bestY = 0;
 //
-//		for (String pictureSizeString : pictureSizeValueString.split(",")) {
-//			pictureSizeString = pictureSizeString.trim();
+//        int nearX = 0;
+//        int nearY = 0;
 //
-//			int dimPosition = pictureSizeString.indexOf('x');
-//			if (dimPosition == -1) {
+//        for (String pictureSizeString : pictureSizeValueString.split(",")) {
+//            pictureSizeString = pictureSizeString.trim();
+//
+//            int dimPosition = pictureSizeString.indexOf('x');
+//            if (dimPosition == -1) {
 ////				LogUtils.e("Bad pictureSizeString:" + pictureSizeString);
-//				continue;
-//			}
+//                continue;
+//            }
 //
-//			int newX = 0;
-//			int newY = 0;
+//            int newX = 0;
+//            int newY = 0;
 //
-//			try {
-//				newX = Integer.parseInt(pictureSizeString.substring(0, dimPosition));
-//				newY = Integer.parseInt(pictureSizeString.substring(dimPosition + 1));
-//			} catch (NumberFormatException e) {
+//            try {
+//                newX = Integer.parseInt(pictureSizeString.substring(0, dimPosition));
+//                newY = Integer.parseInt(pictureSizeString.substring(dimPosition + 1));
+//            } catch (NumberFormatException e) {
 ////				LogUtils.e("Bad pictureSizeString:" + pictureSizeString);
-//				continue;
-//			}
+//                continue;
+//            }
 //
-//			Point screenResolution = new Point(getScreenWH().widthPixels, getScreenWH().heightPixels);
+//            int newDiff = Math.abs(newX - screenResolution.x) + Math.abs(newY - screenResolution.y);
 //
-//			int newDiff = Math.abs(newX - screenResolution.x) + Math.abs(newY - screenResolution.y);
-//			if (newDiff == diff) {
-//				bestX = newX;
-//				bestY = newY;
-//				break;
-//			} else if (newDiff > diff) {
-//				if (((3 * newX) == (4 * newY)) && bestX < newX) {
-//					bestX = newX;
-//					bestY = newY;
-//					diff = newDiff;
-//				}
-//			}
-//		}
+//            //近似查找
+//            float newNearDiff = Math.abs((float) newX/newY - (float)screenResolution.x/screenResolution.y);
+//            if (newDiff == diff) {
+//                bestX = newX;
+//                bestY = newY;
+//                break;
+//            } else if (newDiff > diff) {
+//                if ((((float)newX/screenResolution.x) == ((float)newY/screenResolution.y)) && bestX < newX) {
+//                    bestX = newX;
+//                    bestY = newY;
+//                    diff = newDiff;
+//                }else if ((((float)newX/screenResolution.x) != ((float)newY/screenResolution.y)) && newNearDiff < nearDiff){
+//                    nearX = newX;
+//                    nearY = newY;
+//                    nearDiff = newNearDiff;
+//                }
+//            }
+//        }
 //
-//		if (bestX > 0 && bestY > 0) {
-//			return camera.new Size(bestX, bestY);
-//		}
-//		return null;
-//	}
+//        if (bestX > 0 && bestY > 0) {
+//            return camera.new Size(bestX, bestY);
+//        }else if (nearX>0 && nearY > 0){
+//            return camera.new Size(nearX, nearY);
+//        }else {
+//            return camera.new Size(getScreenWH().widthPixels, getScreenWH().heightPixels);
+//        }
+//    }
 //
 //	protected DisplayMetrics getScreenWH() {
 //		DisplayMetrics dMetrics = new DisplayMetrics();
