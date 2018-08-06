@@ -128,7 +128,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".security.AntiHijackActivity"></activity>
+        <activity android:name=".security.AntiHijackActivity" />
+        <activity android:name=".buildingconnect.volleyTrain.VolleyActivity"></activity>
     </application>
 
 </manifest>
