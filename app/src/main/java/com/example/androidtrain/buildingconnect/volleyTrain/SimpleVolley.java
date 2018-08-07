@@ -74,6 +74,7 @@ public class SimpleVolley {
 
     //可以在活动的onStop监听方法中写入此方法，以取消标记的网络请求
     public void cancelRequest(){
+        //对每一个已标记的网络请求进行删除
         if (mRequestQueue != null){
             mRequestQueue.cancelAll(TAG);
         }

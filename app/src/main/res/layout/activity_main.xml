@@ -185,6 +185,17 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content" />
         </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:onClick="volleyTest"
+                android:text="@string/go_to_volley_test"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
     </LinearLayout>
 

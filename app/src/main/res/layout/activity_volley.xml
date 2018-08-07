@@ -29,5 +29,13 @@
     <TextView
         android:id="@+id/volley_show_text"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/volley_show_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/activity_volley_network_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>
