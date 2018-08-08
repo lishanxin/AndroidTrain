@@ -81,4 +81,5 @@
     <string name="start_simple_volley">Volley简单请求</string>
     <string name="cancel_simple_volley">Volley-Simple-Cancel</string>
     <string name="go_to_volley_test">Volley框架</string>
+    <string name="current_location">当前位置</string>
 </resources>
