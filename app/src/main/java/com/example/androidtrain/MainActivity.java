@@ -196,6 +196,7 @@ public class MainActivity extends AppCompatActivity  {
                 Manifest.permission.CHANGE_WIFI_STATE,
                 Manifest.permission.READ_PHONE_STATE,
                 Manifest.permission.RECORD_AUDIO,
+                Manifest.permission.READ_CONTACTS,
 
         };
 
