@@ -12,6 +12,7 @@ import android.hardware.Camera;
 import android.os.Environment;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -21,6 +22,7 @@ import android.view.WindowManager;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by lizz on 2018/7/2.
@@ -99,11 +101,19 @@ public class MySurfaceViewTest  extends SurfaceView implements SurfaceHolder.Cal
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
+//        final DisplayMetrics dm = getResources().getDisplayMetrics();
+//        final int screenWidth = dm.widthPixels;
+//        final int screenHeight = dm.heightPixels;
+        setTranslationX(-50);
+//        holder.setFixedSize(720,960);
         setShow();
     }
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+
+            Log.d(TAG, "Surface Size: " + width + "/" + height);
+
 //        myThread.setRun(true);
 //        myThread.start();
     }
@@ -132,8 +142,15 @@ public class MySurfaceViewTest  extends SurfaceView implements SurfaceHolder.Cal
                 setCameraDisplayOrientation(mActivity, Camera.CameraInfo.CAMERA_FACING_BACK, camera);
                 setPictureRotation(camera);
                 Camera.Parameters parameters = camera.getParameters();
-                Camera.Size size = findBestPictureSizeBetter(parameters, camera);
-                parameters.setPictureSize(size.width, size.height);
+
+                //正式
+//                Camera.Size size = findBestPictureSizeBetter(parameters, camera);
+//                parameters.setPictureSize(size.width, size.height);
+
+                //测试
+                parameters.setPictureSize(1024, 768);
+                parameters.setPreviewSize(960, 720);
+
 //                parameters.setPreviewSize(getScreenWH().widthPixels,getScreenWH().heightPixels);
                 if (mOnSetSurfaceLayout != null){
                     mOnSetSurfaceLayout.OnSet(parameters);
@@ -214,7 +231,7 @@ public class MySurfaceViewTest  extends SurfaceView implements SurfaceHolder.Cal
             FileOutputStream out = null;
             try {
                 out = new FileOutputStream(bOldFile);
-                bt.compress(Bitmap.CompressFormat.JPEG, 90, out);
+                bt.compress(Bitmap.CompressFormat.JPEG, 100, out);
                 out.flush();
                 out.close();
             } catch (IOException e) {
@@ -260,6 +277,15 @@ public class MySurfaceViewTest  extends SurfaceView implements SurfaceHolder.Cal
 
         if (pictureSizeValueString == null) {
             return camera.new Size(getScreenWH().widthPixels, getScreenWH().heightPixels);
+        }
+
+        List<Camera.Size> sizeList = parameters.getSupportedPictureSizes();
+        for (Camera.Size size: sizeList){
+            Log.d(TAG, "PictureSize:  width/height = " + size.width + "/" + size.height + " = " + size.width/size.height);
+        }
+        sizeList = parameters.getSupportedPreviewSizes();
+        for (Camera.Size size: sizeList){
+            Log.d(TAG, "PreviewSize:  width/height = " + size.width + "/" + size.height + " = " + size.width/size.height);
         }
 
 //		LogUtils.d("pictureSizeValueString : " + pictureSizeValueString);

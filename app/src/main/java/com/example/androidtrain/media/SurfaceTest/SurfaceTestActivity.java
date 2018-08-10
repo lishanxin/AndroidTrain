@@ -5,6 +5,7 @@ import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.SurfaceView;
@@ -57,9 +58,13 @@ public class SurfaceTestActivity extends BaseActivity {
                 viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
                     public void onGlobalLayout() {
+                        final DisplayMetrics dm = getResources().getDisplayMetrics();
+                        final int screenWidth = dm.widthPixels;
+                        final int screenHeight = dm.heightPixels;
+                        Log.d(TAG, "DisplayMetrics: width/height"  + screenWidth + "/" + screenHeight);
                         FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) surfaceView.getLayoutParams();
-                        layoutParams.height = 1440;
-                        layoutParams.width = 1080;
+                        layoutParams.height = screenHeight;
+                        layoutParams.width = 720* screenHeight/960;
                         surfaceView.setLayoutParams(layoutParams);
                         surfaceView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                     }
