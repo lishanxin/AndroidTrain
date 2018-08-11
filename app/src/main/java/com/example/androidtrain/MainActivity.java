@@ -47,6 +47,7 @@ import com.example.androidtrain.sharefile.ShareFileTest;
 import com.example.androidtrain.sql.SqlTestActivity;
 import com.example.androidtrain.textReader.TextReaderActivity;
 import com.example.androidtrain.uistyle.UIStyleActivity;
+import com.example.androidtrain.userExperience.designNavigation.CollectionDemoActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -368,5 +369,9 @@ public class MainActivity extends AppCompatActivity  {
 
     public void volleyTest(View view) {
         goToActivity(VolleyActivity.class);
+    }
+
+    public void navSwipeView(View view) {
+        goToActivity(CollectionDemoActivity.class);
     }
 }
