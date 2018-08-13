@@ -83,4 +83,7 @@
     <string name="go_to_volley_test">Volley框架</string>
     <string name="current_location">当前位置</string>
     <string name="go_to_nav_swipe_view">滑动导航</string>
+    <string name="go_to_nav_drawer">抽屉导航</string>
+    <string name="open">抽屉窗口打开</string>
+    <string name="close">抽屉窗口关闭</string>
 </resources>

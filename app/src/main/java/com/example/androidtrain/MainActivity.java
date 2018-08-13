@@ -48,6 +48,7 @@ import com.example.androidtrain.sql.SqlTestActivity;
 import com.example.androidtrain.textReader.TextReaderActivity;
 import com.example.androidtrain.uistyle.UIStyleActivity;
 import com.example.androidtrain.userExperience.designNavigation.CollectionDemoActivity;
+import com.example.androidtrain.userExperience.designNavigation.NavDrawerActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -373,5 +374,9 @@ public class MainActivity extends AppCompatActivity  {
 
     public void navSwipeView(View view) {
         goToActivity(CollectionDemoActivity.class);
+    }
+
+    public void navDrawer(View view) {
+        goToActivity(NavDrawerActivity.class);
     }
 }

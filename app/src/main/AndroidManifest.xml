@@ -137,10 +137,14 @@
         <activity android:name=".security.AntiHijackActivity" />
         <activity android:name=".buildingconnect.volleyTrain.VolleyActivity" />
         <activity android:name=".location.LocationActivity" />
-        <activity android:name=".userExperience.designNavigation.CollectionDemoActivity"
-            android:theme="@style/Theme.AppCompat.Light"/>
-        <activity android:name=".userExperience.designNavigation.TabNavigatorActivity"
-            android:theme="@style/Theme.AppCompat"></activity>
+        <activity
+            android:name=".userExperience.designNavigation.CollectionDemoActivity"
+            android:theme="@style/Theme.AppCompat.Light" />
+        <activity
+            android:name=".userExperience.designNavigation.TabNavigatorActivity"
+            android:theme="@style/Theme.AppCompat" />
+        <activity android:name=".userExperience.designNavigation.NavDrawerActivity"
+            android:theme="@android:style/Theme.Holo.Light"></activity>
     </application>
 
 </manifest>
