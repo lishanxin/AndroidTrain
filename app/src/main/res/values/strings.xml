@@ -86,4 +86,5 @@
     <string name="go_to_nav_drawer">抽屉导航</string>
     <string name="open">抽屉窗口打开</string>
     <string name="close">抽屉窗口关闭</string>
+    <string name="go_to_up_navigator">向上导航</string>
 </resources>

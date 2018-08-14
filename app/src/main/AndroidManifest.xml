@@ -143,8 +143,18 @@
         <activity
             android:name=".userExperience.designNavigation.TabNavigatorActivity"
             android:theme="@style/Theme.AppCompat" />
-        <activity android:name=".userExperience.designNavigation.NavDrawerActivity"
-            android:theme="@android:style/Theme.Holo.Light"></activity>
+        <activity
+            android:name=".userExperience.designNavigation.NavDrawerActivity"
+            android:theme="@android:style/Theme.Holo.Light" />
+        <activity
+            android:name=".userExperience.designNavigation.UpNavigatorActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/Theme.AppCompat">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity android:name=".userExperience.designNavigation.BackNavigatorActivity"></activity>
     </application>
 
 </manifest>
