@@ -87,4 +87,6 @@
     <string name="open">抽屉窗口打开</string>
     <string name="close">抽屉窗口关闭</string>
     <string name="go_to_up_navigator">向上导航</string>
+    <string name="go_to_notification_builder">进入通知</string>
+    <string name="go_to_notification_navigator"><![CDATA[导航&通知]]></string>
 </resources>

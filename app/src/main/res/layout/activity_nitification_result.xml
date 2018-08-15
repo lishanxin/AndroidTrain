@@ -4,11 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.androidtrain.userExperience.notifyUser.NotificationBuilderActivity">
+    tools:context="com.example.androidtrain.userExperience.notifyUser.NotificationResultActivity">
 
-    <WebView
-        android:id="@+id/notification_webView"
+    <TextView
+        android:text="NotificationResult"
+        android:gravity="center"
+        android:id="@+id/notification_result_text"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></WebView>
-
+        android:layout_height="match_parent" />
 </android.support.constraint.ConstraintLayout>

@@ -155,7 +155,19 @@
                 android:value=".MainActivity" />
         </activity>
         <activity android:name=".userExperience.designNavigation.BackNavigatorActivity" />
-        <activity android:name=".userExperience.notifyUser.NotificationBuilderActivity"></activity>
+        <activity android:name=".userExperience.notifyUser.NotificationBuilderActivity" />
+        <activity
+            android:name=".userExperience.notifyUser.NotificationResultActivity"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity android:name=".userExperience.notifyUser.NotificationNavigatorActivity" />
+        <activity android:name=".userExperience.notifyUser.NotifyResultWithoutStackActivity"
+            android:taskAffinity="com.second"
+            android:excludeFromRecents="true"
+            ></activity>
     </application>
 
 </manifest>

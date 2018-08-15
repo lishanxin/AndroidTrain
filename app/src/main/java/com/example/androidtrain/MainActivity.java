@@ -50,6 +50,8 @@ import com.example.androidtrain.uistyle.UIStyleActivity;
 import com.example.androidtrain.userExperience.designNavigation.CollectionDemoActivity;
 import com.example.androidtrain.userExperience.designNavigation.NavDrawerActivity;
 import com.example.androidtrain.userExperience.designNavigation.UpNavigatorActivity;
+import com.example.androidtrain.userExperience.notifyUser.NotificationBuilderActivity;
+import com.example.androidtrain.userExperience.notifyUser.NotificationNavigatorActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -66,6 +68,8 @@ public class MainActivity extends AppCompatActivity  {
 
     public static String path =Environment.getExternalStorageDirectory() + "/androidTrain/";
     public static String fileName ;
+
+    public static int count = 0;
 
 
     @Override
@@ -383,5 +387,13 @@ public class MainActivity extends AppCompatActivity  {
 
     public void upNavigator(View view) {
         goToActivity(UpNavigatorActivity.class);
+    }
+
+    public void notificationBuilder(View view) {
+        goToActivity(NotificationBuilderActivity.class);
+    }
+
+    public void notificationNavigator(View view) {
+        goToActivity(NotificationNavigatorActivity.class);
     }
 }

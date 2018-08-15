@@ -4,11 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.androidtrain.userExperience.notifyUser.NotificationBuilderActivity">
-
-    <WebView
-        android:id="@+id/notification_webView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"></WebView>
+    tools:context="com.example.androidtrain.userExperience.notifyUser.NotificationNavigatorActivity">
 
 </android.support.constraint.ConstraintLayout>
