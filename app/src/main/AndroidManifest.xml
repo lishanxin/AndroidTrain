@@ -154,7 +154,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name=".userExperience.designNavigation.BackNavigatorActivity"></activity>
+        <activity android:name=".userExperience.designNavigation.BackNavigatorActivity" />
+        <activity android:name=".userExperience.notifyUser.NotificationBuilderActivity"></activity>
     </application>
 
 </manifest>
