@@ -50,6 +50,7 @@ import com.example.androidtrain.uistyle.UIStyleActivity;
 import com.example.androidtrain.userExperience.designNavigation.CollectionDemoActivity;
 import com.example.androidtrain.userExperience.designNavigation.NavDrawerActivity;
 import com.example.androidtrain.userExperience.designNavigation.UpNavigatorActivity;
+import com.example.androidtrain.userExperience.notifyUser.BigNotificationActivity;
 import com.example.androidtrain.userExperience.notifyUser.NotificationBuilderActivity;
 import com.example.androidtrain.userExperience.notifyUser.NotificationNavigatorActivity;
 
@@ -395,5 +396,9 @@ public class MainActivity extends AppCompatActivity  {
 
     public void notificationNavigator(View view) {
         goToActivity(NotificationNavigatorActivity.class);
+    }
+
+    public void notificationBigView(View view) {
+        goToActivity(BigNotificationActivity.class);
     }
 }

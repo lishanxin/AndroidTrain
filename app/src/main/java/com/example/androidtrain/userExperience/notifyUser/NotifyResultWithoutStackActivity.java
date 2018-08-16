@@ -7,6 +7,8 @@ import com.example.androidtrain.R;
 
 public class NotifyResultWithoutStackActivity extends AppCompatActivity {
 
+    public static final String EXTRA_MESSAGE = "extra_message";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
