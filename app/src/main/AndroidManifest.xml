@@ -168,8 +168,11 @@
             android:name=".userExperience.notifyUser.NotifyResultWithoutStackActivity"
             android:excludeFromRecents="true"
             android:taskAffinity="com.second" />
-        <activity android:name=".userExperience.notifyUser.BigNotificationActivity"></activity>
-        <service android:name=".userExperience.notifyUser.PingService"/>
+        <activity android:name=".userExperience.notifyUser.BigNotificationActivity" />
+
+        <service android:name=".userExperience.notifyUser.PingService" />
+
+        <activity android:name=".userExperience.notifyUser.ProgressNotificationActivity"></activity>
     </application>
 
 </manifest>

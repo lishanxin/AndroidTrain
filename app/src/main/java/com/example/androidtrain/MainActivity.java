@@ -53,6 +53,7 @@ import com.example.androidtrain.userExperience.designNavigation.UpNavigatorActiv
 import com.example.androidtrain.userExperience.notifyUser.BigNotificationActivity;
 import com.example.androidtrain.userExperience.notifyUser.NotificationBuilderActivity;
 import com.example.androidtrain.userExperience.notifyUser.NotificationNavigatorActivity;
+import com.example.androidtrain.userExperience.notifyUser.ProgressNotificationActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -400,5 +401,9 @@ public class MainActivity extends AppCompatActivity  {
 
     public void notificationBigView(View view) {
         goToActivity(BigNotificationActivity.class);
+    }
+
+    public void notificationProgress(View view) {
+        goToActivity(ProgressNotificationActivity.class);
     }
 }

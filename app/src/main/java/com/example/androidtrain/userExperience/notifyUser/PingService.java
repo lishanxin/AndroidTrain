@@ -18,6 +18,10 @@ import com.example.androidtrain.R;
 
 public class PingService extends IntentService {
 
+    public PingService(){
+        this("PingService");
+    }
+
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
      *
