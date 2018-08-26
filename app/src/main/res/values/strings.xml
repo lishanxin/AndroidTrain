@@ -91,4 +91,5 @@
     <string name="go_to_notification_navigator"><![CDATA[导航&通知]]></string>
     <string name="go_to_notification_big_view">大图通知</string>
     <string name="go_to_notification_progress">进度通知</string>
+    <string name="go_to_create_view">自定义UI</string>
 </resources>

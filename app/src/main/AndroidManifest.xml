@@ -172,7 +172,8 @@
 
         <service android:name=".userExperience.notifyUser.PingService" />
 
-        <activity android:name=".userExperience.notifyUser.ProgressNotificationActivity"></activity>
+        <activity android:name=".userExperience.notifyUser.ProgressNotificationActivity" />
+        <activity android:name=".uiDesign.createView.CreateViewActivity"></activity>
     </application>
 
 </manifest>
