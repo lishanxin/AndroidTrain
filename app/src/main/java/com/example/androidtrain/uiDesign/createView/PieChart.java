@@ -1,5 +1,6 @@
 package com.example.androidtrain.uiDesign.createView;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.BlurMaskFilter;
@@ -11,7 +12,10 @@ import android.graphics.Shader;
 import android.graphics.SweepGradient;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 
 import com.example.androidtrain.R;
 
@@ -38,6 +42,10 @@ public class PieChart extends View {
     Shader mShader;
     Path mPath;
 
+    //动画效果
+    private ValueAnimator valueAnimator;
+    private float animateValue = 0.0f;
+
     /**
      * 自定义属性，需要在项目中添加资源，放置于res/values/attrs.xml文件中。
      */
@@ -60,6 +68,7 @@ public class PieChart extends View {
         }
 
         init();
+        initAnimation();
     }
 
     //初始化操作，耗资源，需要在onDraw方法前执行，否则会造成卡顿
@@ -105,7 +114,9 @@ public class PieChart extends View {
 //        mPath = getPath1();
 
         //图形
-        mPath = getPath2();
+//        mPath = getPath2();
+
+        mPath = drawSin();
     }
 
     /**
@@ -222,10 +233,11 @@ public class PieChart extends View {
 
         canvas.drawCircle(400,200,50, mTextPaint);
 
-        canvas.translate(mWidth / 2, mHeight / 2);  // 移动坐标系到屏幕中心
+//        canvas.translate(mWidth / 2, mHeight / 2);  // 移动坐标系到屏幕中心
 //        canvas.scale(1,-1);                         // <-- 注意 翻转y坐标轴
 
-        canvas.drawPath(mPath, mTextPaint);
+        canvas.drawPath(mPath, mPiePaint);
+
     }
 
     
@@ -277,6 +289,52 @@ public class PieChart extends View {
         path.addPath(arc);
 
         return path;
+    }
+
+    //绘制波浪线，正弦函数
+    public Path drawSin(){
+        final DisplayMetrics dm = getResources().getDisplayMetrics();
+        final int screenWidth = dm.widthPixels;
+        final int screenHeight = dm.heightPixels;
+        float A = 40.0f, w = 0.008f, K = 0.0f;
+        float fi = animateValue;
+        Path path = new Path();
+        float originalHeight = (float)(2 * screenHeight / 3);
+        path.moveTo(0, originalHeight);
+
+        float y;
+        for (float x = 0; x <= screenWidth; x += 1){
+            y = (float) (A * Math.sin(w * x + fi) + K);
+            path.lineTo(x, originalHeight - y);
+        }
+        path.lineTo(screenWidth, screenHeight);
+        path.lineTo(0, screenHeight);
+        path.close();
+
+        return path;
+    }
+
+    //根据改变fi值，来实现动画
+    private void initAnimation(){
+        final DisplayMetrics dm = getResources().getDisplayMetrics();
+        final int screenWidth = dm.widthPixels;
+        final int screenHeight = dm.heightPixels;
+        valueAnimator = ValueAnimator.ofFloat(0, screenWidth);
+        valueAnimator.setDuration(screenWidth * 1000);
+        valueAnimator.setRepeatCount(ValueAnimator.INFINITE);
+        valueAnimator.setInterpolator(new LinearInterpolator());
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                animateValue = (float)animation.getAnimatedValue();
+                mPath = drawSin();
+                /**
+                 * 刷新页面调取onDraw方法，通过改变fi，达到移动效果
+                 */
+                invalidate();
+            }
+        });
+        valueAnimator.start();
     }
 
 
