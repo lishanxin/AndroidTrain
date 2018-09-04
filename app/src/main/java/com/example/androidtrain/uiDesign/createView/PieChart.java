@@ -10,12 +10,17 @@ import android.graphics.Path;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.SweepGradient;
+import android.os.Build;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
+import android.widget.Scroller;
 
 import com.example.androidtrain.R;
 
@@ -24,6 +29,9 @@ import com.example.androidtrain.R;
  */
 
 public class PieChart extends View {
+    private static final String TAG = "PieChart";
+
+    private Context mContext;
 
     int mWidth;
     int mHeight;
@@ -46,11 +54,20 @@ public class PieChart extends View {
     private ValueAnimator valueAnimator;
     private float animateValue = 0.0f;
 
+    //手势对象
+    private GestureDetector mDetector;
+
+    //滑动控制类
+    Scroller mScroller;
+    ValueAnimator mScrollAnimator;
+    private int mPieRotation;
+
     /**
      * 自定义属性，需要在项目中添加资源，放置于res/values/attrs.xml文件中。
      */
     public PieChart(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        mContext = context;
 
         //直接从AttributeSet取值，无法确认其类型。（例，字符串或Int）
         //通常通过obtainStyledAttributes()来获取属性值
@@ -69,7 +86,12 @@ public class PieChart extends View {
 
         init();
         initAnimation();
+
+        initScroller();
+        initGusture();
     }
+
+
 
     //初始化操作，耗资源，需要在onDraw方法前执行，否则会造成卡顿
     private void init(){
@@ -240,7 +262,24 @@ public class PieChart extends View {
 
     }
 
-    
+    //处理手势
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+
+        //使用GuestureDetector来截获touch事件
+        boolean result = mDetector.onTouchEvent(event);
+        if (!result){
+            if (event.getAction() == MotionEvent.ACTION_UP){
+                stopScrolling();
+                result = true;
+            }
+        }
+        return result;
+    }
+
+    private void stopScrolling() {
+        Log.d(TAG, "stop scrolling");
+    }
 
     public boolean isShowText(){
         return mShowText;
@@ -297,6 +336,7 @@ public class PieChart extends View {
         final int screenWidth = dm.widthPixels;
         final int screenHeight = dm.heightPixels;
         float A = 40.0f, w = 0.008f, K = 0.0f;
+        //相位，动态变化，以作动画显示
         float fi = animateValue;
         Path path = new Path();
         float originalHeight = (float)(2 * screenHeight / 3);
@@ -337,5 +377,98 @@ public class PieChart extends View {
         valueAnimator.start();
     }
 
+    //初始化Scroller
+    private void initScroller(){
+        mScroller = new Scroller(getContext(), null, true);
+        mScrollAnimator = ValueAnimator.ofFloat(0, 1);
+        mScrollAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                if (!mScroller.isFinished()){
+                    mScroller.computeScrollOffset();
+                    setPieRotation(mScroller.getCurrY());
+                } else {
+                    mScrollAnimator.cancel();
+                    onSrollFinished();
+                }
+            }
+        });
+    }
+
+    //停止拖动时作的行为
+    private void onSrollFinished() {
+        Log.d(TAG, "Scroll Finished");
+    }
+
+
+    //简易手势操作类
+    //不管你是否使用GestureDetector.SimpleOnGestureListener, 你必须总是实现onDown()方法，并返回true，
+    //因为所有的gestures都是从onDown()开始的
+    class MSimpleGestureListener extends GestureDetector.SimpleOnGestureListener{
+        @Override
+        public boolean onDown(MotionEvent e) {
+            return true;
+            //如果返回false，则表示忽略后续的手势。
+        }
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            // Set up the Scroller for a fling
+            float scrollTheta = vectorToScalarScroll(
+                    velocityX,
+                    velocityY,
+                    e2.getX(),
+                    e2.getY());
+            mScroller.fling(0, getPieRotation(), 0, (int) scrollTheta/4,
+                    0, 0, Integer.MAX_VALUE, Integer.MAX_VALUE);
+            // Start the animator and tell it to animate for the expected duration of the fling.
+            if (Build.VERSION.SDK_INT >= 11) {
+                mScrollAnimator.setDuration(mScroller.getDuration());
+                mScrollAnimator.start();
+            }
+            return true;
+        }
+    }
+
+    public void setPieRotation(int rotation){
+        rotation = (rotation % 360 + 360) % 360;
+        mPieRotation = rotation;
+    }
+
+    public int getPieRotation(){
+        return mPieRotation;
+    }
+
+    //手势初始化
+    private void initGusture() {
+        mDetector = new GestureDetector(mContext, new MSimpleGestureListener());
+    }
+
+    /**
+     * Helper method for translating (x,y) scroll vectors into scalar rotation of the pie.
+     *
+     * @param dx The x component of the current scroll vector.
+     * @param dy The y component of the current scroll vector.
+     * @param x  The x position of the current touch, relative to the pie center.
+     * @param y  The y position of the current touch, relative to the pie center.
+     * @return The scalar representing the change in angular position for this scroll.
+     */
+    private static float vectorToScalarScroll(float dx, float dy, float x, float y) {
+        // get the length of the vector
+        float l = (float) Math.sqrt(dx * dx + dy * dy);
+
+        // decide if the scalar should be negative or positive by finding
+        // the dot product of the vector perpendicular to (x,y).
+        //判断y/x 与dy/dx哪个大，即判断斜率，以知道接下来是向上或上下倾斜。
+        float crossX = -y;
+        float crossY = x;
+
+        float dot = (crossX * dx + crossY * dy);
+
+        //得到+1或-1，即得到dot的符号。
+        float sign = Math.signum(dot);
+
+        return l * sign;
+    }
 
 }
