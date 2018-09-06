@@ -256,6 +256,19 @@
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content" />
+            <Button
+                android:onClick="dimSystemBar"
+                android:text="@string/go_to_dim_bar_activity"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+            <Button
+                android:onClick="HideStatusBar"
+                android:text="@string/go_to_hide_status_activity"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
 
         </LinearLayout>
 

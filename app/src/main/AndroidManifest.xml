@@ -173,7 +173,11 @@
         <service android:name=".userExperience.notifyUser.PingService" />
 
         <activity android:name=".userExperience.notifyUser.ProgressNotificationActivity" />
-        <activity android:name=".uiDesign.createView.CreateViewActivity"></activity>
+        <activity android:name=".uiDesign.createView.CreateViewActivity" />
+        <activity android:name=".uiDesign.systemBar.DimSystemBarActivity" />
+        <!--4.0及以下使用设置主题来隐藏状态栏 android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" -->
+        <activity android:name=".uiDesign.systemBar.HideStatusBarActivity"
+            ></activity>
     </application>
 
 </manifest>

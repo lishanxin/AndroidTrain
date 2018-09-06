@@ -47,6 +47,8 @@ import com.example.androidtrain.sharefile.ShareFileTest;
 import com.example.androidtrain.sql.SqlTestActivity;
 import com.example.androidtrain.textReader.TextReaderActivity;
 import com.example.androidtrain.uiDesign.createView.CreateViewActivity;
+import com.example.androidtrain.uiDesign.systemBar.DimSystemBarActivity;
+import com.example.androidtrain.uiDesign.systemBar.HideStatusBarActivity;
 import com.example.androidtrain.uistyle.UIStyleActivity;
 import com.example.androidtrain.userExperience.designNavigation.CollectionDemoActivity;
 import com.example.androidtrain.userExperience.designNavigation.NavDrawerActivity;
@@ -410,5 +412,13 @@ public class MainActivity extends AppCompatActivity  {
 
     public void createView(View view) {
         goToActivity(CreateViewActivity.class);
+    }
+
+    public void dimSystemBar(View view) {
+        goToActivity(DimSystemBarActivity.class);
+    }
+
+    public void HideStatusBar(View view) {
+        goToActivity(HideStatusBarActivity.class);
     }
 }
