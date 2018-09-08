@@ -39,7 +39,8 @@
         android:theme="@style/CustomActionBarTheme">
 
         <!-- 主 main/home 活动 (没有上级活动) -->
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:theme="@style/WelcomeTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -175,9 +176,10 @@
         <activity android:name=".userExperience.notifyUser.ProgressNotificationActivity" />
         <activity android:name=".uiDesign.createView.CreateViewActivity" />
         <activity android:name=".uiDesign.systemBar.DimSystemBarActivity" />
-        <!--4.0及以下使用设置主题来隐藏状态栏 android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" -->
-        <activity android:name=".uiDesign.systemBar.HideStatusBarActivity"
-            ></activity>
+        <!-- 4.0及以下使用设置主题来隐藏状态栏 android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" -->
+        <activity android:name=".uiDesign.systemBar.HideStatusBarActivity" />
+        <activity android:name=".uiDesign.systemBar.BackgroundFitScreenBarActivity"
+            android:theme="@style/WelcomeTheme"></activity>
     </application>
 
 </manifest>

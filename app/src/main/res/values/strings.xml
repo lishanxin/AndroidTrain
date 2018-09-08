@@ -94,4 +94,5 @@
     <string name="go_to_create_view">自定义UI</string>
     <string name="go_to_dim_bar_activity">淡化系统栏</string>
     <string name="go_to_hide_status_activity">隐藏状态栏</string>
+    <string name="go_to_background_fit_system_bar">背景+系统栏</string>
 </resources>
