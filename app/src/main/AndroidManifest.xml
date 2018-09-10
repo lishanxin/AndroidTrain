@@ -38,14 +38,19 @@
         android:supportsRtl="true"
         android:theme="@style/CustomActionBarTheme">
 
-        <!-- 主 main/home 活动 (没有上级活动) -->
-        <activity android:name=".MainActivity"
+
+        <activity android:name=".WelcomeActivity"
             android:theme="@style/WelcomeTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <!-- 主 main/home 活动 (没有上级活动) -->
+        <activity android:name=".MainActivity"
+            >
         </activity>
         <!-- 主活动的一个子活动 -->
         <activity
