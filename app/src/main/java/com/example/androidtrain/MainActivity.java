@@ -49,6 +49,7 @@ import com.example.androidtrain.textReader.TextReaderActivity;
 import com.example.androidtrain.uiDesign.createView.CreateViewActivity;
 import com.example.androidtrain.uiDesign.systemBar.BackgroundFitScreenBarActivity;
 import com.example.androidtrain.uiDesign.systemBar.DimSystemBarActivity;
+import com.example.androidtrain.uiDesign.systemBar.HideNavigatorBarsActivity;
 import com.example.androidtrain.uiDesign.systemBar.HideStatusBarActivity;
 import com.example.androidtrain.uistyle.UIStyleActivity;
 import com.example.androidtrain.userExperience.designNavigation.CollectionDemoActivity;
@@ -425,5 +426,9 @@ public class MainActivity extends AppCompatActivity  {
 
     public void backgroundFitBar(View view) {
         goToActivity(BackgroundFitScreenBarActivity.class);
+    }
+
+    public void hideNavigatorBars(View view) {
+        goToActivity(HideNavigatorBarsActivity.class);
     }
 }

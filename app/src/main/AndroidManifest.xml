@@ -37,9 +37,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/CustomActionBarTheme">
-
-
-        <activity android:name=".WelcomeActivity"
+        <activity
+            android:name=".WelcomeActivity"
             android:theme="@style/WelcomeTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -49,9 +48,7 @@
         </activity>
 
         <!-- 主 main/home 活动 (没有上级活动) -->
-        <activity android:name=".MainActivity"
-            >
-        </activity>
+        <activity android:name=".MainActivity"></activity>
         <!-- 主活动的一个子活动 -->
         <activity
             android:name=".DisplayMessageActivity"
@@ -183,8 +180,10 @@
         <activity android:name=".uiDesign.systemBar.DimSystemBarActivity" />
         <!-- 4.0及以下使用设置主题来隐藏状态栏 android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" -->
         <activity android:name=".uiDesign.systemBar.HideStatusBarActivity" />
-        <activity android:name=".uiDesign.systemBar.BackgroundFitScreenBarActivity"
-            android:theme="@style/WelcomeTheme"></activity>
+        <activity
+            android:name=".uiDesign.systemBar.BackgroundFitScreenBarActivity"
+            android:theme="@style/WelcomeTheme" />
+        <activity android:name=".uiDesign.systemBar.HideNavigatorBarsActivity"></activity>
     </application>
 
 </manifest>
