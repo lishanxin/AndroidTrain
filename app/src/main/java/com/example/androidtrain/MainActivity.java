@@ -51,6 +51,7 @@ import com.example.androidtrain.uiDesign.systemBar.BackgroundFitScreenBarActivit
 import com.example.androidtrain.uiDesign.systemBar.DimSystemBarActivity;
 import com.example.androidtrain.uiDesign.systemBar.HideNavigatorBarsActivity;
 import com.example.androidtrain.uiDesign.systemBar.HideStatusBarActivity;
+import com.example.androidtrain.uiDesign.systemBar.ImmersiveActivity;
 import com.example.androidtrain.uistyle.UIStyleActivity;
 import com.example.androidtrain.userExperience.designNavigation.CollectionDemoActivity;
 import com.example.androidtrain.userExperience.designNavigation.NavDrawerActivity;
@@ -430,5 +431,9 @@ public class MainActivity extends AppCompatActivity  {
 
     public void hideNavigatorBars(View view) {
         goToActivity(HideNavigatorBarsActivity.class);
+    }
+
+    public void immersiveActivity(View view) {
+        goToActivity(ImmersiveActivity.class);
     }
 }

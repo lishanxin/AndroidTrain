@@ -96,4 +96,5 @@
     <string name="go_to_hide_status_activity">隐藏状态栏</string>
     <string name="go_to_background_fit_system_bar">背景适配导航栏</string>
     <string name="go_to_hide_navigator_bars">隐藏导航栏</string>
+    <string name="go_to_immersive_activity">沉浸式界面</string>
 </resources>

@@ -48,7 +48,7 @@
         </activity>
 
         <!-- 主 main/home 活动 (没有上级活动) -->
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
         <!-- 主活动的一个子活动 -->
         <activity
             android:name=".DisplayMessageActivity"
@@ -183,7 +183,8 @@
         <activity
             android:name=".uiDesign.systemBar.BackgroundFitScreenBarActivity"
             android:theme="@style/WelcomeTheme" />
-        <activity android:name=".uiDesign.systemBar.HideNavigatorBarsActivity"></activity>
+        <activity android:name=".uiDesign.systemBar.HideNavigatorBarsActivity" />
+        <activity android:name=".uiDesign.systemBar.ImmersiveActivity"></activity>
     </application>
 
 </manifest>
