@@ -1,18 +1,38 @@
 package com.example.androidtrain.uiDesign.systemBar;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.androidtrain.R;
 
 public class ImmersiveActivity extends AppCompatActivity {
 
+    private static final String TAG = "ImmersiveActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setImmersive();
         setContentView(R.layout.activity_immersive);
+
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setImmersive();
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        setImmersive();
+    }
 
     //版本大于等于19
     /**
@@ -25,10 +45,28 @@ public class ImmersiveActivity extends AppCompatActivity {
      * 请注意，带有'sticky'的标签不会触发任何的监听器，因为在这个模式下展示的系统栏是处于临时(transient)的状态。
      */
     private void setImmersive(){
+        View decorView = getWindow().getDecorView();
+
+        decorView.setBackgroundColor(Color.parseColor("#e50011"));
+
+        int uiOption = View.SYSTEM_UI_FLAG_IMMERSIVE | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOption);
+
+        decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
+            @Override
+            public void onSystemUiVisibilityChange(int visibility) {
+                Log.d(TAG, "visibility:" + visibility);
+            }
+        });
 
     }
 
     private void setImmersiveStick(){
+        View decorView = getWindow().getDecorView();
 
+        decorView.setBackgroundColor(Color.parseColor("#e50011"));
+
+        int uiOption = View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOption);
     }
 }

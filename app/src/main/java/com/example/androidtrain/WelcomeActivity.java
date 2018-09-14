@@ -30,7 +30,7 @@ public class WelcomeActivity extends Activity {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(3000);
+                    Thread.sleep(500);
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
