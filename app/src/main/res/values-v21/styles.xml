@@ -5,4 +5,9 @@
         <!--<item name="android:windowFullscreen">true</item>-->
         <item name="android:windowDrawsSystemBarBackgrounds">false</item>
     </style>
+
+    <!-- your theme inherits from the material theme -->
+    <style name="MaterialMainTheme" parent="android:Theme.Material">
+        <!-- theme customizations -->
+    </style>
 </resources>

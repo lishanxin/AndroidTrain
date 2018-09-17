@@ -184,8 +184,10 @@
             android:name=".uiDesign.systemBar.BackgroundFitScreenBarActivity"
             android:theme="@style/WelcomeTheme" />
         <activity android:name=".uiDesign.systemBar.HideNavigatorBarsActivity" />
-        <activity android:name=".uiDesign.systemBar.ImmersiveActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity
+            android:name=".uiDesign.systemBar.ImmersiveActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".uiDesign.materialDesign.MaterialMainActivity"></activity>
     </application>
 
 </manifest>
