@@ -7,7 +7,7 @@
     </style>
 
     <!-- your theme inherits from the material theme -->
-    <style name="MaterialMainTheme" parent="android:Theme.Material">
+    <style name="MaterialMainTheme" parent="android:Theme.Material.Light">
         <!-- theme customizations -->
     </style>
 </resources>

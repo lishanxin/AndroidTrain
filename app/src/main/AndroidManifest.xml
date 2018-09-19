@@ -187,7 +187,10 @@
         <activity
             android:name=".uiDesign.systemBar.ImmersiveActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".uiDesign.materialDesign.MaterialMainActivity"></activity>
+        <activity
+            android:name=".uiDesign.materialDesign.MaterialMainActivity"
+            android:theme="@style/MaterialMainTheme" />
+        <activity android:name=".uiDesign.materialDesign.SecondMaterialActivity"></activity>
     </application>
 
 </manifest>
