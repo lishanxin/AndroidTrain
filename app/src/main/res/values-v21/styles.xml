@@ -8,6 +8,15 @@
 
     <!-- your theme inherits from the material theme -->
     <style name="MaterialMainTheme" parent="android:Theme.Material.Light">
+        <item name="android:colorPrimaryDark">@color/white</item>
+        <!--windowLightStatusBar为true时，statusBarText颜色为黑色，否则为白色-->
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:textColorPrimary">@color/green</item>
+        <item name="android:colorPrimary">@color/orange</item>
+        <item name="android:windowBackground">@color/paleBlue</item>
+        <item name="android:navigationBarColor">@color/brown</item>
+        <!--   theme UI controls like checkboxes and text fields -->
+        <item name="android:colorAccent">@color/black</item>
         <!-- theme customizations -->
     </style>
 </resources>
