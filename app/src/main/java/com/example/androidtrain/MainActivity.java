@@ -48,6 +48,7 @@ import com.example.androidtrain.sql.SqlTestActivity;
 import com.example.androidtrain.textReader.TextReaderActivity;
 import com.example.androidtrain.uiDesign.createView.CreateViewActivity;
 import com.example.androidtrain.uiDesign.materialDesign.MaterialMainActivity;
+import com.example.androidtrain.uiDesign.materialDesign.RecyclerMaterialActivity;
 import com.example.androidtrain.uiDesign.systemBar.BackgroundFitScreenBarActivity;
 import com.example.androidtrain.uiDesign.systemBar.DimSystemBarActivity;
 import com.example.androidtrain.uiDesign.systemBar.HideNavigatorBarsActivity;
@@ -440,5 +441,9 @@ public class MainActivity extends AppCompatActivity  {
 
     public void materialDesignMain(View view) {
         goToActivity(MaterialMainActivity.class);
+    }
+
+    public void materialRecyclerView(View view) {
+        goToActivity(RecyclerMaterialActivity.class);
     }
 }
