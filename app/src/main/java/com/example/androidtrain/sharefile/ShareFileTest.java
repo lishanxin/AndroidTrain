@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.androidtrain.BaseActivity;
+import com.example.androidtrain.BuildConfig;
 import com.example.androidtrain.R;
 import com.example.androidtrain.recyclerview.MainAdapter;
 
@@ -93,7 +94,7 @@ public class ShareFileTest extends BaseActivity {
                      */
                     File requestFile = files.get(position);
                     try {
-                        fileUri =  FileProvider.getUriForFile(ShareFileTest.this, "com.example.androidtrain.fileprovider", requestFile);
+                        fileUri =  FileProvider.getUriForFile(ShareFileTest.this, BuildConfig.APPLICATION_ID + ".fileprovider", requestFile);
                     } catch (IllegalArgumentException e) {
                         Log.e("File Selector",
                                 "The selected file can't be shared: " +
