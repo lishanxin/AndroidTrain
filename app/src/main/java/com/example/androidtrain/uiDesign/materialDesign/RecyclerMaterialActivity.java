@@ -1,7 +1,6 @@
 package com.example.androidtrain.uiDesign.materialDesign;
 
 import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -57,6 +56,7 @@ public class RecyclerMaterialActivity extends Activity {
         private static final int VIEW_TYPE_TWO = 1;
 
 
+
         public MyRecyclerAdapter(String[] data){
             mData = data;
         }
@@ -66,7 +66,7 @@ public class RecyclerMaterialActivity extends Activity {
             public ViewHolder(View itemView) {
                 super(itemView);
 
-                mTextView = (TextView) itemView;
+                mTextView = (TextView) itemView.findViewById(R.id.material_cardview_textview);
             }
         }
 
@@ -93,13 +93,13 @@ public class RecyclerMaterialActivity extends Activity {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             ViewHolder mViewHolder = null;
-            TextView mTextView = null;
+            View view = null;
             if (viewType == VIEW_TYPE_ONE){
-                mTextView = (TextView)LayoutInflater.from(parent.getContext()).inflate(R.layout.material_recyclerview_item, parent, false);
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.material_recyclerview_cardview, parent, false);
             }else if (viewType == VIEW_TYPE_TWO){
-                mTextView = (TextView)LayoutInflater.from(parent.getContext()).inflate(R.layout.material_recyclerview_item, parent, false);
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.material_recyclerview_cardview, parent, false);
             }
-            mViewHolder = new ViewHolder(mTextView);
+            mViewHolder = new ViewHolder(view);
             return mViewHolder;
         }
 
@@ -158,7 +158,7 @@ public class RecyclerMaterialActivity extends Activity {
         public int getItemViewType(int position) {
             if (position < 3){
                 return VIEW_TYPE_ONE;
-            }else {
+            }else{
                 return VIEW_TYPE_TWO;
             }
         }
