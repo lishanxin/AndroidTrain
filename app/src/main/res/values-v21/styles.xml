@@ -22,5 +22,6 @@
     <style name="MaterialBaseTheme" parent="android:Theme.Material">
         <item name="android:colorPrimaryDark">@color/pink054</item>
         <item name="android:colorPrimary">@color/pink</item>
+        <!--<item name="android:windowBackground">@color/yellow</item>-->
     </style>
 </resources>
