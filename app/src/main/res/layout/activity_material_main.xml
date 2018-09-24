@@ -52,6 +52,12 @@
         android:background="@drawable/material_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+    <Button
+        android:text="Animate_state_Change"
+        android:layout_below="@id/main_material_button"
+        android:background="@drawable/my_animstate_drawable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </RelativeLayout>
 
 

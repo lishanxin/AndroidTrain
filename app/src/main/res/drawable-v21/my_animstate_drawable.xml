@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--provide a different drawable for each state-->
+    <item android:id="@+id/pressed" android:drawable="@drawable/ic_action_photo"
+        android:state_pressed="true"/>
+    <item android:id="@+id/focused" android:drawable="@drawable/ic_action_search"
+        android:state_focused="true"/>
+    <item android:id="@+id/default_drawable" android:drawable="@drawable/ic_action_info" />
+
+    <!--specify a transition-->
+    <transition
+        android:fromId="@id/default_drawable"
+        android:toId="@id/pressed">
+        <animation-list>
+            <item android:duration="50" android:drawable="@drawable/jiguang_socialize_qzone"/>
+            <item android:duration="15" android:drawable="@drawable/jiguang_socialize_wechat"/>
+        </animation-list>
+    </transition>
+
+</animated-selector>
