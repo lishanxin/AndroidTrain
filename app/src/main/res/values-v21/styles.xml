@@ -19,7 +19,19 @@
         <item name="android:colorAccent">@color/black</item>
         <item name="android:colorControlHighlight">@color/red</item>
         <item name="android:colorButtonNormal">@color/teal</item>
+
+        <!--enable window content transitions-->
+        <item name="android:windowContentTransitions">true</item>
+
+        <!--specify enter and exit transitions-->
+        <item name="android:windowEnterTransition">@transition/explode</item>
+        <item name="android:windowExitTransition">@transition/explode</item>
+
+        <!--specify shared element transitions-->
+        <item name="android:windowSharedElementEnterTransition">@transition/change_image_transform</item>
+        <item name="android:windowSharedElementExitTransition">@transition/change_image_transform</item>
         <!-- theme customizations -->
+
     </style>
     <style name="MaterialBaseTheme" parent="android:Theme.Material">
         <item name="android:colorPrimaryDark">@color/pink054</item>
