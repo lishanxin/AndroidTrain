@@ -39,10 +39,18 @@
     </android.support.v7.widget.CardView>
 
     <ImageView
+        android:id="@+id/vector_drawable"
         android:src="@drawable/vector_drawable_heart"
         android:layout_below="@+id/main_material_text"
         android:background="@color/orange"
         android:elevation="10dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp" />
+
+    <Button
+        android:text="@string/app_name"
+        android:layout_below="@id/vector_drawable"
+        android:background="@drawable/material_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </RelativeLayout>
