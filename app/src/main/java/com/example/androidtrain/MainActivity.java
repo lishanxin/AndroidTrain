@@ -23,6 +23,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.androidtrain.bestUserInput.BestUserInputActivity;
 import com.example.androidtrain.buildingconnect.connectwirelessly.ConnectNSDActivity;
 import com.example.androidtrain.buildingconnect.connectwirelessly.WifiDirectActivity;
 import com.example.androidtrain.buildingconnect.networkOps.NetWorkOpsActivity;
@@ -445,5 +446,9 @@ public class MainActivity extends AppCompatActivity  {
 
     public void materialRecyclerView(View view) {
         goToActivity(RecyclerMaterialActivity.class);
+    }
+
+    public void bestUserInput(View view) {
+        goToActivity(BestUserInputActivity.class);
     }
 }

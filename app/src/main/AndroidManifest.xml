@@ -191,8 +191,11 @@
             android:name=".uiDesign.materialDesign.MaterialMainActivity"
             android:theme="@style/MaterialMainTheme" />
         <activity android:name=".uiDesign.materialDesign.SecondMaterialActivity" />
-        <activity android:name=".uiDesign.materialDesign.RecyclerMaterialActivity"
-            android:theme="@style/MaterialBaseTheme"></activity>
+        <activity
+            android:name=".uiDesign.materialDesign.RecyclerMaterialActivity"
+            android:theme="@style/MaterialBaseTheme" />
+        <activity android:name=".bestUserInput.BestUserInputActivity" />
+        <activity android:name=".bestUserInput.MainGesturesActivity"></activity>
     </application>
 
 </manifest>
