@@ -8,6 +8,8 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Path;
+import android.graphics.drawable.Animatable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -174,6 +176,14 @@ public class MaterialMainActivity extends Activity {
                 }
             });
             mAnim.start();
+        }
+    }
+
+    public void startVectorAnimate(View view) {
+        ImageView imageView=(ImageView)view;
+        Drawable drawable=imageView.getDrawable();
+        if(drawable instanceof Animatable){
+            ((Animatable)drawable).start();
         }
     }
 }
