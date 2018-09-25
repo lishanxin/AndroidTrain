@@ -100,4 +100,5 @@
     <string name="go_to_material_design_main">Material主</string>
     <string name="go_to_material_recycler_view">Material Recycler</string>
     <string name="go_to_best_user_input">最佳用户输入</string>
+    <string name="go_to_main_gestures">手势</string>
 </resources>

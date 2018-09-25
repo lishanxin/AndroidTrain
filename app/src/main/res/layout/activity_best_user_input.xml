@@ -11,11 +11,11 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <!--<Button-->
-            <!--android:onClick="hideNavigatorBars"-->
-            <!--android:text="@string/go_to_hide_navigator_bars"-->
-            <!--android:layout_weight="1"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="wrap_content" />-->
+        <Button
+            android:onClick="mainGestures"
+            android:text="@string/go_to_main_gestures"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </LinearLayout>
