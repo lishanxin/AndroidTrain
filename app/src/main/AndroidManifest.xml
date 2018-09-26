@@ -195,7 +195,8 @@
             android:name=".uiDesign.materialDesign.RecyclerMaterialActivity"
             android:theme="@style/MaterialBaseTheme" />
         <activity android:name=".bestUserInput.BestUserInputActivity" />
-        <activity android:name=".bestUserInput.MainGesturesActivity"></activity>
+        <activity android:name=".bestUserInput.MainGesturesActivity" />
+        <activity android:name=".bestUserInput.MovementGesturesActivity"></activity>
     </application>
 
 </manifest>

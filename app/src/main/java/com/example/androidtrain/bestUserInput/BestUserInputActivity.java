@@ -24,4 +24,7 @@ public class BestUserInputActivity extends AppCompatActivity {
     }
 
 
+    public void MovementGestures(View view) {
+        goToActivity(MovementGesturesActivity.class);
+    }
 }
