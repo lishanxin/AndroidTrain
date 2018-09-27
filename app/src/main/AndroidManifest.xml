@@ -73,7 +73,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".sharefile.ShareFileTest"
-            android:label="File Selector">
+            android:label="File Selector"
+            android:launchMode="singleTask">
             <intent-filter>
 
                 <!-- 增加test.test是为了测试action的原理，可查看AndroidTrainAssist -->
@@ -176,7 +177,13 @@
         <service android:name=".userExperience.notifyUser.PingService" />
 
         <activity android:name=".userExperience.notifyUser.ProgressNotificationActivity" />
-        <activity android:name=".uiDesign.createView.CreateViewActivity" />
+        <activity android:name=".uiDesign.createView.CreateViewActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:scheme="createview"/>
+            </intent-filter>
+        </activity>
         <activity android:name=".uiDesign.systemBar.DimSystemBarActivity" />
         <!-- 4.0及以下使用设置主题来隐藏状态栏 android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" -->
         <activity android:name=".uiDesign.systemBar.HideStatusBarActivity" />
