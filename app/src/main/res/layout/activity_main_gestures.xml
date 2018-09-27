@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.androidtrain.bestUserInput.MainGesturesActivity">
+    tools:context="com.example.androidtrain.bestUserInput.gestures.MainGesturesActivity">
 
     <Button
         android:id="@+id/main_gestures_button_test1"

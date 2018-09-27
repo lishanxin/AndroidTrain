@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.androidtrain.R;
+import com.example.androidtrain.bestUserInput.gestures.DragAndScaleView;
+import com.example.androidtrain.bestUserInput.gestures.MainGesturesActivity;
+import com.example.androidtrain.bestUserInput.gestures.MovementGesturesActivity;
 
 public class BestUserInputActivity extends AppCompatActivity {
 
@@ -26,5 +29,9 @@ public class BestUserInputActivity extends AppCompatActivity {
 
     public void MovementGestures(View view) {
         goToActivity(MovementGesturesActivity.class);
+    }
+
+    public void dragAndScaleGestures(View view) {
+        goToActivity(DragAndScaleView.class);
     }
 }

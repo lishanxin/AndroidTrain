@@ -1,4 +1,4 @@
-package com.example.androidtrain.bestUserInput;
+package com.example.androidtrain.bestUserInput.gestures;
 
 import android.app.Activity;
 import android.support.v4.view.GestureDetectorCompat;

@@ -179,9 +179,11 @@
         <activity android:name=".userExperience.notifyUser.ProgressNotificationActivity" />
         <activity android:name=".uiDesign.createView.CreateViewActivity">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <data android:scheme="createview"/>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="createview" />
             </intent-filter>
         </activity>
         <activity android:name=".uiDesign.systemBar.DimSystemBarActivity" />
@@ -202,8 +204,8 @@
             android:name=".uiDesign.materialDesign.RecyclerMaterialActivity"
             android:theme="@style/MaterialBaseTheme" />
         <activity android:name=".bestUserInput.BestUserInputActivity" />
-        <activity android:name=".bestUserInput.MainGesturesActivity" />
-        <activity android:name=".bestUserInput.MovementGesturesActivity"></activity>
+        <activity android:name=".bestUserInput.gestures.MainGesturesActivity" />
+        <activity android:name=".bestUserInput.gestures.MovementGesturesActivity" />
     </application>
 
 </manifest>
