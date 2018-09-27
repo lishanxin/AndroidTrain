@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.example.androidtrain.uiDesign.createView.GestureTestView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.androidtrain.uiDesign.createView.CreateViewActivity">
 
-    <!--<com.example.androidtrain.uiDesign.createView.PieChart-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height= "match_parent"-->
-        <!--app:labelPosition="left"-->
-        <!--app:showText="true"/>-->
+    <com.example.androidtrain.uiDesign.createView.PieChart
+        android:layout_width="match_parent"
+        android:layout_height= "match_parent"
+        app:labelPosition="left"
+        app:showText="true"/>
 
-    <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@drawable/iu"/>
-</com.example.androidtrain.uiDesign.createView.GestureTestView>
+    <com.example.androidtrain.uiDesign.createView.GestureTestView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/iu"/>
+    </com.example.androidtrain.uiDesign.createView.GestureTestView>
+</FrameLayout>

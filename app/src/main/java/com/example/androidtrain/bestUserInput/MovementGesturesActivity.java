@@ -29,8 +29,22 @@ public class MovementGesturesActivity extends Activity {
         int action = event.getActionMasked();
         int pointerId = event.getPointerId(index);
 
+        int xPos = -1;
+        int yPos = -1;
+        if (event.getPointerCount() > 1){
+            // the coordinates of the current screen contact, relative to
+            // the responding View or Activity
+            xPos = (int)event.getX(index);
+            yPos = (int)event.getY(index);
+            Log.d(TAG, "Multitouch event." + "index:" + index + ";x:" + xPos + ";y" + yPos);
+        }else {
+            xPos = (int)event.getX(index);
+            yPos = (int)event.getY(index);
+            Log.d(TAG, "Single touch event." + "index:" + index + ";x:" + xPos + ";y" + yPos);
+        }
         switch (action){
             case MotionEvent.ACTION_DOWN:
+                Log.d(TAG, "down.");
                 if (mVelocityTracker == null){
                     // Retrieve a new VelocityTracker object to watch the velocity of a motion
                     mVelocityTracker = VelocityTracker.obtain();
@@ -40,6 +54,9 @@ public class MovementGesturesActivity extends Activity {
                 }
                 // Add a user's movement to the tracker
                 mVelocityTracker.addMovement(event);
+                break;
+            case MotionEvent.ACTION_POINTER_DOWN:
+                Log.d(TAG, "pointer down.");
                 break;
             case MotionEvent.ACTION_MOVE:
                 mVelocityTracker.addMovement(event);
@@ -56,10 +73,16 @@ public class MovementGesturesActivity extends Activity {
                 Log.d(TAG, "pointer" + index + ",Y velocity: " +
                         mVelocityTracker.getYVelocity(pointerId));
                 break;
+            case MotionEvent.ACTION_POINTER_UP:
+                Log.d(TAG, "pointer up");
+                break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
                 // Return a VelocityTracker object back to be re-used by others.
                 mVelocityTracker.recycle();
+                mVelocityTracker = null;
+
+
                 break;
         }
         return true;
