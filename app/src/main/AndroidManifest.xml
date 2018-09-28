@@ -206,6 +206,7 @@
         <activity android:name=".bestUserInput.BestUserInputActivity" />
         <activity android:name=".bestUserInput.gestures.MainGesturesActivity" />
         <activity android:name=".bestUserInput.gestures.MovementGesturesActivity" />
+        <activity android:name=".bestUserInput.gestures.DragAndScaleActivity"></activity>
     </application>
 
 </manifest>

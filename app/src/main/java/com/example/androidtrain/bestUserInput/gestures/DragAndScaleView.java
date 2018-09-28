@@ -1,24 +1,15 @@
 package com.example.androidtrain.bestUserInput.gestures;
 
-import android.annotation.SuppressLint;
-import android.content.ClipData;
 import android.content.Context;
-import android.graphics.Canvas;
 import android.os.Build;
-import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
-import android.view.WindowManager;
-import android.widget.ImageView;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
-import com.example.androidtrain.R;
-
-@SuppressLint("AppCompatCustomView")
-public class DragAndScaleView extends ImageView {
+public class DragAndScaleView extends RelativeLayout {
     private static final int INVALID_POINTER_ID = -1;
 
     private ScaleGestureDetector mScaleDetector;
@@ -32,16 +23,33 @@ public class DragAndScaleView extends ImageView {
     private float mPosX;
     private float mPosY;
 
-    WindowManager.LayoutParams layoutParams;
+    private AttributeSet mAttr;
 
     public DragAndScaleView(Context context) {
         super(context);
     }
 
+    public DragAndScaleView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        this.mAttr = attrs;
+    }
+
+    public DragAndScaleView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        this.mAttr = attrs;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public DragAndScaleView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+        this.mAttr = attrs;
+    }
+
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         // Let the ScaleGestureDetector inspect all events.
-        mScaleDetector.onTouchEvent(event);
+//        mScaleDetector.onTouchEvent(event);
 
         final int action = event.getActionMasked();
 
@@ -74,8 +82,12 @@ public class DragAndScaleView extends ImageView {
                 mPosX += dx;
                 mPosY += dy;
 
+
                 invalidate();
 
+                FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) getLayoutParams();
+                lp.setMargins((int)mPosX, (int)mPosY, 0, 0);
+                setLayoutParams(lp);
                 // Remember this touch position for the next move event
                 mLastTouchX = x;
                 mLastTouchY = y;
