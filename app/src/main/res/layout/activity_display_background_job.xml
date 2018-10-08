@@ -7,14 +7,31 @@
     android:orientation="vertical"
     tools:context="com.example.androidtrain.backgroundJob.DisplayBackgroundJobActivity">
 
-    <Button
-        android:text="Rss测试"
-        android:onClick="startRssTest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:text="Rss测试"
+            android:onClick="startRssTest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:text="cursorLoader测试"
+            android:onClick="startCursorLoaderTest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
     <TextView
         android:id="@+id/rss_pullService_text_view"
         android:text="haha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+    <ListView
+        android:id="@+id/cursor_loader_list_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></ListView>
 </LinearLayout>
