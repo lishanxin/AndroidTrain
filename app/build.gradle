@@ -5,7 +5,7 @@ android {
         config {
             keyAlias 'key0'
             keyPassword '123456'
-            storeFile file('E:/GitHub/AndroidTrain/lizhizhiAndroid.jks')
+            storeFile file('G:/AndroidProjects/keystore/gaodeKeystore.jks')
             storePassword '123456'
         }
     }

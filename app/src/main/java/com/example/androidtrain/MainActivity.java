@@ -23,6 +23,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.androidtrain.backgroundJob.DisplayBackgroundJobActivity;
 import com.example.androidtrain.bestUserInput.BestUserInputActivity;
 import com.example.androidtrain.buildingconnect.connectwirelessly.ConnectNSDActivity;
 import com.example.androidtrain.buildingconnect.connectwirelessly.WifiDirectActivity;
@@ -450,5 +451,9 @@ public class MainActivity extends AppCompatActivity  {
 
     public void bestUserInput(View view) {
         goToActivity(BestUserInputActivity.class);
+    }
+
+    public void backgroundJob(View view) {
+        goToActivity(DisplayBackgroundJobActivity.class);
     }
 }
