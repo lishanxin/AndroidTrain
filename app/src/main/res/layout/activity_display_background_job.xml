@@ -24,7 +24,11 @@
             android:layout_height="wrap_content" />
 
     </LinearLayout>
-
+    <Button
+        android:text="管理设备唤醒状态"
+        android:onClick="goToScheduler"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
     <TextView
         android:id="@+id/rss_pullService_text_view"
         android:text="haha"

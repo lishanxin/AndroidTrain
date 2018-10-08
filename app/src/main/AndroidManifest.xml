@@ -10,7 +10,7 @@
     <uses-permission android:name="android.permission.RECORD_VIDEO" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <!-- 联系人信息 -->
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
@@ -212,7 +212,10 @@
             android:name=".backgroundJob.backgroundService.RSSPullService"
             android:exported="false" />
 
-        <activity android:name=".backgroundJob.DisplayBackgroundJobActivity"></activity>
+        <activity android:name=".backgroundJob.DisplayBackgroundJobActivity" />
+        <activity android:name=".backgroundJob.scheduler.SchedulerActivity"></activity>
+        <receiver android:name=".backgroundJob.scheduler.MyWakefulReceiver"/>
+        <service android:name=".backgroundJob.scheduler.MyIntentService"/>
     </application>
 
 </manifest>

@@ -28,6 +28,7 @@ import android.widget.TextView;
 import com.example.androidtrain.R;
 import com.example.androidtrain.backgroundJob.backgroundService.BackgroundConstants;
 import com.example.androidtrain.backgroundJob.backgroundService.RSSPullService;
+import com.example.androidtrain.backgroundJob.scheduler.SchedulerActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -120,15 +121,24 @@ public class DisplayBackgroundJobActivity extends FragmentActivity implements Lo
     /**
      * 这个方法在CursorLoader检测到Cursor上的数据发生变化的时候会被触发。当数据发生变化时，系统也会
      * 触发重新查询的操作。
+     * 当Cursor失效的时候，CursorLoader会被重置。这通常发生在Cursor相关的数据改变的时候。在重新执行
+     * 查询操作之前，系统会执行你的onLoaderReset()回调方法。在这个回调方法中，你应该删除当前Cursor上
+     * 的所有数据，避免发生内存泄露。一旦onLoaderReset()执行结束，CursorLoader就会重新执行查询操作。
      * @param loader
      */
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-
+        contactsList.clear();
+        adapter.notifyDataSetChanged();
     }
 
     public void startCursorLoaderTest(View view) {
         startSearch();
+    }
+
+    public void goToScheduler(View view) {
+        Intent intent = new Intent(this, SchedulerActivity.class);
+        startActivity(intent);
     }
 
 
