@@ -104,4 +104,8 @@
     <string name="go_to_movement_gestuers">移动手势跟踪</string>
     <string name="go_to_drag_and_scale_gestuers">拖拽缩放</string>
     <string name="go_to_background_job_display">后台工作</string>
+    <string name="alarm_hour">小时</string>
+    <string name="alarm_second">秒</string>
+    <string name="alarm_minute">分钟</string>
+    <string name="alarm_start_button">开始闹钟</string>
 </resources>

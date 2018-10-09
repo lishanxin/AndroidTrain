@@ -2,12 +2,6 @@ apply plugin: 'com.android.application'
 
 android {
     signingConfigs {
-        config {
-            keyAlias 'key0'
-            keyPassword '123456'
-            storeFile file('G:/AndroidProjects/keystore/gaodeKeystore.jks')
-            storePassword '123456'
-        }
     }
     compileSdkVersion 26
     defaultConfig {

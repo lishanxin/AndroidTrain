@@ -28,6 +28,7 @@ import android.widget.TextView;
 import com.example.androidtrain.R;
 import com.example.androidtrain.backgroundJob.backgroundService.BackgroundConstants;
 import com.example.androidtrain.backgroundJob.backgroundService.RSSPullService;
+import com.example.androidtrain.backgroundJob.scheduler.AlarmScheduleActivity;
 import com.example.androidtrain.backgroundJob.scheduler.SchedulerActivity;
 
 import java.util.ArrayList;
@@ -138,6 +139,11 @@ public class DisplayBackgroundJobActivity extends FragmentActivity implements Lo
 
     public void goToScheduler(View view) {
         Intent intent = new Intent(this, SchedulerActivity.class);
+        startActivity(intent);
+    }
+
+    public void goToAlarmActivity(View view) {
+        Intent intent = new Intent(this, AlarmScheduleActivity.class);
         startActivity(intent);
     }
 
