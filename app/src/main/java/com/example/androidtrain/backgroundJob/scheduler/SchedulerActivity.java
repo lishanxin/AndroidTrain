@@ -1,5 +1,7 @@
 package com.example.androidtrain.backgroundJob.scheduler;
 
+import android.content.ComponentName;
+import android.content.pm.PackageManager;
 import android.os.PowerManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,7 +19,6 @@ public class SchedulerActivity extends AppCompatActivity {
 
         //设置屏幕常亮。
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
 
     }
 
@@ -47,5 +48,7 @@ public class SchedulerActivity extends AppCompatActivity {
         //释放唤醒锁
 //        wakeLock.release();
     }
+
+
 
 }

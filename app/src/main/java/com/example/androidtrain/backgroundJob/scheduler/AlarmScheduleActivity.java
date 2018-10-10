@@ -2,7 +2,9 @@ package com.example.androidtrain.backgroundJob.scheduler;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -96,5 +98,26 @@ public class AlarmScheduleActivity extends AppCompatActivity {
         if (alarmManager!= null) {
             alarmManager.cancel(alarmIntent);
         }
+    }
+
+
+    //设置组件是否可被隐式调用
+    public void setComponentEnable(){
+        ComponentName receiver = new ComponentName(this, SampleBootReceiver.class);
+        PackageManager pm = getPackageManager();
+
+        pm.setComponentEnabledSetting(receiver,
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                PackageManager.DONT_KILL_APP);
+    }
+
+    //设置组件是否可被隐式调用
+    public void setComponentUnEnable(){
+        ComponentName receiver = new ComponentName(this, SampleBootReceiver.class);
+        PackageManager pm = this.getPackageManager();
+
+        pm.setComponentEnabledSetting(receiver,
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                PackageManager.DONT_KILL_APP);
     }
 }
