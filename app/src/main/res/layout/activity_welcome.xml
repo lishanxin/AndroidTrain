@@ -7,4 +7,15 @@
         android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:visibility="invisible"/>
+
+    <TextView
+        android:text=" 跳过(6秒) "
+        android:textColor="#999999"
+        android:textSize="12sp"
+        android:background="@drawable/skip_btn_bg"
+        android:layout_gravity="bottom|right"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="12dp"/>
 </FrameLayout>
