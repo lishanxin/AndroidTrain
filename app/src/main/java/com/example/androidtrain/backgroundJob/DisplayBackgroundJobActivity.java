@@ -1,9 +1,11 @@
 package com.example.androidtrain.backgroundJob;
 
 import android.app.Activity;
+import android.app.admin.DevicePolicyManager;
 import android.app.job.JobScheduler;
 import android.app.job.JobService;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -38,6 +40,7 @@ public class DisplayBackgroundJobActivity extends FragmentActivity implements Lo
 
     private static final String TAG = "BackgroundJob";
     private static final int URL_LOADER = 1001;
+    private static final int REQ_ACTIVATE_DEVICE_ADMIN = 101;
 
     TextView mRssTextView;
     ListView mListView;
@@ -48,6 +51,8 @@ public class DisplayBackgroundJobActivity extends FragmentActivity implements Lo
 
     List<String> contactsList = new ArrayList<String>();
     ArrayAdapter<String> adapter;
+
+    DevicePolicyManager mDevicePolicyManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +72,7 @@ public class DisplayBackgroundJobActivity extends FragmentActivity implements Lo
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(BackgroundConstants.RSS_BROAD_CAST_RECEIVER_ACTION);
         broadcastManager.registerReceiver(mBroadcastReceiver, intentFilter);
+
     }
 
     @Override
@@ -147,6 +153,14 @@ public class DisplayBackgroundJobActivity extends FragmentActivity implements Lo
         startActivity(intent);
     }
 
+    public void deviceAdminTest(View view) {
+        startManageDevice();
+    }
+
+    public void lockScreen(View view) {
+        lock();
+    }
+
 
     private class RssBroadcastReceiver extends BroadcastReceiver{
         @Override
@@ -157,5 +171,20 @@ public class DisplayBackgroundJobActivity extends FragmentActivity implements Lo
 
             mRssTextView.setText(intent.getStringExtra(BackgroundConstants.RSS_BROAD_CAST_MSG));
         }
+    }
+
+    public void startManageDevice(){
+        ComponentName name = new ComponentName(this,MyDeviceAdminPolicy.class);
+        Intent activeDeviceAdminIntent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
+        activeDeviceAdminIntent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN,
+                name);
+        activeDeviceAdminIntent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION,
+                "123321456654");
+        startActivityForResult(activeDeviceAdminIntent, REQ_ACTIVATE_DEVICE_ADMIN);
+    }
+
+    public void lock(){
+        mDevicePolicyManager = (DevicePolicyManager) getSystemService(DEVICE_POLICY_SERVICE);
+        mDevicePolicyManager.lockNow();
     }
 }
