@@ -2,10 +2,19 @@
 <resources>
     <style name="WelcomeTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@drawable/test_background</item>
-        <!--<item name="android:windowFullscreen">true</item>-->
-        <item name="android:windowDrawsSystemBarBackgrounds">false</item>
+        <!--&lt;!&ndash;<item name="android:windowFullscreen">true</item>&ndash;&gt;-->
+        <!--<item name="android:windowDrawsSystemBarBackgrounds">false</item>-->
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
-
+    <style name="WelcomeThemeP20" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/test_background</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowFullscreen">true</item>
+        <!--<item name="android:windowTranslucentStatus">true</item>-->
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+    </style>
     <!-- your theme inherits from the material theme -->
     <style name="MaterialMainTheme" parent="android:Theme.Material.Light">
         <item name="android:colorPrimaryDark">@color/white</item>

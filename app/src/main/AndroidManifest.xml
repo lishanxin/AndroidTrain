@@ -40,6 +40,8 @@
         <activity
             android:name=".WelcomeActivity"
             android:theme="@style/WelcomeTheme">
+            <!--华为P20适配-->
+            <meta-data android:name="android.notch_support" android:value="true"/>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
