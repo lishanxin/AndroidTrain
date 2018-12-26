@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/AndroidTrain.iml" filepath="$PROJECT_DIR$/AndroidTrain.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/phone_plugin/phone_plugin.iml" filepath="$PROJECT_DIR$/phone_plugin/phone_plugin.iml" />
     </modules>
   </component>
 </project>

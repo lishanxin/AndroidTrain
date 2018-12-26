@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tool="http://schemas.android.com/tools">
+
+    <SurfaceView
+        android:id="@+id/camera_surfaceview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:id="@+id/camera_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text=""
+        android:textColor="#ff0033"
+        android:textSize="18sp" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <TextView
+            android:id="@+id/camera_tip1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="请横握手机拍摄，将身份证置于绿色框内"
+            android:textColor="#ffffffff"
+            android:textSize="15sp" />
+
+    <ImageView
+        android:id="@+id/camera_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/camera_tip1"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:background="@drawable/border_camera_green"
+        android:scaleType="fitCenter" />
+
+
+        <TextView
+            android:id="@+id/camera_tip2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/camera_image"
+            android:text="请保持身份证内容清晰"
+            android:textColor="#ffffffff"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+
+    <com.apexsoft.android.phone.MaskView
+        android:id="@+id/view_mask"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="right"
+        android:orientation="vertical"
+        android:paddingRight="20dp" >
+
+        <Button
+            android:id="@+id/camera_rotaion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@null"
+            android:drawableTop="@drawable/video_tilt"
+            android:text="旋转"
+            android:textColor="#FFF" />
+
+        <Button
+            android:id="@+id/camera_take"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@null"
+            android:drawableTop="@drawable/video_pic"
+            android:text="拍照"
+            android:textColor="#FFF" />
+
+        <Button
+            android:id="@+id/camera_take_sfzzm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@null"
+            android:drawableTop="@drawable/video_pic"
+            android:text="正面"
+            android:textColor="#FFF"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/camera_take_sfzfm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@null"
+            android:drawableTop="@drawable/video_pic"
+            android:text="反面"
+            android:textColor="#FFF"
+            android:visibility="gone"
+            tool:visibility="visible"/>
+
+        <Button
+            android:id="@+id/camera_retake"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@null"
+            android:drawableTop="@drawable/video_pic"
+            android:text="重拍"
+            android:textColor="#FFF" />
+
+        <Button
+            android:id="@+id/camera_sure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:background="@null"
+            android:drawableTop="@drawable/video_save"
+            android:text="确定"
+            android:textColor="#FFF" />
+
+        <Button
+            android:id="@+id/camera_merge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:background="@null"
+            android:drawableTop="@drawable/video_save"
+            android:text="合成"
+            android:textColor="#FFF" />
+
+        <Button
+            android:id="@+id/camera_cacel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_gray_bg"
+            android:text="取消"
+            android:visibility="gone" />
+    </LinearLayout>
+
+</FrameLayout>
