@@ -33,6 +33,7 @@ import com.example.androidtrain.connectApp.ConnectAppActivity;
 import com.example.androidtrain.media.CameraTestActivity;
 import com.example.androidtrain.media.ManagePlaybackActivity;
 import com.example.androidtrain.media.SurfaceTest.SurfaceTestActivity;
+import com.example.androidtrain.media.photoPluginDemo.CameraDemoActivity;
 import com.example.androidtrain.media.testVideo.VideoActivity;
 import com.example.androidtrain.media.testVideo.VideoAgent;
 import com.example.androidtrain.pictureAnimation.EffectiveBitmapActivity;
@@ -90,6 +91,8 @@ public class MainActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_main);
         checkAllPermission();
         storeImage();
+
+        CameraDemoActivity.show(this);
     }
 
     /** Called when the user clicks the Send button */
