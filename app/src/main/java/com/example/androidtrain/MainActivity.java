@@ -8,7 +8,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.CamcorderProfile;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
@@ -76,6 +78,7 @@ public class MainActivity extends AppCompatActivity  {
     public static final String TAG = "MainActivity";
 
     public final static String EXTRA_MESSAGE = "com.mycompany.myfirstapp.MESSAGE";
+    private static final int REQUEST_OVERLAY_PERMISSION_CODE = 0x1001;
     //ShareActionProvider创建简便的分享功能
     private ShareActionProvider mShareActionProvider;
 
@@ -94,6 +97,19 @@ public class MainActivity extends AppCompatActivity  {
 
         CameraDemoActivity.show(this);
     }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_OVERLAY_PERMISSION_CODE) {
+            if(Build.VERSION.SDK_INT>=23) {
+                if (!Settings.canDrawOverlays(this)) {
+                    Toast.makeText(MainActivity.this, "权限授予失败，无法开启悬浮窗", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainActivity.this, "权限授予成功！", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
+
 
     /** Called when the user clicks the Send button */
     public void sendMessageActivity(View view){
@@ -458,5 +474,26 @@ public class MainActivity extends AppCompatActivity  {
 
     public void backgroundJob(View view) {
         goToActivity(DisplayBackgroundJobActivity.class);
+    }
+
+    //悬浮窗权限申请，解决部分手机Dialog无法弹出的问题
+    private void openOverlayWindow(){
+        try{
+            //判断当前系统版本
+            if(Build.VERSION.SDK_INT>=23) {
+                //判断权限是否已经申请过了（加上这个判断，则使用的悬浮窗的时候；如果权限已经申请则不再跳转到权限开启界面）
+                if (!Settings.canDrawOverlays(this)){
+                    //申请权限
+                    Intent  intent2=new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+                    intent2.setData(Uri.parse("package:" + getPackageName()));
+                    startActivityForResult(intent2, REQUEST_OVERLAY_PERMISSION_CODE);
+                }else{
+                    //创建悬浮窗
+                }
+            }
+            System.out.println("Build.VERSION.SDK_INT::::"+Build.VERSION.SDK_INT);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
