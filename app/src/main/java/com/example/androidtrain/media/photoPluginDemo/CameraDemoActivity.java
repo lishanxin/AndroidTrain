@@ -16,7 +16,9 @@ import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.apex.common.app.Activity;
 import com.example.androidtrain.MainActivity;
@@ -41,11 +43,13 @@ public class CameraDemoActivity extends Activity implements View.OnClickListener
     }
 
     private static boolean repaireDegree = true;
+    DisplayMetrics screenMetrics;
     SurfaceView mSurfaceView;
     ImageView takePicture;
-    ImageView pictureShow;
     SurfaceHolder holder;
 
+    MaskView maskView;
+    ImageView pictureShow;
     Camera mCamera;
 
     int degree = 90;
@@ -54,6 +58,7 @@ public class CameraDemoActivity extends Activity implements View.OnClickListener
     private Camera.AutoFocusCallback mAutoFocusCallback;
     @Override
     public int getContentLayoutId() {
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         return R.layout.activity_camera_demo;
     }
 
@@ -65,9 +70,8 @@ public class CameraDemoActivity extends Activity implements View.OnClickListener
         super.initWidget();
         mSurfaceView = (SurfaceView)findViewById(R.id.camera_surfaceview);
         takePicture = (ImageView) findViewById(R.id.camera_save);
-        pictureShow = (ImageView) findViewById(R.id.show_picture_stored);
-
-
+        maskView = (MaskView) findViewById(R.id.view_mask);
+        pictureShow = (ImageView) findViewById(R.id.camera_image) ;
         holder = mSurfaceView.getHolder();
 
         holder.setKeepScreenOn(true);
@@ -86,6 +90,7 @@ public class CameraDemoActivity extends Activity implements View.OnClickListener
         };
 
         takePicture.setOnClickListener(this);
+        pictureShow.setOnClickListener(this);
     }
 
     /**
@@ -98,16 +103,25 @@ public class CameraDemoActivity extends Activity implements View.OnClickListener
         if (mCamera != null){
             int id = v.getId();
             if (id == R.id.camera_save){
-                mCamera.autoFocus(new Camera.AutoFocusCallback() {
-                    @Override
-                    public void onAutoFocus(boolean success, Camera camera) {
-                        if (success) {
-                            camera.setOneShotPreviewCallback(null);
-                        }
-
-                        camera.takePicture(null, null, new MyPictureCallback());
-                    }
-                });
+                mCamera.takePicture(null, null, new MyPictureCallback());
+                mCamera.setOneShotPreviewCallback(null);
+//                mCamera.autoFocus(new Camera.AutoFocusCallback() {
+//                    @Override
+//                    public void onAutoFocus(boolean success, Camera camera) {
+//                        if (success) {
+//                            camera.setOneShotPreviewCallback(null);
+//                        }
+//
+//                        camera.takePicture(null, null, new MyPictureCallback());
+//                    }
+//                });
+            }else if (id == R.id.camera_image){
+                // 拍摄时自动对焦，不启用这个
+                try {
+                    mCamera.autoFocus(mAutoFocusCallback);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -157,6 +171,7 @@ public class CameraDemoActivity extends Activity implements View.OnClickListener
     // 主要设置相机显示相关参数
     private void updateCameraParameters() {
         if (mCamera != null){
+            screenMetrics = getScreenWH();
             Camera.Parameters parameters = mCamera.getParameters();
             mCamera.setParameters(parameters);
             // 设置相片格式
@@ -179,6 +194,17 @@ public class CameraDemoActivity extends Activity implements View.OnClickListener
             parameters.setPictureSize(pictureSize.width, pictureSize.height);
 
             mCamera.setParameters(parameters);
+            // 设置截图区域
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) pictureShow.getLayoutParams();
+
+            params.width = (int) (screenMetrics.widthPixels*0.6);
+            params.height = (int) (screenMetrics.heightPixels*0.6);
+            pictureShow.setLayoutParams(params);
+            // 设置遮罩层xxh20141103新增
+            if (maskView != null) {
+                Rect screenCenterRect = createCenterScreenRect((int) (screenMetrics.widthPixels*0.6)/*(previewSize.width * imageWidthRate)*/, (int) (screenMetrics.heightPixels*0.6)/*(previewSize.height * imageHeightRate)*/);
+                maskView.setCenterRect(screenCenterRect);
+            }
         }
     }
 
@@ -192,7 +218,6 @@ public class CameraDemoActivity extends Activity implements View.OnClickListener
         Configuration mConfiguration = this.getResources().getConfiguration(); //获取设置的配置信息
         int ori = mConfiguration.orientation; //获取屏幕方向
 
-        DisplayMetrics screenMetrics = getScreenWH();
         int x = screenMetrics.widthPixels;int y = screenMetrics.heightPixels;
         Point screenResolution = null;
 
@@ -341,8 +366,23 @@ public class CameraDemoActivity extends Activity implements View.OnClickListener
                 }
             }
 
-            pictureShow.setImageBitmap(bOld);
-            pictureShow.setVisibility(View.VISIBLE);
         }
+    }
+
+    /**
+     * 生成屏幕中间的矩形
+     *
+     * @param w
+     *            目标矩形的宽度,单位px
+     * @param h
+     *            目标矩形的高度,单位px
+     * @return
+     */
+    private Rect createCenterScreenRect(int w, int h) {
+        int x1 = screenMetrics.widthPixels / 2 - w / 2;
+        int y1 =  screenMetrics.heightPixels / 2 - h / 2;
+        int x2 = x1 + w;
+        int y2 = y1 + h;
+        return new Rect(x1, y1, x2, y2);
     }
 }

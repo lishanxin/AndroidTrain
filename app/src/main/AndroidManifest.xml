@@ -237,7 +237,9 @@
                 <action android:name="android.app.action.DEVICE_ADMIN_ENABLED"/>
             </intent-filter>
         </receiver>
-        <activity android:name=".media.photoPluginDemo.CameraDemoActivity"/>
+        <activity android:name=".media.photoPluginDemo.CameraDemoActivity"
+            android:theme="@style/AppTheme.TransStatusBar"
+            android:screenOrientation="landscape"/>
     </application>
 
 </manifest>

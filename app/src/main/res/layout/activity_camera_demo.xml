@@ -13,12 +13,46 @@
         android:src="@android:drawable/ic_menu_save"
         android:layout_width="60dp"
         android:layout_height="60dp" />
-
-
-    <ImageView
-        android:id="@+id/show_picture_stored"
-        android:visibility="gone"
-        android:layout_gravity="center"
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <TextView
+            android:id="@+id/camera_tip1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="请横握手机拍摄，将证件置于绿色框内"
+            android:textColor="#ffffffff"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/camera_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/camera_tip1"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:background="@drawable/border_camera_green"
+            android:scaleType="fitCenter" />
+
+
+        <TextView
+            android:id="@+id/camera_tip2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/camera_image"
+            android:text="请保持证件内容清晰"
+            android:textColor="#ffffffff"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+    <com.example.androidtrain.media.photoPluginDemo.MaskView
+        android:id="@+id/view_mask"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center" />
 </FrameLayout>

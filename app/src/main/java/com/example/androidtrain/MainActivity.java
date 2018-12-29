@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_main);
         checkAllPermission();
         storeImage();
-
+        Log.d(TAG, "onCreate");
         CameraDemoActivity.show(this);
     }
 
