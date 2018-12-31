@@ -10,6 +10,7 @@ import android.graphics.PixelFormat;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.hardware.Camera;
+import android.net.Uri;
 import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.Surface;
@@ -17,8 +18,10 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.apex.common.app.Activity;
 import com.example.androidtrain.MainActivity;
@@ -43,6 +46,7 @@ public class CameraDemoActivity extends Activity implements View.OnClickListener
     }
 
     private static boolean repaireDegree = true;
+    float cropRate = 0.7f;
     DisplayMetrics screenMetrics;
     SurfaceView mSurfaceView;
     ImageView takePicture;
@@ -50,7 +54,16 @@ public class CameraDemoActivity extends Activity implements View.OnClickListener
 
     MaskView maskView;
     ImageView pictureShow;
+
+    Button commitBtn;
+    Button retakeBtn;
+
+    TextView topTip;
+    TextView bottomTip;
+
     Camera mCamera;
+
+    String picturePath = null;
 
     int degree = 90;
 
@@ -72,8 +85,13 @@ public class CameraDemoActivity extends Activity implements View.OnClickListener
         takePicture = (ImageView) findViewById(R.id.camera_save);
         maskView = (MaskView) findViewById(R.id.view_mask);
         pictureShow = (ImageView) findViewById(R.id.camera_image) ;
-        holder = mSurfaceView.getHolder();
+        commitBtn = (Button) findViewById(R.id.commit_picture);
+        retakeBtn = (Button) findViewById(R.id.retake_picture);
+        topTip = (TextView) findViewById(R.id.camera_tip1);
+        bottomTip = (TextView) findViewById(R.id.camera_tip2);
 
+
+        holder = mSurfaceView.getHolder();
         holder.setKeepScreenOn(true);
         holder.setSizeFromLayout();
         holder.addCallback(new SurfaceCallback());
@@ -91,6 +109,8 @@ public class CameraDemoActivity extends Activity implements View.OnClickListener
 
         takePicture.setOnClickListener(this);
         pictureShow.setOnClickListener(this);
+        commitBtn.setOnClickListener(this);
+        retakeBtn.setOnClickListener(this);
     }
 
     /**
@@ -115,6 +135,7 @@ public class CameraDemoActivity extends Activity implements View.OnClickListener
 //                        camera.takePicture(null, null, new MyPictureCallback());
 //                    }
 //                });
+                setViewVisible(false);
             }else if (id == R.id.camera_image){
                 // 拍摄时自动对焦，不启用这个
                 try {
@@ -122,7 +143,32 @@ public class CameraDemoActivity extends Activity implements View.OnClickListener
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            }else if (id == R.id.commit_picture){
+                // 确认照片，返回照片目录 picturePath
+
+            }else if (id == R.id.retake_picture){
+                // 重新拍摄照片
+                picturePath = null;
+                pictureShow.setImageBitmap(null);
+                mCamera.startPreview();
+                setViewVisible(true);
             }
+        }
+    }
+
+    public void setViewVisible(boolean waitTakePicture){
+        if (waitTakePicture){
+            takePicture.setVisibility(View.VISIBLE);
+            commitBtn.setVisibility(View.GONE);
+            retakeBtn.setVisibility(View.GONE);
+            bottomTip.setVisibility(View.VISIBLE);
+            topTip.setVisibility(View.VISIBLE);
+        }else {
+            takePicture.setVisibility(View.GONE);
+            commitBtn.setVisibility(View.VISIBLE);
+            retakeBtn.setVisibility(View.VISIBLE);
+            bottomTip.setVisibility(View.GONE);
+            topTip.setVisibility(View.GONE);
         }
     }
 
@@ -140,7 +186,11 @@ public class CameraDemoActivity extends Activity implements View.OnClickListener
                     cameraIndex = i;
                 }
             }
-            mCamera = Camera.open(cameraIndex);
+            try {
+                mCamera = Camera.open(cameraIndex);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             try{
                 mCamera.setPreviewDisplay(holder);
             }catch (IOException e){
@@ -197,12 +247,12 @@ public class CameraDemoActivity extends Activity implements View.OnClickListener
             // 设置截图区域
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) pictureShow.getLayoutParams();
 
-            params.width = (int) (screenMetrics.widthPixels*0.6);
-            params.height = (int) (screenMetrics.heightPixels*0.6);
+            params.width = (int) (screenMetrics.widthPixels*cropRate);
+            params.height = (int) (screenMetrics.heightPixels*cropRate);
             pictureShow.setLayoutParams(params);
             // 设置遮罩层xxh20141103新增
             if (maskView != null) {
-                Rect screenCenterRect = createCenterScreenRect((int) (screenMetrics.widthPixels*0.6)/*(previewSize.width * imageWidthRate)*/, (int) (screenMetrics.heightPixels*0.6)/*(previewSize.height * imageHeightRate)*/);
+                Rect screenCenterRect = createCenterScreenRect((int) (screenMetrics.widthPixels*cropRate)/*(previewSize.width * imageWidthRate)*/, (int) (screenMetrics.heightPixels*cropRate)/*(previewSize.height * imageHeightRate)*/);
                 maskView.setCenterRect(screenCenterRect);
             }
         }
@@ -222,14 +272,14 @@ public class CameraDemoActivity extends Activity implements View.OnClickListener
         Point screenResolution = null;
 
         // 存储屏幕高宽，以作近似查找时的标准
-        if (ori == mConfiguration.ORIENTATION_LANDSCAPE) {
-            //横屏
-            screenResolution =  new Point(x, y);
-        } else if (ori == mConfiguration.ORIENTATION_PORTRAIT) {
-            //竖屏
-            screenResolution =  new Point(y, x);
-        }
-
+//        if (ori == mConfiguration.ORIENTATION_LANDSCAPE) {
+//            //横屏
+//            screenResolution =  new Point(x, y);
+//        } else if (ori == mConfiguration.ORIENTATION_PORTRAIT) {
+//            //竖屏
+//            screenResolution =  new Point(y, x);
+//        }
+        screenResolution =  new Point(x, y);
         // 绝对比较的赋值
         int bestX = 0;
         int bestY = 0;
@@ -238,7 +288,7 @@ public class CameraDemoActivity extends Activity implements View.OnClickListener
         int nearX = 0;
         int nearY = 0;
         //绝对查找时的较优比较值
-        int diff = Integer.MIN_VALUE;
+        int diff = Integer.MAX_VALUE;
         // 近似查找时的较优比较值
         float nearDiff = Float.MAX_VALUE;
         // 判断是否已经进行过绝对查找的赋值
@@ -250,7 +300,7 @@ public class CameraDemoActivity extends Activity implements View.OnClickListener
             int newY = size.height;
 
             // 判断使用的是近似查找还是绝对查找
-            if ((((float)newX/screenResolution.x) == ((float)newY/screenResolution.y))){
+            if (newX * screenResolution.y == newY * screenResolution.x){
                 //绝对查找，进行比较，此处也可以用平方和来进行比较
                 int newDiff = Math.abs(newX - screenResolution.x) + Math.abs(newY - screenResolution.y);
                 if (newDiff == diff){
@@ -349,11 +399,36 @@ public class CameraDemoActivity extends Activity implements View.OnClickListener
             BitmapFactory.Options opts = new BitmapFactory.Options();
             opts.inJustDecodeBounds = false;
             Bitmap bOld = BitmapFactory.decodeByteArray(data, 0, data.length, opts);
+
+            // 扩张宽度
+            int extendW = 5;
+            int extendH = 5;
+            // 增加部分截取边距
+            int x = (int) (bOld.getWidth() * (1 - cropRate) / 2 - extendW);
+            int y = (int) (bOld.getHeight() * (1 - cropRate) / 2 - extendH);
+            // 防止截取越界
+            if (x < 0) {
+                x = 0;
+            }
+            if (y < 0) {
+                y = 0;
+            }
+            int cropWidth = (int) (bOld.getWidth() * cropRate + extendW * 2);
+            int cropHeight = (int) (bOld.getHeight() * cropRate + extendH * 2);
+            if (x + cropWidth > bOld.getWidth()) {
+                cropWidth = bOld.getWidth() - x;
+            }
+            if (y + cropHeight > bOld.getHeight()) {
+                cropHeight = bOld.getHeight() - y;
+            }
+            Bitmap cropPicture = Bitmap.createBitmap(bOld, x, y, cropWidth, cropHeight);
+            pictureShow.setImageBitmap(cropPicture);
             FileOutputStream out = null;
             try {
                 File imageFile = new File(MainActivity.path + "CameraDemoActivity.jpeg");
                 out = new FileOutputStream(imageFile);
-                bOld.compress(Bitmap.CompressFormat.JPEG, 100, out);
+                cropPicture.compress(Bitmap.CompressFormat.JPEG, 100, out);
+                picturePath = imageFile.getAbsolutePath();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }finally {

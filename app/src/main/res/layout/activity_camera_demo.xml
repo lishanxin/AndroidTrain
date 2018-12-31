@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tool="http://schemas.android.com/tools">
+
     <SurfaceView
         android:id="@+id/camera_surfaceview"
         android:layout_width="match_parent"
@@ -9,10 +12,42 @@
 
     <ImageView
         android:id="@+id/camera_save"
-        android:layout_gravity="end|center_vertical"
-        android:src="@android:drawable/ic_menu_save"
         android:layout_width="60dp"
-        android:layout_height="60dp" />
+        android:layout_height="60dp"
+        android:layout_gravity="end|center_vertical"
+        android:layout_margin="28dp"
+        android:src="@drawable/video_pic_active" />
+
+    <Button
+        android:id="@+id/commit_picture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|top"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="32dp"
+        android:background="@null"
+        android:padding="20dp"
+        android:text="完成"
+        android:textSize="20sp"
+        android:textColor="#212121"
+        android:visibility="gone"
+        tool:visibility="visible"/>
+
+    <Button
+        android:id="@+id/retake_picture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_marginBottom="32dp"
+        android:layout_marginRight="20dp"
+        android:background="@null"
+        android:padding="20dp"
+        android:text="重拍"
+        android:textSize="20sp"
+        android:textColor="#212121"
+        android:visibility="gone"
+        tool:visibility="visible"/>
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,8 +68,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/camera_tip1"
             android:layout_centerHorizontal="true"
-            android:gravity="center"
             android:background="@drawable/border_camera_green"
+            android:gravity="center"
             android:scaleType="fitCenter" />
 
 
@@ -42,13 +77,14 @@
             android:id="@+id/camera_tip2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_below="@id/camera_image"
+            android:layout_centerHorizontal="true"
             android:text="请保持证件内容清晰"
             android:textColor="#ffffffff"
             android:textSize="15sp" />
 
     </RelativeLayout>
+
     <com.example.androidtrain.media.photoPluginDemo.MaskView
         android:id="@+id/view_mask"
         android:layout_width="match_parent"
