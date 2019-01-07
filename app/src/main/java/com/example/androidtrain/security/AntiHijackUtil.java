@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.example.androidtrain.R;
 
 /**
+ * 防劫持
  * Created by sx on 2018/8/1.
  */
 

@@ -9,6 +9,7 @@ import android.util.Log;
 import java.io.File;
 
 /**
+ * 对抗模拟器安装
  * Created by sx on 2019/1/7.
  */
 
