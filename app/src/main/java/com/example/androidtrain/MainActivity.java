@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity  {
         checkAllPermission();
         storeImage();
         Log.d(TAG, "onCreate");
-        CameraDemoActivity.show(this);
+//        CameraDemoActivity.show(this);自定义相机实现
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
